@@ -52,12 +52,12 @@
         }
         .bot-card {
             background: linear-gradient(135deg, #800080, #0000ff, #ff00ff);
-            padding: 20px;
-            border-radius: 15px;
-            width: 280px;
+            padding: 15px;
+            border-radius: 10px;
+            width: 250px;
             text-align: center;
             color: white;
-            box-shadow: 0px 5px 12px rgba(255, 255, 255, 0.6);
+            box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.6);
             transform: scale(1);
             transition: transform 0.2s, background 0.8s, box-shadow 0.4s;
             animation: glowAnimation 2s infinite alternate;
@@ -65,38 +65,43 @@
         .bot-card:hover {
             transform: scale(1.05);
             background: linear-gradient(135deg, #9400d3, #1e90ff, #ff69b4);
-            box-shadow: 0px 6px 16px rgba(255, 255, 255, 0.9);
+            box-shadow: 0px 6px 14px rgba(255, 255, 255, 0.9);
         }
         @keyframes glowAnimation {
-            0% { box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.3); }
-            100% { box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.9); }
+            0% { box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.3); }
+            100% { box-shadow: 0px 0px 16px rgba(255, 255, 255, 0.9); }
         }
         button {
             background-color: black;
             color: white;
             border: none;
-            padding: 2px 4px;
-            border-radius: 5px;
+            padding: 1px 3px;
+            border-radius: 3px;
             cursor: pointer;
             transition: background 0.2s, transform 0.15s;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 5px;
-            font-size: 0.4rem;
-            box-shadow: 0px 2px 6px rgba(0, 255, 0, 0.5);
+            gap: 3px;
+            font-size: 0.3rem;
+            box-shadow: 0px 1px 4px rgba(0, 255, 0, 0.5);
             position: relative;
             overflow: hidden;
+            animation: buttonGlow 2s infinite alternate;
+        }
+        @keyframes buttonGlow {
+            0% { box-shadow: 0px 0px 5px rgba(0, 255, 0, 0.5); }
+            100% { box-shadow: 0px 0px 10px rgba(0, 255, 0, 1); }
         }
         button:hover {
             background-color: purple;
-            transform: scale(1.05);
-            box-shadow: 0px 0px 10px rgba(0, 255, 0, 1);
+            transform: scale(1.02);
+            box-shadow: 0px 0px 8px rgba(0, 255, 0, 1);
         }
         footer {
             margin-top: 20px;
             padding: 15px;
-            font-size: 1.1rem;
+            font-size: 1rem;
             animation: fadeIn 2s ease-in-out;
         }
     </style>
@@ -110,19 +115,19 @@
     <section class="productos">
         <div class="bot-card">
             <h2>Bot de Moderación</h2>
-            <img src="rp.png" alt="Bot de RP" width="200">
+            <img src="rp.png" alt="Bot de RP" width="150">
             <p>Reproduce DNIs, verificación Roblox...</p>
             <button><img src="carrito.png" alt="Carrito"> Comprar</button>
         </div>
         <div class="bot-card">
             <h2>Bot de Música</h2>
-            <img src="music.png" alt="Bot de Música" width="200">
+            <img src="music.png" alt="Bot de Música" width="150">
             <p>Reproduce música de alta calidad en tu comunidad de Discord.</p>
             <button><img src="carrito.png" alt="Carrito"> Comprar</button>
         </div>
         <div class="bot-card">
             <h2>Bot Personalizado</h2>
-            <img src="custom.png" alt="Bot Personalizado" width="200">
+            <img src="custom.png" alt="Bot Personalizado" width="150">
             <p>Crea un bot a medida según tus necesidades.</p>
             <button><img src="carrito.png" alt="Carrito"> Consultar</button>
         </div>
