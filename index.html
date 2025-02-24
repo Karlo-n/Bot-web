@@ -11,14 +11,12 @@
             margin: 0;
             padding: 0;
             text-align: center;
-            animation: backgroundAnimation 3s infinite alternate;
+            animation: backgroundAnimation 10s infinite alternate;
         }
         @keyframes backgroundAnimation {
-            0% { background: linear-gradient(45deg, #ff0000, #0000ff); }
-            25% { background: linear-gradient(45deg, #00ff00, #ff00ff); }
-            50% { background: linear-gradient(45deg, #ffff00, #00ffff); }
-            75% { background: linear-gradient(45deg, #ff6600, #6600ff); }
-            100% { background: linear-gradient(45deg, #ff00cc, #00ccff); }
+            0% { background: linear-gradient(45deg, #6a0dad, #0000ff, #ff00ff); }
+            50% { background: linear-gradient(45deg, #4b0082, #1e90ff, #ff69b4); }
+            100% { background: linear-gradient(45deg, #8a2be2, #4682b4, #ff1493); }
         }
         header {
             padding: 20px;
@@ -32,11 +30,16 @@
             max-width: 800px;
             border-radius: 15px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.7);
-            animation: fadeIn 2s ease-in-out;
+            animation: floatAnimation 5s infinite ease-in-out;
         }
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
+        }
+        @keyframes floatAnimation {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
         }
         .productos {
             display: flex;
@@ -46,7 +49,7 @@
             padding: 20px;
         }
         .bot-card {
-            background: linear-gradient(135deg, #ff00ff, #00ffff);
+            background: linear-gradient(135deg, #800080, #0000ff, #ff00ff);
             padding: 20px;
             border-radius: 15px;
             width: 320px;
@@ -54,11 +57,12 @@
             color: white;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
             transform: scale(1);
-            transition: transform 0.3s, background 1s;
+            transition: transform 0.3s, background 1s, box-shadow 0.5s;
         }
         .bot-card:hover {
             transform: scale(1.1);
-            background: linear-gradient(135deg, #ffcc00, #ff00ff);
+            background: linear-gradient(135deg, #9400d3, #1e90ff, #ff69b4);
+            box-shadow: 0px 6px 15px rgba(255, 255, 255, 0.7);
         }
         button {
             background-color: black;
@@ -79,7 +83,7 @@
         }
         button:hover {
             background-color: purple;
-            transform: scale(1.1);
+            transform: scale(1.1) rotate(5deg);
         }
         footer {
             margin-top: 20px;
@@ -99,8 +103,8 @@
     <div class="bot-card zoom">
         <h2>Bot de Moderación</h2>
         <img src="rp.png" alt="Bot de rp" width="200">
-        <p>Reproduce dnis,verificación roblox..</p>
-        <p>Incluye: creacion de dni,ver dni,borrar dni,crear multa,ver multa,verificación roblox.</p>
+        <p>Reproduce DNIs, verificación Roblox...</p>
+        <p>Incluye: creación de DNI, ver DNI, borrar DNI, crear multa, ver multa, verificación Roblox.</p>
         <button><img src="carrito.png" alt="Carrito"> Comprar</button>
     </div>
     <div class="bot-card zoom">
