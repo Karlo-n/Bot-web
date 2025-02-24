@@ -11,18 +11,27 @@
             margin: 0;
             padding: 0;
             text-align: center;
-            animation: backgroundAnimation 10s infinite alternate;
+            animation: backgroundAnimation 3s infinite alternate;
         }
         @keyframes backgroundAnimation {
-            0% { background-color: #222; }
-            50% { background-color: #444; }
-            100% { background-color: #666; }
+            0% { background: linear-gradient(45deg, #ff0000, #0000ff); }
+            25% { background: linear-gradient(45deg, #00ff00, #ff00ff); }
+            50% { background: linear-gradient(45deg, #ffff00, #00ffff); }
+            75% { background: linear-gradient(45deg, #ff6600, #6600ff); }
+            100% { background: linear-gradient(45deg, #ff00cc, #00ccff); }
         }
         header {
             padding: 20px;
             color: white;
-            font-size: 2rem;
+            font-size: 2.5rem;
             text-shadow: 2px 2px 5px black;
+            animation: fadeIn 2s ease-in-out;
+        }
+        header img {
+            width: 80%;
+            max-width: 800px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.7);
             animation: fadeIn 2s ease-in-out;
         }
         @keyframes fadeIn {
@@ -40,58 +49,73 @@
             background: linear-gradient(135deg, #ff00ff, #00ffff);
             padding: 20px;
             border-radius: 15px;
-            width: 300px;
+            width: 320px;
             text-align: center;
             color: white;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
             transform: scale(1);
-            transition: transform 0.3s;
+            transition: transform 0.3s, background 1s;
         }
         .bot-card:hover {
             transform: scale(1.1);
+            background: linear-gradient(135deg, #ffcc00, #ff00ff);
         }
         button {
             background-color: black;
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
+            padding: 12px 24px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: background 0.3s, transform 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        button img {
+            width: 20px;
+            height: 20px;
         }
         button:hover {
             background-color: purple;
+            transform: scale(1.1);
         }
         footer {
             margin-top: 20px;
             padding: 10px;
             color: white;
-            font-size: 1.2rem;
+            font-size: 1.4rem;
+            animation: fadeIn 2s ease-in-out;
         }
     </style>
 </head>
 <body>
     <header>
+        <img src="banner.png" alt="Banner de la Tienda de Bots">
         <h1 class="fade-in">Bienvenido a la Tienda de Bots</h1>
-        <p class="fade-in">Soluciones automatizadas para potenciar tu negocio o comunidad. Bots de calidad, listos para revolucionar tu servidor.</p>
+        <p class="fade-in">Explora nuestra selección de bots diseñados para optimizar y mejorar tu experiencia digital.</p>
     </header><section class="productos">
     <div class="bot-card zoom">
         <h2>Bot de Moderación</h2>
+        <img src="mod-bot.png" alt="Bot de Moderación" width="200">
         <p>Automatiza la gestión de tu servidor con herramientas avanzadas.</p>
         <p>Incluye: Baneo automático, sistema de advertencias, anti-spam y más.</p>
-        <button>Comprar</button>
+        <button><img src="carrito.png" alt="Carrito"> Comprar</button>
     </div>
     <div class="bot-card zoom">
         <h2>Bot de Música</h2>
+        <img src="music-bot.png" alt="Bot de Música" width="200">
         <p>Reproduce música de alta calidad en tu comunidad de Discord.</p>
         <p>Compatibilidad con Spotify, YouTube y SoundCloud.</p>
-        <button>Comprar</button>
+        <button><img src="carrito.png" alt="Carrito"> Comprar</button>
     </div>
     <div class="bot-card zoom">
         <h2>Bot Personalizado</h2>
+        <img src="custom-bot.png" alt="Bot Personalizado" width="200">
         <p>Crea un bot a medida según tus necesidades.</p>
         <p>Desde sistemas de economía, hasta bots de inteligencia artificial.</p>
-        <button>Consultar</button>
+        <button><img src="carrito.png" alt="Carrito"> Consultar</button>
     </div>
 </section>
 
