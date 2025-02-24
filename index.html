@@ -54,7 +54,7 @@
             background: linear-gradient(135deg, #800080, #0000ff, #ff00ff);
             padding: 25px;
             border-radius: 20px;
-            width: 350px;
+            width: 320px;
             text-align: center;
             color: white;
             box-shadow: 0px 6px 15px rgba(255, 255, 255, 0.6);
@@ -63,7 +63,7 @@
             animation: glowAnimation 2s infinite alternate;
         }
         .bot-card:hover {
-            transform: scale(1.2);
+            transform: scale(1.1);
             background: linear-gradient(135deg, #9400d3, #1e90ff, #ff69b4);
             box-shadow: 0px 8px 20px rgba(255, 255, 255, 0.9);
         }
@@ -75,40 +75,28 @@
             background-color: black;
             color: white;
             border: none;
-            padding: 15px 30px;
-            border-radius: 10px;
+            padding: 12px 24px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background 0.3s, transform 0.3s;
+            transition: background 0.3s, transform 0.2s;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            font-size: 1.2rem;
+            gap: 10px;
+            font-size: 1rem;
             box-shadow: 0px 4px 10px rgba(0, 255, 0, 0.5);
             position: relative;
             overflow: hidden;
         }
-        button::before {
-            content: "";
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 255, 0, 0.5);
-            left: -100%;
-            transition: left 0.3s;
-        }
-        button:hover::before {
-            left: 100%;
-        }
         button:hover {
             background-color: purple;
-            transform: scale(1.15) rotate(5deg);
-            box-shadow: 0px 0px 20px rgba(0, 255, 0, 1);
+            transform: scale(1.1) rotate(3deg);
+            box-shadow: 0px 0px 15px rgba(0, 255, 0, 1);
         }
         footer {
             margin-top: 30px;
             padding: 20px;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             animation: fadeIn 2s ease-in-out;
         }
     </style>
@@ -120,12 +108,23 @@
         <p class="fade-in">Explora nuestra selección de bots diseñados para optimizar y mejorar tu experiencia digital.</p>
     </header>
     <section class="productos">
-        <div class="bot-card zoom">
+        <div class="bot-card">
             <h2>Bot de Moderación</h2>
             <img src="rp.png" alt="Bot de RP" width="200">
             <p>Reproduce DNIs, verificación Roblox...</p>
-            <p>Incluye: creación de DNI, ver DNI, borrar DNI, crear multa, ver multa, verificación Roblox.</p>
             <button><img src="carrito.png" alt="Carrito"> Comprar</button>
+        </div>
+        <div class="bot-card">
+            <h2>Bot de Música</h2>
+            <img src="music.png" alt="Bot de Música" width="200">
+            <p>Reproduce música de alta calidad en tu comunidad de Discord.</p>
+            <button><img src="carrito.png" alt="Carrito"> Comprar</button>
+        </div>
+        <div class="bot-card">
+            <h2>Bot Personalizado</h2>
+            <img src="custom.png" alt="Bot Personalizado" width="200">
+            <p>Crea un bot a medida según tus necesidades.</p>
+            <button><img src="carrito.png" alt="Carrito"> Consultar</button>
         </div>
     </section>
     <footer>
