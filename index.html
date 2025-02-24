@@ -1,0 +1,104 @@
+<!DOCTYPE html><html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venta de Bots | Tu Tienda</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            animation: backgroundAnimation 10s infinite alternate;
+        }
+        @keyframes backgroundAnimation {
+            0% { background-color: #222; }
+            50% { background-color: #444; }
+            100% { background-color: #666; }
+        }
+        header {
+            padding: 20px;
+            color: white;
+            font-size: 2rem;
+            text-shadow: 2px 2px 5px black;
+            animation: fadeIn 2s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .productos {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+        }
+        .bot-card {
+            background: linear-gradient(135deg, #ff00ff, #00ffff);
+            padding: 20px;
+            border-radius: 15px;
+            width: 300px;
+            text-align: center;
+            color: white;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+            transform: scale(1);
+            transition: transform 0.3s;
+        }
+        .bot-card:hover {
+            transform: scale(1.1);
+        }
+        button {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: purple;
+        }
+        footer {
+            margin-top: 20px;
+            padding: 10px;
+            color: white;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="fade-in">Bienvenido a la Tienda de Bots</h1>
+        <p class="fade-in">Soluciones automatizadas para potenciar tu negocio o comunidad. Bots de calidad, listos para revolucionar tu servidor.</p>
+    </header><section class="productos">
+    <div class="bot-card zoom">
+        <h2>Bot de Moderación</h2>
+        <p>Automatiza la gestión de tu servidor con herramientas avanzadas.</p>
+        <p>Incluye: Baneo automático, sistema de advertencias, anti-spam y más.</p>
+        <button>Comprar</button>
+    </div>
+    <div class="bot-card zoom">
+        <h2>Bot de Música</h2>
+        <p>Reproduce música de alta calidad en tu comunidad de Discord.</p>
+        <p>Compatibilidad con Spotify, YouTube y SoundCloud.</p>
+        <button>Comprar</button>
+    </div>
+    <div class="bot-card zoom">
+        <h2>Bot Personalizado</h2>
+        <p>Crea un bot a medida según tus necesidades.</p>
+        <p>Desde sistemas de economía, hasta bots de inteligencia artificial.</p>
+        <button>Consultar</button>
+    </div>
+</section>
+
+<footer>
+    <p>© 2025 Venta de Bots | Creado con profesionalismo en JS y JSON.</p>
+    <p>Contáctanos para más información y soporte personalizado.</p>
+</footer>
+
+</body>
+</html>
