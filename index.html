@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tienda de Bots Premium</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
+    <!-- Se ha eliminado la referencia al script.js externo que generaba conflictos -->
     <style>
         /* Estilos base */
         * {
@@ -498,7 +498,7 @@
     <div class="promo-banner">
         <h2>¡OFERTA ESPECIAL DE LANZAMIENTO!</h2>
         <p>Obtén un 20% de descuento en todos nuestros bots premium usando el código: <strong>PREMIUM25</strong></p>
-        <button><img src="carrito.png" alt="Carrito" width="10"> Ver ofertas</button>
+        <button onclick="verOfertas()"><img src="carrito.png" alt="Carrito" width="10"> Ver ofertas</button>
     </div>
     
     <h2 class="categoria-titulo">Bots Destacados</h2>
@@ -517,8 +517,8 @@
                 <li>Logs detallados</li>
             </ul>
             <div class="button-container">
-                <button><img src="carrito.png" alt="Carrito" width="10"> Comprar</button>
-                <button><img src="info.png" alt="Info" width="10"> Info</button>
+                <button onclick="comprarBot(this)"><img src="carrito.png" alt="Carrito" width="10"> Comprar</button>
+                <button onclick="verInfo(this)"><img src="info.png" alt="Info" width="10"> Info</button>
             </div>
         </div>
         
@@ -535,8 +535,8 @@
                 <li>Múltiples plataformas</li>
             </ul>
             <div class="button-container">
-                <button><img src="carrito.png" alt="Carrito" width="10"> Comprar</button>
-                <button><img src="info.png" alt="Info" width="10"> Info</button>
+                <button onclick="comprarBot(this)"><img src="carrito.png" alt="Carrito" width="10"> Comprar</button>
+                <button onclick="verInfo(this)"><img src="info.png" alt="Info" width="10"> Info</button>
             </div>
         </div>
         
@@ -552,8 +552,8 @@
                 <li>Actualizaciones incluidas</li>
             </ul>
             <div class="button-container">
-                <button><img src="carrito.png" alt="Carrito" width="10"> Consultar</button>
-                <button><img src="info.png" alt="Info" width="10"> Demo</button>
+                <button onclick="consultarBot(this)"><img src="carrito.png" alt="Carrito" width="10"> Consultar</button>
+                <button onclick="verDemo(this)"><img src="info.png" alt="Info" width="10"> Demo</button>
             </div>
         </div>
     </section>
@@ -573,8 +573,8 @@
                 <li>Soporte incluido</li>
             </ul>
             <div class="button-container">
-                <button><img src="carrito.png" alt="Carrito" width="10"> Comprar</button>
-                <button><img src="info.png" alt="Info" width="10"> Info</button>
+                <button onclick="comprarBot(this)"><img src="carrito.png" alt="Carrito" width="10"> Comprar</button>
+                <button onclick="verInfo(this)"><img src="info.png" alt="Info" width="10"> Info</button>
             </div>
         </div>
         
@@ -590,8 +590,8 @@
                 <li>Roles automáticos</li>
             </ul>
             <div class="button-container">
-                <button><img src="carrito.png" alt="Carrito" width="10"> Comprar</button>
-                <button><img src="info.png" alt="Info" width="10"> Info</button>
+                <button onclick="comprarBot(this)"><img src="carrito.png" alt="Carrito" width="10"> Comprar</button>
+                <button onclick="verInfo(this)"><img src="info.png" alt="Info" width="10"> Info</button>
             </div>
         </div>
         
@@ -608,8 +608,8 @@
                 <li>Rankings semanales</li>
             </ul>
             <div class="button-container">
-                <button><img src="carrito.png" alt="Carrito" width="10"> Comprar</button>
-                <button><img src="info.png" alt="Info" width="10"> Info</button>
+                <button onclick="comprarBot(this)"><img src="carrito.png" alt="Carrito" width="10"> Comprar</button>
+                <button onclick="verInfo(this)"><img src="info.png" alt="Info" width="10"> Info</button>
             </div>
         </div>
     </section>
@@ -617,7 +617,7 @@
     <div class="promo-banner">
         <h2>¿NECESITAS VARIOS BOTS?</h2>
         <p>Consulta nuestros paquetes con descuentos de hasta el 35% al combinar múltiples bots</p>
-        <button><img src="descuento.png" alt="Descuento" width="10"> Ver paquetes</button>
+        <button onclick="verPaquetes()"><img src="descuento.png" alt="Descuento" width="10"> Ver paquetes</button>
     </div>
     
     <section class="testimonios">
@@ -715,19 +715,6 @@
             // Código para inicializar partículas y animaciones adicionales
             console.log('Tienda de Bots cargada correctamente');
         });
-    </script>
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Obtener todos los botones de compra
-        const botonesCompra = Array.from(document.querySelectorAll('button')).filter(
-            button => button.textContent.includes('Comprar')
-        );
-        const botonesCarta = Array.from(document.querySelectorAll('button')).filter(
-            button => button.textContent.includes('Consultar')
-        );
-        
-        // PayPal URL base - Usando tu enlace de PayPal.me
-        const basePayPalUrl = 'https://www.paypal.me/BaciliaAlvarez/';
         
         // Precios para cada producto (en euros)
         const precios = {
@@ -742,104 +729,125 @@
         // URL de la página de instrucciones post-pago
         const paginaInstrucciones = 'instrucciones.html';
         
-        // Función para agregar el evento de clic a los botones de compra
-        botonesCompra.forEach(boton => {
-            boton.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Encontrar el título del bot (h2 más cercano dentro de la tarjeta)
-                const card = this.closest('.bot-card');
-                const titulo = card.querySelector('h2').textContent;
-                
-                // Verificar si tenemos el precio para este bot
-                if (precios[titulo]) {
-                    // Extraer el precio del bot
-                    const precio = precios[titulo];
-                    
-                    // Guardar información del producto en localStorage para usarla después
-                    localStorage.setItem('ultimaCompra', JSON.stringify({
-                        producto: titulo,
-                        precio: precio + '€',
-                        timestamp: new Date().toISOString()
-                    }));
-                    
-                    // Redireccionar a PayPal.me con el monto específico
-                    window.location.href = basePayPalUrl + precio;
-                    
-                    // Configurar un temporizador para redirigir a la página de instrucciones después
-                    localStorage.setItem('redirigirAInstrucciones', 'true');
-                    
-                } else {
-                    console.error('No se encontró precio para:', titulo);
-                    alert('Error al procesar la compra. Por favor, inténtalo de nuevo o contáctanos.');
-                }
-            });
-        });
+        // URL base de PayPal
+        const basePayPalUrl = 'https://www.paypal.me/BaciliaAlvarez/';
         
-        // Manejar botones de consulta (para bots personalizados)
-        botonesCarta.forEach(boton => {
-            boton.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Redireccionar directamente a un formulario de contacto específico
-                window.location.href = 'contacto-personalizado.html';
-            });
-        });
-        
-        // Verificar si hay una compra pendiente
-        if (localStorage.getItem('redirigirAInstrucciones') === 'true') {
-            // Recuperar información de la compra
-            const ultimaCompra = JSON.parse(localStorage.getItem('ultimaCompra') || '{}');
+        // Función para comprar un bot
+        function comprarBot(boton) {
+            // Encontrar la tarjeta padre
+            const card = boton.closest('.bot-card');
+            // Obtener el título del bot
+            const titulo = card.querySelector('h2').textContent;
+            console.log('Comprando: ' + titulo);
             
-            if (ultimaCompra.producto) {
-                // Crear un modal de confirmación
-                const modal = document.createElement('div');
-                modal.style.position = 'fixed';
-                modal.style.top = '0';
-                modal.style.left = '0';
-                modal.style.width = '100%';
-                modal.style.height = '100%';
-                modal.style.backgroundColor = 'rgba(0,0,0,0.8)';
-                modal.style.display = 'flex';
-                modal.style.justifyContent = 'center';
-                modal.style.alignItems = 'center';
-                modal.style.zIndex = '9999';
-                
-                const contenido = document.createElement('div');
-                contenido.style.backgroundColor = '#1a1a1a';
-                contenido.style.padding = '30px';
-                contenido.style.borderRadius = '15px';
-                contenido.style.maxWidth = '500px';
-                contenido.style.textAlign = 'center';
-                contenido.style.boxShadow = '0 0 20px rgba(255, 0, 255, 0.8)';
-                
-                contenido.innerHTML = `
-                    <h2 style="color:#ff00ff;margin-bottom:20px;">Confirmación de Pago</h2>
-                    <p style="margin-bottom:15px;font-size:18px;">¿Has completado el pago de <strong>${ultimaCompra.producto}</strong> por <strong>${ultimaCompra.precio}</strong>?</p>
-                    <button id="confirmar-pago" style="background:linear-gradient(135deg,#ff00ff,#0000ff);color:white;border:none;padding:10px 20px;border-radius:5px;margin-right:15px;cursor:pointer;">Sí, he pagado</button>
-                    <button id="cancelar-pago" style="background:#333;color:white;border:none;padding:10px 20px;border-radius:5px;cursor:pointer;">No, cancelar</button>
-                `;
-                
-                modal.appendChild(contenido);
-                document.body.appendChild(modal);
-                
-                // Evento para el botón de confirmación
-                document.getElementById('confirmar-pago').addEventListener('click', function() {
-                    localStorage.removeItem('redirigirAInstrucciones');
-                    document.body.removeChild(modal);
-                    // Redireccionar a la página de instrucciones
-                    window.location.href = paginaInstrucciones;
-                });
-                
-                // Evento para el botón de cancelación
-                document.getElementById('cancelar-pago').addEventListener('click', function() {
-                    localStorage.removeItem('redirigirAInstrucciones');
-                    localStorage.removeItem('ultimaCompra');
-                    document.body.removeChild(modal);
-                });
+            // Obtener el precio
+            const precio = precios[titulo];
+            if (!precio) {
+                console.error('No se encontró precio para:', titulo);
+                alert('Error al procesar la compra. Por favor, inténtalo de nuevo o contáctanos.');
+                return;
             }
+            
+            // Guardar información del producto
+            localStorage.setItem('ultimaCompra', JSON.stringify({
+                producto: titulo,
+                precio: precio + '€',
+                timestamp: new Date().toISOString()
+            }));
+            
+            // Redireccionar a PayPal
+            window.location.href = basePayPalUrl + precio;
+            
+            // Marcar para mostrar la confirmación al regresar
+            localStorage.setItem('redirigirAInstrucciones', 'true');
         }
-    });
-    </script>
-</body>
-</html>
+        
+        // Función para consultar sobre un bot personalizado
+        function consultarBot(boton) {
+            const card = boton.closest('.bot-card');
+            const titulo = card.querySelector('h2').textContent;
+            console.log('Consultando sobre: ' + titulo);
+            
+            // Redireccionar a la página de contacto personalizado
+            window.location.href = 'contacto-personalizado.html';
+        }
+        
+        // Función para ver información de un bot
+        function verInfo(boton) {
+            const card = boton.closest('.bot-card');
+            const titulo = card.querySelector('h2').textContent;
+            alert('Información sobre ' + titulo + '\nPróximamente más detalles sobre este bot.');
+        }
+        
+        // Función para ver demo de un bot
+        function verDemo(boton) {
+            const card = boton.closest('.bot-card');
+            const titulo = card.querySelector('h2').textContent;
+            alert('Demo de ' + titulo + '\nContacta con nosotros para programar una demostración en vivo.');
+        }
+        
+        // Función para ver ofertas
+function verOfertas() {
+    alert('Próximamente: Catálogo de ofertas especiales\nUsa el código PREMIUM25 al realizar tu compra para obtener un 20% de descuento.');
+}
+
+// Función para ver paquetes
+function verPaquetes() {
+    alert('Próximamente: Paquetes con descuentos especiales\nCombina varios bots y ahorra hasta un 35%.');
+}
+
+// Verificar si hay una compra pendiente al cargar la página
+document.addEventListener('DOMContentLoaded', function() {
+    if (localStorage.getItem('redirigirAInstrucciones') === 'true') {
+        // Recuperar información de la compra
+        const ultimaCompra = JSON.parse(localStorage.getItem('ultimaCompra') || '{}');
+        
+        if (ultimaCompra.producto) {
+            // Crear un modal de confirmación
+            const modal = document.createElement('div');
+            modal.style.position = 'fixed';
+            modal.style.top = '0';
+            modal.style.left = '0';
+            modal.style.width = '100%';
+            modal.style.height = '100%';
+            modal.style.backgroundColor = 'rgba(0,0,0,0.8)';
+            modal.style.display = 'flex';
+            modal.style.justifyContent = 'center';
+            modal.style.alignItems = 'center';
+            modal.style.zIndex = '9999';
+            
+            const contenido = document.createElement('div');
+            contenido.style.backgroundColor = '#1a1a1a';
+            contenido.style.padding = '30px';
+            contenido.style.borderRadius = '15px';
+            contenido.style.maxWidth = '500px';
+            contenido.style.textAlign = 'center';
+            contenido.style.boxShadow = '0 0 20px rgba(255, 0, 255, 0.8)';
+            
+            contenido.innerHTML = `
+                <h2 style="color:#ff00ff;margin-bottom:20px;">Confirmación de Pago</h2>
+                <p style="margin-bottom:15px;font-size:18px;">¿Has completado el pago de <strong>${ultimaCompra.producto}</strong> por <strong>${ultimaCompra.precio}</strong>?</p>
+                <button id="confirmar-pago" style="background:linear-gradient(135deg,#ff00ff,#0000ff);color:white;border:none;padding:10px 20px;border-radius:5px;margin-right:15px;cursor:pointer;">Sí, he pagado</button>
+                <button id="cancelar-pago" style="background:#333;color:white;border:none;padding:10px 20px;border-radius:5px;cursor:pointer;">No, cancelar</button>
+            `;
+            
+            modal.appendChild(contenido);
+            document.body.appendChild(modal);
+            
+            // Evento para el botón de confirmación
+            document.getElementById('confirmar-pago').addEventListener('click', function() {
+                localStorage.removeItem('redirigirAInstrucciones');
+                document.body.removeChild(modal);
+                // Redireccionar a la página de instrucciones
+                window.location.href = paginaInstrucciones;
+            });
+            
+            // Evento para el botón de cancelación
+            document.getElementById('cancelar-pago').addEventListener('click', function() {
+                localStorage.removeItem('redirigirAInstrucciones');
+                localStorage.removeItem('ultimaCompra');
+                document.body.removeChild(modal);
+            });
+        }
+    }
+});
