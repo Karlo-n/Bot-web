@@ -1,29 +1,33 @@
-<!DOCTYPE html><html lang="es">
+<!DOCTYPE html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Venta de Bots | Tu Tienda</title>
+    <title>Tienda de Bots</title>
     <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        * {
             margin: 0;
             padding: 0;
-            text-align: center;
-            animation: backgroundAnimation 10s infinite alternate;
-            overflow-x: hidden;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
             background: black;
             color: white;
+            text-align: center;
+            overflow-x: hidden;
+            animation: backgroundAnimation 10s infinite alternate;
         }
         @keyframes backgroundAnimation {
-            0% { background: linear-gradient(45deg, #6a0dad, #0000ff, #ff00ff); }
-            50% { background: linear-gradient(45deg, #4b0082, #1e90ff, #ff69b4); }
-            100% { background: linear-gradient(45deg, #8a2be2, #4682b4, #ff1493); }
+            0% { background: linear-gradient(45deg, #ff00ff, #0000ff, #ff1493); }
+            50% { background: linear-gradient(45deg, #9400d3, #1e90ff, #ff4500); }
+            100% { background: linear-gradient(45deg, #4b0082, #00ffff, #ff69b4); }
         }
         header {
             padding: 20px;
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             text-shadow: 3px 3px 7px black;
             animation: fadeIn 2s ease-in-out;
         }
@@ -31,7 +35,7 @@
             width: 80%;
             max-width: 800px;
             border-radius: 15px;
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.9);
+            box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.9);
             animation: floatAnimation 5s infinite ease-in-out;
         }
         @keyframes fadeIn {
@@ -47,61 +51,59 @@
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 20px;
-            padding: 20px;
+            gap: 30px;
+            padding: 40px;
         }
         .bot-card {
             background: linear-gradient(135deg, #800080, #0000ff, #ff00ff);
-            padding: 15px;
-            border-radius: 10px;
-            width: 250px;
+            padding: 20px;
+            border-radius: 15px;
+            width: 320px;
             text-align: center;
             color: white;
-            box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.6);
+            box-shadow: 0px 6px 15px rgba(255, 255, 255, 0.6);
             transform: scale(1);
-            transition: transform 0.2s, background 0.8s, box-shadow 0.4s;
+            transition: transform 0.3s, background 1s, box-shadow 0.5s;
             animation: glowAnimation 2s infinite alternate;
         }
         .bot-card:hover {
-            transform: scale(1.05);
-            background: linear-gradient(135deg, #9400d3, #1e90ff, #ff69b4);
-            box-shadow: 0px 6px 14px rgba(255, 255, 255, 0.9);
+            transform: scale(1.1);
+            background: linear-gradient(135deg, #ff1493, #1e90ff, #ff4500);
+            box-shadow: 0px 8px 20px rgba(255, 255, 255, 0.9);
         }
         @keyframes glowAnimation {
-            0% { box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.3); }
-            100% { box-shadow: 0px 0px 16px rgba(255, 255, 255, 0.9); }
+            0% { box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.3); }
+            100% { box-shadow: 0px 0px 30px rgba(255, 255, 255, 0.9); }
         }
         button {
             background-color: black;
             color: white;
             border: none;
-            padding: 1px 3px;
-            border-radius: 3px;
+            padding: 10px 16px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background 0.2s, transform 0.15s;
+            transition: background 0.3s, transform 0.2s;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 3px;
-            font-size: 0.3rem;
-            box-shadow: 0px 1px 4px rgba(0, 255, 0, 0.5);
-            position: relative;
-            overflow: hidden;
-            animation: buttonGlow 2s infinite alternate;
+            gap: 10px;
+            font-size: 1.2rem;
+            box-shadow: 0px 4px 10px rgba(0, 255, 0, 0.5);
+            animation: buttonGlow 1.5s infinite alternate;
         }
         @keyframes buttonGlow {
-            0% { box-shadow: 0px 0px 5px rgba(0, 255, 0, 0.5); }
-            100% { box-shadow: 0px 0px 10px rgba(0, 255, 0, 1); }
+            0% { box-shadow: 0px 0px 8px rgba(0, 255, 0, 0.5); }
+            100% { box-shadow: 0px 0px 16px rgba(0, 255, 0, 1); }
         }
         button:hover {
             background-color: purple;
-            transform: scale(1.02);
-            box-shadow: 0px 0px 8px rgba(0, 255, 0, 1);
+            transform: scale(1.15);
+            box-shadow: 0px 0px 15px rgba(0, 255, 0, 1);
         }
         footer {
-            margin-top: 20px;
-            padding: 15px;
-            font-size: 1rem;
+            margin-top: 30px;
+            padding: 20px;
+            font-size: 1.4rem;
             animation: fadeIn 2s ease-in-out;
         }
     </style>
@@ -115,19 +117,19 @@
     <section class="productos">
         <div class="bot-card">
             <h2>Bot de Moderación</h2>
-            <img src="rp.png" alt="Bot de RP" width="150">
+            <img src="rp.png" alt="Bot de RP" width="200">
             <p>Reproduce DNIs, verificación Roblox...</p>
             <button><img src="carrito.png" alt="Carrito"> Comprar</button>
         </div>
         <div class="bot-card">
             <h2>Bot de Música</h2>
-            <img src="music.png" alt="Bot de Música" width="150">
+            <img src="music.png" alt="Bot de Música" width="200">
             <p>Reproduce música de alta calidad en tu comunidad de Discord.</p>
             <button><img src="carrito.png" alt="Carrito"> Comprar</button>
         </div>
         <div class="bot-card">
             <h2>Bot Personalizado</h2>
-            <img src="custom.png" alt="Bot Personalizado" width="150">
+            <img src="custom.png" alt="Bot Personalizado" width="200">
             <p>Crea un bot a medida según tus necesidades.</p>
             <button><img src="carrito.png" alt="Carrito"> Consultar</button>
         </div>
