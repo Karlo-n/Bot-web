@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tienda de Bots</title>
+    <title>Tienda de Bots Premium</title>
     <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
     <style>
+        /* Estilos base */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+        
         body {
             font-family: 'Arial', sans-serif;
             background: black;
@@ -21,11 +23,14 @@
             animation: backgroundAnimation 10s infinite alternate;
             position: relative;
         }
+        
         @keyframes backgroundAnimation {
             0% { background: linear-gradient(45deg, #ff00ff, #0000ff, #ff1493); }
             50% { background: linear-gradient(45deg, #9400d3, #1e90ff, #ff4500); }
             100% { background: linear-gradient(45deg, #4b0082, #00ffff, #ff69b4); }
         }
+        
+        /* Encabezado */
         header {
             padding: 20px;
             font-size: 2.5rem;
@@ -34,6 +39,7 @@
             position: relative;
             z-index: 10;
         }
+        
         header img {
             width: 80%;
             max-width: 800px;
@@ -41,15 +47,36 @@
             box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.9);
             animation: floatAnimation 5s infinite ease-in-out;
         }
+        
+        header h1 {
+            margin-top: 15px;
+            color: #f0f0f0;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        
+        header p {
+            margin-top: 10px;
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            color: #d0d0d0;
+        }
+        
+        /* Animaciones */
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
+        
         @keyframes floatAnimation {
             0% { transform: translateY(0px); }
             50% { transform: translateY(-10px); }
             100% { transform: translateY(0px); }
         }
+        
+        /* Sección de productos */
         .productos {
             display: flex;
             justify-content: center;
@@ -59,89 +86,635 @@
             position: relative;
             z-index: 10;
         }
+        
+        .categoria-titulo {
+            width: 100%;
+            font-size: 2rem;
+            margin: 30px 0 20px;
+            text-shadow: 0px 0px 10px rgba(255, 0, 255, 0.7);
+            position: relative;
+        }
+        
+        .categoria-titulo::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, #ff00ff, #00ffff);
+            border-radius: 3px;
+        }
+        
+        /* Tarjetas de bots */
         .bot-card {
             background: linear-gradient(135deg, #800080, #0000ff, #ff00ff);
             padding: 20px;
             border-radius: 15px;
-            width: 320px;
+            width: 280px;
             text-align: center;
             color: white;
             box-shadow: 0px 6px 15px rgba(255, 255, 255, 0.6);
             transform: scale(1);
             transition: transform 0.3s, background 1s, box-shadow 0.5s;
             animation: glowAnimation 2s infinite alternate;
+            position: relative;
+            overflow: hidden;
         }
+        
+        .bot-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .bot-card:hover::before {
+            opacity: 1;
+        }
+        
         .bot-card:hover {
-            transform: scale(1.1);
+            transform: scale(1.05);
             background: linear-gradient(135deg, #ff1493, #1e90ff, #ff4500);
             box-shadow: 0px 8px 20px rgba(255, 255, 255, 0.9);
         }
+        
+        .bot-card h2 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            color: #f0f0f0;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .bot-card img {
+            border-radius: 10px;
+            margin-bottom: 15px;
+            transition: transform 0.3s;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .bot-card:hover img {
+            transform: scale(1.05);
+        }
+        
+        .bot-card p {
+            margin-bottom: 15px;
+            line-height: 1.5;
+            font-size: 0.9rem;
+            color: #d0d0d0;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .precio {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #00ff00;
+            margin: 10px 0;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .rating {
+            color: gold;
+            font-size: 1.2rem;
+            margin: 10px 0;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .features {
+            margin: 15px 0;
+            font-size: 0.8rem;
+            text-align: left;
+            padding-left: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .features li {
+            margin-bottom: 5px;
+            list-style-type: none;
+            position: relative;
+        }
+        
+        .features li::before {
+            content: '✓';
+            color: #00ff00;
+            position: absolute;
+            left: -15px;
+        }
+        
         @keyframes glowAnimation {
             0% { box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.3); }
             100% { box-shadow: 0px 0px 30px rgba(255, 255, 255, 0.9); }
         }
+        
+        /* Botones rediseñados más pequeños */
         button {
             background-color: black;
             color: white;
             border: none;
-            padding: 2px 4px;
+            padding: 3px 6px;
             border-radius: 3px;
             cursor: pointer;
             transition: background 0.3s, transform 0.2s;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 2px;
-            font-size: 0.5rem;
+            gap: 3px;
+            font-size: 0.6rem;
             box-shadow: 0px 2px 4px rgba(0, 255, 0, 0.5);
             animation: buttonGlow 1.5s infinite alternate;
+            margin: 0 2px;
+            position: relative;
+            z-index: 2;
         }
+        
         @keyframes buttonGlow {
             0% { box-shadow: 0px 0px 4px rgba(0, 255, 0, 0.5); }
             100% { box-shadow: 0px 0px 8px rgba(0, 255, 0, 1); }
         }
+        
         button:hover {
             background-color: purple;
             transform: scale(1.02);
             box-shadow: 0px 0px 6px rgba(0, 255, 0, 1);
         }
+        
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 10px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Etiquetas */
+        .tag {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 0, 255, 0.7);
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            z-index: 3;
+        }
+        
+        .tag.nuevo {
+            background: rgba(0, 255, 0, 0.7);
+        }
+        
+        .tag.oferta {
+            background: rgba(255, 0, 0, 0.7);
+        }
+        
+        /* Banner promocional */
+        .promo-banner {
+            background: linear-gradient(135deg, #ff1493, #1e90ff);
+            padding: 15px;
+            margin: 30px auto;
+            width: 90%;
+            max-width: 1000px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.7);
+            position: relative;
+            overflow: hidden;
+            z-index: 10;
+        }
+        
+        .promo-banner h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .promo-banner p {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+        
+        /* Testimonios */
+        .testimonios {
+            margin: 50px auto;
+            max-width: 1200px;
+        }
+        
+        .testimonio {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.3);
+            text-align: left;
+        }
+        
+        .testimonio-autor {
+            font-weight: bold;
+            font-style: italic;
+            text-align: right;
+            margin-top: 10px;
+        }
+        
+        /* Formulario de contacto */
+        .contacto {
+            margin: 50px auto;
+            max-width: 600px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5);
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #4b0082;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+        }
+        
+        textarea {
+            min-height: 100px;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #ff00ff, #0000ff);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .submit-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 0px 15px rgba(255, 0, 255, 0.7);
+        }
+        
+        /* Footer */
         footer {
             margin-top: 30px;
-            padding: 20px;
-            font-size: 1.4rem;
+            padding: 30px;
+            font-size: 1rem;
             animation: fadeIn 2s ease-in-out;
+            background: rgba(0, 0, 0, 0.7);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+            text-align: left;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 15px;
+            color: #ff00ff;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-section a {
+            color: #d0d0d0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: #00ffff;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-icons img {
+            width: 25px;
+            transition: transform 0.3s;
+        }
+        
+        .social-icons img:hover {
+            transform: scale(1.2);
+        }
+        
+        .copyright {
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.8rem;
+            color: #a0a0a0;
+        }
+        
+        /* Partículas de fondo */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                font-size: 2rem;
+            }
+            
+            .bot-card {
+                width: 100%;
+                max-width: 320px;
+            }
+            
+            .footer-section {
+                flex: 1 1 100%;
+                text-align: center;
+            }
+            
+            .social-icons {
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Partículas de fondo para efecto visual -->
+    <div class="particles" id="particles-js"></div>
+    
     <header>
         <img src="banner.png" alt="Banner de la Tienda de Bots">
-        <h1 class="fade-in">Bienvenido a la Tienda de Bots</h1>
-        <p class="fade-in">Explora nuestra selección de bots diseñados para optimizar y mejorar tu experiencia digital.</p>
+        <h1 class="fade-in">Bienvenido a la Tienda de Bots Premium</h1>
+        <p class="fade-in">Explora nuestra selección exclusiva de bots diseñados profesionalmente para optimizar y mejorar tu experiencia digital. Somos especialistas en soluciones automatizadas para Discord y más plataformas.</p>
     </header>
+    
+    <div class="promo-banner">
+        <h2>¡OFERTA ESPECIAL DE LANZAMIENTO!</h2>
+        <p>Obtén un 20% de descuento en todos nuestros bots premium usando el código: <strong>PREMIUM25</strong></p>
+        <button><img src="carrito.png" alt="Carrito" width="10"> Ver ofertas</button>
+    </div>
+    
+    <h2 class="categoria-titulo">Bots Destacados</h2>
+    
     <section class="productos">
         <div class="bot-card">
+            <span class="tag oferta">-15%</span>
             <h2>Bot de Moderación</h2>
             <img src="rp.png" alt="Bot de RP" width="200">
-            <p>Reproduce DNIs, verificación Roblox...</p>
-            <button><img src="carrito.png" alt="Carrito" width="10"> Comprar</button>
+            <p>Sistema avanzado de moderación con verificación de DNIs, integración con Roblox y más funciones.</p>
+            <div class="rating">★★★★★</div>
+            <div class="precio">24.99€</div>
+            <ul class="features">
+                <li>Verificación automática</li>
+                <li>Sistema anti-spam</li>
+                <li>Logs detallados</li>
+            </ul>
+            <div class="button-container">
+                <button><img src="carrito.png" alt="Carrito" width="10"> Comprar</button>
+                <button><img src="info.png" alt="Info" width="10"> Info</button>
+            </div>
         </div>
+        
         <div class="bot-card">
+            <span class="tag nuevo">NUEVO</span>
             <h2>Bot de Música</h2>
             <img src="music.png" alt="Bot de Música" width="200">
-            <p>Reproduce música de alta calidad en tu comunidad de Discord.</p>
-            <button><img src="carrito.png" alt="Carrito" width="10"> Comprar</button>
+            <p>Reproduce música de alta calidad en tu servidor de Discord con amplio soporte para plataformas streaming.</p>
+            <div class="rating">★★★★☆</div>
+            <div class="precio">19.99€</div>
+            <ul class="features">
+                <li>Sin anuncios</li>
+                <li>Audio 320kbps</li>
+                <li>Múltiples plataformas</li>
+            </ul>
+            <div class="button-container">
+                <button><img src="carrito.png" alt="Carrito" width="10"> Comprar</button>
+                <button><img src="info.png" alt="Info" width="10"> Info</button>
+            </div>
         </div>
+        
         <div class="bot-card">
             <h2>Bot Personalizado</h2>
             <img src="custom.png" alt="Bot Personalizado" width="200">
-            <p>Crea un bot a medida según tus necesidades.</p>
-            <button><img src="carrito.png" alt="Carrito" width="10"> Consultar</button>
+            <p>Crea un bot a medida según las necesidades específicas de tu comunidad o negocio.</p>
+            <div class="rating">★★★★★</div>
+            <div class="precio">Desde 49.99€</div>
+            <ul class="features">
+                <li>Desarrollo a medida</li>
+                <li>Soporte premium</li>
+                <li>Actualizaciones incluidas</li>
+            </ul>
+            <div class="button-container">
+                <button><img src="carrito.png" alt="Carrito" width="10"> Consultar</button>
+                <button><img src="info.png" alt="Info" width="10"> Demo</button>
+            </div>
         </div>
     </section>
+    
+    <h2 class="categoria-titulo">Bots Económicos</h2>
+    
+    <section class="productos">
+        <div class="bot-card">
+            <h2>Bot Mini-Moderación</h2>
+            <img src="mini-mod.png" alt="Mini-Moderación" width="200">
+            <p>Versión simplificada de nuestro bot de moderación con funciones esenciales.</p>
+            <div class="rating">★★★☆☆</div>
+            <div class="precio">9.99€</div>
+            <ul class="features">
+                <li>Comandos básicos</li>
+                <li>Alertas automáticas</li>
+                <li>Soporte incluido</li>
+            </ul>
+            <div class="button-container">
+                <button><img src="carrito.png" alt="Carrito" width="10"> Comprar</button>
+                <button><img src="info.png" alt="Info" width="10"> Info</button>
+            </div>
+        </div>
+        
+        <div class="bot-card">
+            <h2>Bot de Eventos</h2>
+            <img src="eventos.png" alt="Bot de Eventos" width="200">
+            <p>Organiza y gestiona eventos en tu servidor con RSVP, recordatorios y más.</p>
+            <div class="rating">★★★★☆</div>
+            <div class="precio">14.99€</div>
+            <ul class="features">
+                <li>Calendario integrado</li>
+                <li>Notificaciones</li>
+                <li>Roles automáticos</li>
+            </ul>
+            <div class="button-container">
+                <button><img src="carrito.png" alt="Carrito" width="10"> Comprar</button>
+                <button><img src="info.png" alt="Info" width="10"> Info</button>
+            </div>
+        </div>
+        
+        <div class="bot-card">
+            <span class="tag oferta">HOT</span>
+            <h2>Bot de Niveles</h2>
+            <img src="niveles.png" alt="Bot de Niveles" width="200">
+            <p>Sistema de niveles y experiencia para usuarios con recompensas automáticas.</p>
+            <div class="rating">★★★★☆</div>
+            <div class="precio">12.99€</div>
+            <ul class="features">
+                <li>Tarjetas personalizables</li>
+                <li>Roles automáticos</li>
+                <li>Rankings semanales</li>
+            </ul>
+            <div class="button-container">
+                <button><img src="carrito.png" alt="Carrito" width="10"> Comprar</button>
+                <button><img src="info.png" alt="Info" width="10"> Info</button>
+            </div>
+        </div>
+    </section>
+    
+    <div class="promo-banner">
+        <h2>¿NECESITAS VARIOS BOTS?</h2>
+        <p>Consulta nuestros paquetes con descuentos de hasta el 35% al combinar múltiples bots</p>
+        <button><img src="descuento.png" alt="Descuento" width="10"> Ver paquetes</button>
+    </div>
+    
+    <section class="testimonios">
+        <h2 class="categoria-titulo">Lo que dicen nuestros clientes</h2>
+        
+        <div class="testimonio">
+            <p>"El bot de moderación ha transformado completamente la gestión de mi servidor. Ahora puedo pasar más tiempo interactuando con mi comunidad y menos tiempo preocupándome por problemas."</p>
+            <div class="testimonio-autor">- Carlos G., servidor de 5,000+ miembros</div>
+        </div>
+        
+        <div class="testimonio">
+            <p>"La calidad del bot de música es inigualable. Sin cortes, sin lag, y con una calidad de sonido perfecta. Vale cada céntimo."</p>
+            <div class="testimonio-autor">- Laura M., comunidad de gaming</div>
+        </div>
+        
+        <div class="testimonio">
+            <p>"El proceso de desarrollo del bot personalizado fue muy profesional. Escucharon todas mis necesidades y crearon exactamente lo que mi negocio necesitaba."</p>
+            <div class="testimonio-autor">- Miguel A., empresa de marketing</div>
+        </div>
+    </section>
+    
+    <section class="contacto">
+        <h2 class="categoria-titulo">¿Tienes preguntas?</h2>
+        <p>Nuestro equipo está listo para ayudarte con cualquier duda o solicitud personalizada.</p>
+        
+        <form>
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="asunto">Asunto:</label>
+                <input type="text" id="asunto" name="asunto" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="mensaje">Mensaje:</label>
+                <textarea id="mensaje" name="mensaje" required></textarea>
+            </div>
+            
+            <button type="submit" class="submit-btn">Enviar mensaje</button>
+        </form>
+    </section>
+    
     <footer>
-        <p>© 2025 Venta de Bots | Creado con profesionalismo en JS y JSON.</p>
-        <p>Contáctanos para más información y soporte personalizado.</p>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Enlaces rápidos</h3>
+                <ul>
+                    <li><a href="#">Inicio</a></li>
+                    <li><a href="#">Catálogo</a></li>
+                    <li><a href="#">Ofertas</a></li>
+                    <li><a href="#">Soporte</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Soporte</h3>
+                <ul>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Documentación</a></li>
+                    <li><a href="#">Tutoriales</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contáctanos</h3>
+                <p>support@tiendabots.com</p>
+                <p>+34 612 345 678</p>
+                <div class="social-icons">
+                    <a href="#"><img src="discord.png" alt="Discord"></a>
+                    <a href="#"><img src="twitter.png" alt="Twitter"></a>
+                    <a href="#"><img src="instagram.png" alt="Instagram"></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>© 2025 Venta de Bots Premium | Creado con profesionalismo en JS y JSON.</p>
+            <p>Todos los derechos reservados. Términos y Condiciones | Política de Privacidad</p>
+        </div>
     </footer>
+    
+    <!-- Script para las partículas de fondo -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Código para inicializar partículas y animaciones adicionales
+            console.log('Tienda de Bots cargada correctamente');
+        });
+    </script>
 </body>
 </html>
