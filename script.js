@@ -102,31 +102,19 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Construimos el mensaje para Discord
             const data = {
-                embeds: [{
-                    title: 'Nueva consulta: ' + asunto,
-                    color: 10181046, // Color púrpura en decimal
-                    fields: [
-                        {
-                            name: 'Nombre',
-                            value: nombre,
-                            inline: true
-                        },
-                        {
-                            name: 'Email',
-                            value: email,
-                            inline: true
-                        },
-                        {
-                            name: 'Mensaje',
-                            value: mensaje
-                        }
-                    ],
-                    footer: {
-                        text: 'Enviado desde la Tienda de Bots Premium'
-                    },
-                    timestamp: new Date().toISOString()
-                }]
-            };
+    content: "Prueba de webhook desde JavaScript"
+};
+
+fetch(webhookURL, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+})
+.then(response => response.json())
+.then(data => console.log("Mensaje enviado", data))
+.catch(error => console.error("Error al enviar mensaje", error));
             
             // Enviamos el mensaje al webhook
             fetch(webhookURL, {
