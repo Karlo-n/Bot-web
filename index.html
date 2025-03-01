@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </title>Tienda de Bots Premium</title>
+    <title>Tienda de Bots Premium</title>
     <link rel="stylesheet" href="efectos.css">
     <style>
         /* Estilos base */
@@ -19,14 +19,214 @@
             color: white;
             text-align: center;
             overflow-x: hidden;
-            animation: backgroundAnimation 10s infinite alternate;
             position: relative;
         }
         
-        @keyframes backgroundAnimation {
-            0% { background: linear-gradient(45deg, #ff00ff, #0000ff, #ff1493); }
-            50% { background: linear-gradient(45deg, #9400d3, #1e90ff, #ff4500); }
-            100% { background: linear-gradient(45deg, #4b0082, #00ffff, #ff69b4); }
+        /* Fondo negro con púrpura brillante en movimiento */
+        .cosmic-background {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: #000;
+          overflow: hidden;
+          z-index: -2;
+        }
+
+        /* Neblina de fondo que da sensación de profundidad */
+        .cosmic-background::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: radial-gradient(circle at center, rgba(76, 0, 153, 0.2) 0%, rgba(0, 0, 0, 0.8) 70%, rgba(0, 0, 0, 1) 100%);
+          animation: pulseBg 8s ease-in-out infinite alternate;
+          z-index: -1;
+        }
+
+        @keyframes pulseBg {
+          0% {
+            opacity: 0.5;
+            transform: scale(1);
+          }
+          100% {
+            opacity: 0.8;
+            transform: scale(1.1);
+          }
+        }
+
+        /* Estrellas brillantes */
+        .stars {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          z-index: -1;
+        }
+
+        /* Puntos de luz más pequeños */
+        .stars::before,
+        .stars::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-image: 
+            radial-gradient(1px 1px at 25% 25%, rgba(255, 255, 255, 0.8) 50%, transparent 100%),
+            radial-gradient(1px 1px at 50% 50%, rgba(255, 255, 255, 0.8) 50%, transparent 100%),
+            radial-gradient(2px 2px at 75% 75%, rgba(255, 255, 255, 0.9) 50%, transparent 100%),
+            radial-gradient(2px 2px at 20% 85%, rgba(255, 0, 255, 0.9) 50%, transparent 100%),
+            radial-gradient(1px 1px at 35% 45%, rgba(221, 160, 221, 0.8) 50%, transparent 100%),
+            radial-gradient(2px 2px at 65% 15%, rgba(147, 112, 219, 0.8) 50%, transparent 100%),
+            radial-gradient(1px 1px at 90% 35%, rgba(138, 43, 226, 0.7) 50%, transparent 100%);
+          background-repeat: repeat;
+          background-size: 800px 800px;
+          opacity: 0.3;
+          animation: twinkleStars 6s ease-in-out infinite alternate;
+        }
+
+        .stars::after {
+          background-size: 400px 400px;
+          animation-duration: 8s;
+          animation-delay: 1s;
+        }
+
+        @keyframes twinkleStars {
+          0% {
+            opacity: 0.3;
+            transform: translateY(0);
+          }
+          100% {
+            opacity: 0.7;
+            transform: translateY(-10px);
+          }
+        }
+
+        /* Nebulosas púrpuras */
+        .nebula {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: 
+            radial-gradient(ellipse at 20% 20%, rgba(147, 0, 255, 0.2) 0%, rgba(147, 0, 255, 0) 60%),
+            radial-gradient(ellipse at 80% 80%, rgba(186, 85, 211, 0.2) 0%, rgba(186, 85, 211, 0) 60%),
+            radial-gradient(ellipse at 50% 30%, rgba(138, 43, 226, 0.15) 0%, rgba(138, 43, 226, 0) 70%),
+            radial-gradient(ellipse at 30% 70%, rgba(153, 50, 204, 0.15) 0%, rgba(153, 50, 204, 0) 70%);
+          filter: blur(8px);
+          opacity: 0.5;
+          animation: nebulaMove 20s ease-in-out infinite alternate;
+          z-index: -1;
+        }
+
+        @keyframes nebulaMove {
+          0% {
+            transform: scale(1) rotate(0deg);
+            opacity: 0.4;
+          }
+          100% {
+            transform: scale(1.1) rotate(2deg);
+            opacity: 0.7;
+          }
+        }
+
+        /* Estrellas que se desplazan lentamente */
+        .shooting-stars {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          transform: rotate(-35deg);
+          z-index: -1;
+        }
+
+        .shooting-stars::before,
+        .shooting-stars::after {
+          content: "";
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          background-image: 
+            linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 100%);
+          animation: shootingStars 10s linear infinite;
+          opacity: 0;
+        }
+
+        .shooting-stars::after {
+          animation-delay: 5s;
+        }
+
+        @keyframes shootingStars {
+          0% {
+            opacity: 0;
+            transform: translateX(-100%) translateY(100%);
+          }
+          10%, 15% {
+            opacity: 0.3;
+          }
+          100% {
+            opacity: 0;
+            transform: translateX(100%) translateY(-100%);
+          }
+        }
+
+        /* Nubes brillantes púrpuras */
+        .glowing-clouds {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background: 
+            radial-gradient(ellipse at 30% 70%, rgba(221, 160, 221, 0.2) 0%, rgba(221, 160, 221, 0) 70%),
+            radial-gradient(ellipse at 70% 40%, rgba(186, 85, 211, 0.2) 0%, rgba(186, 85, 211, 0) 70%);
+          filter: blur(30px);
+          animation: glowClouds 15s ease-in-out infinite alternate;
+          z-index: -1;
+        }
+
+        @keyframes glowClouds {
+          0% {
+            opacity: 0.3;
+            transform: translateY(-10px);
+          }
+          100% {
+            opacity: 0.6;
+            transform: translateY(10px);
+          }
+        }
+
+        /* Añade un efecto similar a auroras boreales en la parte inferior */
+        .aurora {
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 30%;
+          background: linear-gradient(to top, 
+            rgba(191, 0, 255, 0.2) 0%, 
+            rgba(137, 43, 226, 0.1) 40%, 
+            rgba(123, 104, 238, 0.05) 60%, 
+            transparent 100%);
+          filter: blur(10px);
+          transform-origin: bottom;
+          animation: auroraMove 20s ease-in-out infinite alternate;
+          z-index: -1;
+        }
+
+        @keyframes auroraMove {
+          0% {
+            transform: scaleY(0.8);
+            opacity: 0.3;
+          }
+          100% {
+            transform: scaleY(1.2);
+            opacity: 0.5;
+          }
         }
         
         /* Encabezado */
@@ -261,6 +461,34 @@
             z-index: 2;
         }
         
+        /* Estilos para enlaces que actúan como botones */
+        .btn-style {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 3px 6px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            font-size: 0.6rem;
+            box-shadow: 0px 2px 4px rgba(0, 255, 0, 0.5);
+            animation: buttonGlow 1.5s infinite alternate;
+            margin: 0 2px;
+            position: relative;
+            z-index: 2;
+            text-decoration: none;
+        }
+        
+        .btn-style:hover {
+            background-color: purple;
+            transform: scale(1.02);
+            box-shadow: 0px 0px 6px rgba(0, 255, 0, 1);
+        }
+        
         /* Etiquetas */
         .tag {
             position: absolute;
@@ -482,188 +710,313 @@
                 justify-content: center;
             }
         }
+        
+        /* Efectos avanzados */
+        .animate-on-scroll {
+          opacity: 0;
+          transform: translateY(30px);
+          transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .animate-on-scroll.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .animate-in-left {
+          opacity: 0;
+          transform: translateX(-50px);
+          transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .animate-in-left.visible {
+          opacity: 1;
+          transform: translateX(0);
+        }
+
+        .animate-in-right {
+          opacity: 0;
+          transform: translateX(50px);
+          transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .animate-in-right.visible {
+          opacity: 1;
+          transform: translateX(0);
+        }
+        
+        .gradient-text {
+          background: linear-gradient(45deg, #ff00ff, #00ffff);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          display: inline-block;
+          font-weight: bold;
+          letter-spacing: 1px;
+        }
+
+        .gradient-text-gold {
+          background: linear-gradient(45deg, #ffd700, #ff8c00);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          display: inline-block;
+          font-weight: bold;
+        }
+        
+        .neon-text {
+          color: #fff;
+          text-shadow: 
+            0 0 5px #fff, 
+            0 0 10px #fff, 
+            0 0 15px #0073e6, 
+            0 0 20px #0073e6, 
+            0 0 25px #0073e6, 
+            0 0 30px #0073e6, 
+            0 0 35px #0073e6;
+        }
+
+        .neon-border {
+          border: 2px solid transparent;
+          border-radius: 10px;
+          animation: neonBorder 1.5s infinite alternate;
+        }
+
+        @keyframes neonBorder {
+          from { 
+            box-shadow: 
+              0 0 5px #fff,
+              0 0 10px #fff,
+              0 0 15px #fff,
+              0 0 20px #ff00de,
+              0 0 35px #ff00de;
+          }
+          to { 
+            box-shadow: 
+              0 0 10px #fff,
+              0 0 20px #fff,
+              0 0 30px #fff,
+              0 0 40px #ff00de,
+              0 0 70px #ff00de;
+          }
+        }
+        
+        .floating {
+          animation: floating 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes floating {
+          0% { transform: translateY(0); }
+          100% { transform: translateY(-15px); }
+        }
+
+        .floating-slow {
+          animation: floating-slow 5s ease-in-out infinite alternate;
+        }
+
+        @keyframes floating-slow {
+          0% { transform: translateY(0); }
+          100% { transform: translateY(-10px); }
+        }
+        
+        .glass-effect {
+          background: rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          border-radius: 10px;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 <body>
-    <!-- Partículas de fondo para efecto visual -->
-    <div class="particles" id="particles-js"></div>
+    <!-- Fondo cósmico -->
+    <div class="cosmic-background">
+        <div class="stars"></div>
+        <div class="nebula"></div>
+        <div class="shooting-stars"></div>
+        <div class="glowing-clouds"></div>
+        <div class="aurora"></div>
+    </div>
     
     <header>
         <img src="banner.png" alt="Banner de la Tienda de Bots" class="floating">
         <h1 class="fade-in gradient-text">Tienda de Bots Premium</h1>
-        <p class="fade-in">Explora nuestra selección exclusiva de bots diseñados profesionalmente para optimizar y mejorar tu experiencia digital. Somos especialistas en soluciones automatizadas para Discord y más plataformas.</p>
+        <p class="fade-in animate-on-scroll">Explora nuestra selección exclusiva de bots diseñados profesionalmente para optimizar y mejorar tu experiencia digital. Somos especialistas en soluciones automatizadas para Discord y más plataformas.</p>
     </header>
     
-    <div class="promo-banner">
-        <h2>¡OFERTA ESPECIAL DE LANZAMIENTO!</h2>
-        <p>Obtén un 20% de descuento en todos nuestros bots premium usando el código: <strong>PREMIUM25</strong></p>
-        <button><img src="carrito.png" alt="Carrito" width="10"> Ver ofertas</button>
+    <div class="promo-banner neon-border">
+        <h2 class="gradient-text-gold">¡OFERTA ESPECIAL DE LANZAMIENTO!</h2>
+        <p>Obtén un 20% de descuento en todos nuestros bots premium usando el código: <strong class="neon-text">PREMIUM25</strong></p>
+        <a href="#" onclick="alert('Próximamente: Catálogo de ofertas especiales con código PREMIUM25.'); return false;" class="btn-style">
+            <img src="carrito.png" alt="Carrito" width="10"> Ver ofertas
+        </a>
     </div>
     
-    <h2 class="categoria-titulo">Bots Destacados</h2>
+    <h2 class="categoria-titulo gradient-text">Bots Destacados</h2>
     
-    <section class="productos" class="floating">
-        <div class="bot-card">
+    <section class="productos">
+        <div class="bot-card animate-in-left">
             <span class="tag oferta">-15%</span>
             <h2>Bot de Moderación</h2>
             <img src="rp.png" alt="Bot de RP" width="200">
             <p>Sistema avanzado de moderación con verificación de DNIs, integración con Roblox y más funciones.</p>
             <div class="rating">★★★★★</div>
-            <div class="precio">24.99€</div>
+            <div class="precio neon-text">24.99€</div>
             <ul class="features">
                 <li>Verificación automática</li>
                 <li>Sistema anti-spam</li>
                 <li>Logs detallados</li>
             </ul>
             <div class="button-container">
-    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=bacialvarez.5678@gmail.com&item_name=Bot%20de%20Moderaci%C3%B3n&amount=24.99&currency_code=EUR" style="background-color: black; color: white; border: none; padding: 3px 6px; border-radius: 3px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 3px; font-size: 0.6rem; box-shadow: 0px 2px 4px rgba(0, 255, 0, 0.5); margin: 0 2px; text-decoration: none;">
-        <img src="carrito.png" alt="Carrito" width="10"> Comprar
-    </a>
-    <a href="#" onclick="alert('Información sobre este bot: Próximamente más detalles.'); return false;" style="background-color: black; color: white; border: none; padding: 3px 6px; border-radius: 3px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 3px; font-size: 0.6rem; box-shadow: 0px 2px 4px rgba(0, 255, 0, 0.5); margin: 0 2px; text-decoration: none;">
-        <img src="info.png" alt="Info" width="10"> Info
-    </a>
+                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=bacialvarez.5678@gmail.com&item_name=Bot%20de%20Moderaci%C3%B3n&amount=24.99&currency_code=EUR" class="btn-style">
+                    <img src="carrito.png" alt="Carrito" width="10"> Comprar
+                </a>
+                <a href="#" onclick="alert('Información sobre este bot: Próximamente más detalles.'); return false;" class="btn-style">
+                    <img src="info.png" alt="Info" width="10"> Info
+                </a>
             </div>
         </div>
         
-        <div class="bot-card">
+        <div class="bot-card animate-on-scroll">
             <span class="tag nuevo">NUEVO</span>
             <h2>Bot de Música</h2>
-            <img src="music.png" alt="Bot de Música" width="200">
+            <img src="music.png" alt="Bot de Música" width="200" class="floating-slow">
             <p>Reproduce música de alta calidad en tu servidor de Discord con amplio soporte para plataformas streaming.</p>
             <div class="rating">★★★★☆</div>
-            <div class="precio">19.99€</div>
+            <div class="precio neon-text">19.99€</div>
             <ul class="features">
                 <li>Sin anuncios</li>
                 <li>Audio 320kbps</li>
                 <li>Múltiples plataformas</li>
             </ul>
             <div class="button-container">
-    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=bacialvarez.5678@gmail.com&item_name=Bot%20de%20Musica&amount=19.99&currency_code=EUR" style="background-color: black; color: white; border: none; padding: 3px 6px; border-radius: 3px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 3px; font-size: 0.6rem; box-shadow: 0px 2px 4px rgba(0, 255, 0, 0.5); margin: 0 2px; text-decoration: none;">
-        <img src="carrito.png" alt="Carrito" width="10"> Comprar
-    </a>
-    <a href="#" onclick="alert('Información sobre este bot: Próximamente más detalles.'); return false;" style="background-color: black; color: white; border: none; padding: 3px 6px; border-radius: 3px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 3px; font-size: 0.6rem; box-shadow: 0px 2px 4px rgba(0, 255, 0, 0.5); margin: 0 2px; text-decoration: none;">
-        <img src="info.png" alt="Info" width="10"> Info
-    </a>
+                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=bacialvarez.5678@gmail.com&item_name=Bot%20de%20Musica&amount=19.99&currency_code=EUR" class="btn-style">
+                    <img src="carrito.png" alt="Carrito" width="10"> Comprar
+                </a>
+                <a href="#" onclick="alert('Información sobre este bot: Próximamente más detalles.'); return false;" class="btn-style">
+                    <img src="info.png" alt="Info" width="10"> Info
+                </a>
             </div>
         </div>
         
-        <div class="bot-card">
+        <div class="bot-card animate-in-right">
             <h2>Bot Personalizado</h2>
-            <img src="custom.png" alt="Bot Personalizado" width="200">
+            <img src="custom.png" alt="Bot Personalizado" width="200" class="floating">
             <p>Crea un bot a medida según las necesidades específicas de tu comunidad o negocio.</p>
             <div class="rating">★★★★★</div>
-            <div class="precio">Desde 49.99€</div>
+            <div class="precio neon-text">Desde 49.99€</div>
             <ul class="features">
                 <li>Desarrollo a medida</li>
                 <li>Soporte premium</li>
                 <li>Actualizaciones incluidas</li>
             </ul>
             <div class="button-container">
-    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=bacialvarez.5678@gmail.com&item_name=Bot%20customizado&amount=49.99&currency_code=EUR" style="background-color: black; color: white; border: none; padding: 3px 6px; border-radius: 3px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 3px; font-size: 0.6rem; box-shadow: 0px 2px 4px rgba(0, 255, 0, 0.5); margin: 0 2px; text-decoration: none;">
-        <img src="carrito.png" alt="Carrito" width="10"> Comprar
-    </a>
-    <a href="#" onclick="alert('Información sobre este bot: Próximamente más detalles.'); return false;" style="background-color: black; color: white; border: none; padding: 3px 6px; border-radius: 3px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 3px; font-size: 0.6rem; box-shadow: 0px 2px 4px rgba(0, 255, 0, 0.5); margin: 0 2px; text-decoration: none;">
-        <img src="info.png" alt="Info" width="10"> Info
-    </a>
+                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=bacialvarez.5678@gmail.com&item_name=Bot%20customizado&amount=49.99&currency_code=EUR" class="btn-style">
+                    <img src="carrito.png" alt="Carrito" width="10"> Comprar
+                </a>
+                <a href="#" onclick="alert('Información sobre este bot: Próximamente más detalles.'); return false;" class="btn-style">
+                    <img src="info.png" alt="Info" width="10"> Info
+                </a>
             </div>
         </div>
     </section>
     
-    <h2 class="categoria-titulo">Bots Económicos</h2>
+    <h2 class="categoria-titulo gradient-text">Bots Económicos</h2>
     
     <section class="productos">
-        <div class="bot-card">
+        <div class="bot-card animate-in-left">
             <h2>Bot Mini-Moderación</h2>
             <img src="mini-mod.png" alt="Mini-Moderación" width="200">
             <p>Versión simplificada de nuestro bot de moderación con funciones esenciales.</p>
             <div class="rating">★★★☆☆</div>
-            <div class="precio">9.99€</div>
+            <div class="precio neon-text">9.99€</div>
             <ul class="features">
                 <li>Comandos básicos</li>
                 <li>Alertas automáticas</li>
                 <li>Soporte incluido</li>
             </ul>
             <div class="button-container">
-    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=bacialvarez.5678@gmail.com&item_name=Bot%20mini&amount=9.99&currency_code=EUR" style="background-color: black; color: white; border: none; padding: 3px 6px; border-radius: 3px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 3px; font-size: 0.6rem; box-shadow: 0px 2px 4px rgba(0, 255, 0, 0.5); margin: 0 2px; text-decoration: none;">
-        <img src="carrito.png" alt="Carrito" width="10"> Comprar
-    </a>
-    <a href="#" onclick="alert('Información sobre este bot: Próximamente más detalles.'); return false;" style="background-color: black; color: white; border: none; padding: 3px 6px; border-radius: 3px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 3px; font-size: 0.6rem; box-shadow: 0px 2px 4px rgba(0, 255, 0, 0.5); margin: 0 2px; text-decoration: none;">
-        <img src="info.png" alt="Info" width="10"> Info
-    </a>
+                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=bacialvarez.5678@gmail.com&item_name=Bot%20mini&amount=9.99&currency_code=EUR" class="btn-style">
+                    <img src="carrito.png" alt="Carrito" width="10"> Comprar
+                </a>
+                <a href="#" onclick="alert('Información sobre este bot: Próximamente más detalles.'); return false;" class="btn-style">
+                    <img src="info.png" alt="Info" width="10"> Info
+                </a>
             </div>
         </div>
         
-        <div class="bot-card">
+        <div class="bot-card animate-on-scroll">
             <h2>Bot de Eventos</h2>
-            <img src="eventos.png" alt="Bot de Eventos" width="200">
+            <img src="eventos.png" alt="Bot de Eventos" width="200" class="floating-slow">
             <p>Organiza y gestiona eventos en tu servidor con RSVP, recordatorios y más.</p>
             <div class="rating">★★★★☆</div>
-            <div class="precio">14.99€</div>
+            <div class="precio neon-text">14.99€</div>
             <ul class="features">
                 <li>Calendario integrado</li>
                 <li>Notificaciones</li>
                 <li>Roles automáticos</li>
             </ul>
             <div class="button-container">
-    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=bacialvarez.5678@gmail.com&item_name=Bot%20eventos&amount=14.99&currency_code=EUR" style="background-color: black; color: white; border: none; padding: 3px 6px; border-radius: 3px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 3px; font-size: 0.6rem; box-shadow: 0px 2px 4px rgba(0, 255, 0, 0.5); margin: 0 2px; text-decoration: none;">
-        <img src="carrito.png" alt="Carrito" width="10"> Comprar
-    </a>
-    <a href="#" onclick="alert('Información sobre este bot: Próximamente más detalles.'); return false;" style="background-color: black; color: white; border: none; padding: 3px 6px; border-radius: 3px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 3px; font-size: 0.6rem; box-shadow: 0px 2px 4px rgba(0, 255, 0, 0.5); margin: 0 2px; text-decoration: none;">
-        <img src="info.png" alt="Info" width="10"> Info
-    </a>
+                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=bacialvarez.5678@gmail.com&item_name=Bot%20eventos&amount=14.99&currency_code=EUR" class="btn-style">
+                    <img src="carrito.png" alt="Carrito" width="10"> Comprar
+                </a>
+                <a href="#" onclick="alert('Información sobre este bot: Próximamente más detalles.'); return false;" class="btn-style">
+                    <img src="info.png" alt="Info" width="10"> Info
+                </a>
             </div>
         </div>
         
-        <div class="bot-card">
+        <div class="bot-card animate-in-right">
             <span class="tag oferta">HOT</span>
             <h2>Bot de Niveles</h2>
             <img src="niveles.png" alt="Bot de Niveles" width="200">
             <p>Sistema de niveles y experiencia para usuarios con recompensas automáticas.</p>
             <div class="rating">★★★★☆</div>
-            <div class="precio">12.99€</div>
+            <div class="precio neon-text">12.99€</div>
             <ul class="features">
                 <li>Tarjetas personalizables</li>
                 <li>Roles automáticos</li>
                 <li>Rankings semanales</li>
             </ul>
             <div class="button-container">
-    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=bacialvarez.5678@gmail.com&item_name=Bot%20eventos&amount=12.99&currency_code=EUR" style="background-color: black; color: white; border: none; padding: 3px 6px; border-radius: 3px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 3px; font-size: 0.6rem; box-shadow: 0px 2px 4px rgba(0, 255, 0, 0.5); margin: 0 2px; text-decoration: none;">
-        <img src="carrito.png" alt="Carrito" width="10"> Comprar
-    </a>
-    <a href="#" onclick="alert('Información sobre este bot: Próximamente más detalles.'); return false;" style="background-color: black; color: white; border: none; padding: 3px 6px; border-radius: 3px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 3px; font-size: 0.6rem; box-shadow: 0px 2px 4px rgba(0, 255, 0, 0.5); margin: 0 2px; text-decoration: none;">
-        <img src="info.png" alt="Info" width="10"> Info
-    </a>
+                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=bacialvarez.5678@gmail.com&item_name=Bot%20niveles&amount=12.99&currency_code=EUR" class="btn-style">
+                    <img src="carrito.png" alt="Carrito" width="10"> Comprar
+                </a>
+                <a href="#" onclick="alert('Información sobre este bot: Próximamente más detalles.'); return false;" class="btn-style">
+                    <img src="info.png" alt="Info" width="10"> Info
+                </a>
             </div>
         </div>
     </section>
     
-    <div class="promo-banner">
-        <h2>¿NECESITAS VARIOS BOTS?</h2>
+    <div class="promo-banner neon-border animate-on-scroll">
+        <h2 class="gradient-text-gold">¿NECESITAS VARIOS BOTS?</h2>
         <p>Consulta nuestros paquetes con descuentos de hasta el 35% al combinar múltiples bots</p>
-        <button><img src="descuento.png" alt="Descuento" width="10"> Ver paquetes</button>
+        <a href="#" onclick="alert('Próximamente: Paquetes con descuentos especiales. Combina varios bots y ahorra hasta un 35%.'); return false;" class="btn-style">
+            <img src="descuento.png" alt="Descuento" width="10"> Ver paquetes
+        </a>
     </div>
     
     <section class="testimonios">
-        <h2 class="categoria-titulo">Lo que dicen nuestros clientes</h2>
+        <h2 class="categoria-titulo gradient-text">Lo que dicen nuestros clientes</h2>
         
-        <div class="testimonio">
+        <div class="testimonio animate-in-left glass-effect">
             <p>"El bot de moderación ha transformado completamente la gestión de mi servidor. Ahora puedo pasar más tiempo interactuando con mi comunidad y menos tiempo preocupándome por problemas."</p>
             <div class="testimonio-autor">- Carlos G., servidor de 5,000+ miembros</div>
         </div>
         
-        <div class="testimonio">
+        <div class="testimonio animate-on-scroll glass-effect">
             <p>"La calidad del bot de música es inigualable. Sin cortes, sin lag, y con una calidad de sonido perfecta. Vale cada céntimo."</p>
             <div class="testimonio-autor">- Laura M., comunidad de gaming</div>
         </div>
         
-        <div class="testimonio">
+        <div class="testimonio animate-in-right glass-effect">
             <p>"El proceso de desarrollo del bot personalizado fue muy profesional. Escucharon todas mis necesidades y crearon exactamente lo que mi negocio necesitaba."</p>
             <div class="testimonio-autor">- Miguel A., empresa de marketing</div>
         </div>
     </section>
     
-    <section class="contacto">
-        <h2 class="categoria-titulo">¿Tienes preguntas?</h2>
+    <section class="contacto glass-effect animate-on-scroll">
+        <h2 class="categoria-titulo gradient-text">¿Tienes preguntas?</h2>
         <p>Nuestro equipo está listo para ayudarte con cualquier duda o solicitud personalizada.</p>
         
         <form>
@@ -687,14 +1040,14 @@
                 <textarea id="mensaje" name="mensaje" required></textarea>
             </div>
             
-            <button type="submit" class="submit-btn">Enviar mensaje</button>
+            <button type="submit" class="submit-btn neon-border">Enviar mensaje</button>
         </form>
     </section>
     
     <footer>
         <div class="footer-content">
             <div class="footer-section">
-                <h3>Enlaces rápidos</h3>
+                <h3 class="gradient-text">Enlaces rápidos</h3>
                 <ul>
                     <li><a href="#">Inicio</a></li>
                     <li><a href="#">Catálogo</a></li>
@@ -705,7 +1058,7 @@
             </div>
             
             <div class="footer-section">
-                <h3>Soporte</h3>
+                <h3 class="gradient-text">Soporte</h3>
                 <ul>
                     <li><a href="#">FAQ</a></li>
                     <li><a href="#">Documentación</a></li>
@@ -715,13 +1068,13 @@
             </div>
             
             <div class="footer-section">
-                <h3>Contáctanos</h3>
+                <h3 class="gradient-text">Contáctanos</h3>
                 <p>support@tiendabots.com</p>
                 <p>+34 612 345 678</p>
                 <div class="social-icons">
-                    <a href="#"><img src="discord.png" alt="Discord"></a>
-                    <a href="#"><img src="twitter.png" alt="Twitter"></a>
-                    <a href="#"><img src="instagram.png" alt="Instagram"></a>
+                    <a href="#"><img src="discord.png" alt="Discord" class="floating"></a>
+                    <a href="#"><img src="twitter.png" alt="Twitter" class="floating-slow"></a>
+                    <a href="#"><img src="instagram.png" alt="Instagram" class="floating"></a>
                 </div>
             </div>
         </div>
@@ -732,28 +1085,25 @@
         </div>
     </footer>
     
-    <!-- Script para las partículas de fondo -->
+    <!-- Script para las animaciones -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Código para inicializar partículas y animaciones adicionales
             console.log('Tienda de Bots cargada correctamente');
+            
+            // Animaciones al hacer scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {threshold: 0.1});
+
+            document.querySelectorAll('.animate-on-scroll, .animate-in-left, .animate-in-right').forEach(el => {
+                observer.observe(el);
+            });
         });
-    </script>
-
-    <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, {threshold: 0.1});
-
-    document.querySelectorAll('.animate-on-scroll, .animate-in-left, .animate-in-right').forEach(el => {
-      observer.observe(el);
-    });
-  });
     </script>
 </body>
 </html>
