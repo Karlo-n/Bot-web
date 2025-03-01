@@ -1085,26 +1085,5 @@
             <p>Todos los derechos reservados. Términos y Condiciones | Política de Privacidad</p>
         </div>
     </footer>
-    
-    <!-- Script para las animaciones -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Código para inicializar partículas y animaciones adicionales
-            console.log('Tienda de Bots cargada correctamente');
-            
-            // Animaciones al hacer scroll
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, {threshold: 0.1});
-
-            document.querySelectorAll('.animate-on-scroll, .animate-in-left, .animate-in-right').forEach(el => {
-                observer.observe(el);
-            });
-        });
-    </script>
 </body>
 </html>
