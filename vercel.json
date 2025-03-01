@@ -10,9 +10,9 @@
     { "src": "*.svg", "use": "@vercel/static" },
     { "src": "*.json", "use": "@vercel/static" }
   ],
-  "routes": [
-    { "src": "/docs", "dest": "/docs/index.html" },
-    { "src": "/docs/(.*)", "dest": "/docs/$1" }
+  "rewrites": [
+    { "source": "/docs", "destination": "/docs/index.html" },
+    { "source": "/docs/:path*", "destination": "/docs/:path*" }
   ],
   "headers": [
     {
