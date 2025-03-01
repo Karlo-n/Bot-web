@@ -21,6 +21,7 @@
             text-align: center;
             overflow-x: hidden;
             position: relative;
+            line-height: 1.6;
         }
         
         /* Fondo negro con púrpura brillante en movimiento */
@@ -168,11 +169,9 @@
         /* Encabezado */
         header {
             padding: 20px;
-            font-size: 2.5rem;
-            text-shadow: 3px 3px 7px black;
-            animation: fadeIn 2s ease-in-out;
             position: relative;
             z-index: 10;
+            margin-bottom: 20px;
         }
         
         header h1 {
@@ -180,15 +179,17 @@
             color: #f0f0f0;
             text-transform: uppercase;
             letter-spacing: 3px;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
         }
         
         header p {
             margin-top: 10px;
-            font-size: 1.2rem;
+            font-size: clamp(0.9rem, 2vw, 1.2rem);
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
             color: #d0d0d0;
+            padding: 0 15px;
         }
         
         /* Animaciones */
@@ -205,9 +206,10 @@
         
         /* Contenido principal */
         .main-content {
+            width: 95%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 10px;
             position: relative;
             z-index: 10;
         }
@@ -215,14 +217,14 @@
         .doc-section {
             background: rgba(0, 0, 0, 0.5);
             border-radius: 15px;
-            padding: 30px;
+            padding: 20px;
             margin-bottom: 40px;
             box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.1);
             text-align: left;
         }
         
         .doc-section h2 {
-            font-size: 1.8rem;
+            font-size: clamp(1.4rem, 3vw, 1.8rem);
             margin-bottom: 20px;
             text-align: center;
             color: #f0f0f0;
@@ -243,29 +245,46 @@
         }
         
         .doc-section h3 {
-            font-size: 1.4rem;
+            font-size: clamp(1.2rem, 2.5vw, 1.4rem);
             margin: 25px 0 15px;
+            color: #f0f0f0;
+        }
+        
+        .doc-section h4 {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            margin: 20px 0 10px;
             color: #f0f0f0;
         }
         
         .doc-section p {
             margin-bottom: 15px;
             line-height: 1.6;
+            font-size: clamp(0.9rem, 1.8vw, 1rem);
         }
         
         .doc-section ul, .doc-section ol {
             margin-left: 25px;
             margin-bottom: 20px;
+            font-size: clamp(0.9rem, 1.8vw, 1rem);
         }
         
         .doc-section li {
             margin-bottom: 8px;
         }
         
+        /* Tabla de comandos - Versión responsiva */
+        .command-table-container {
+            width: 100%;
+            overflow-x: auto;
+            margin: 20px 0;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 0, 255, 0.5) rgba(0, 0, 0, 0.1);
+        }
+        
         .command-table {
             width: 100%;
+            min-width: 300px;
             border-collapse: collapse;
-            margin: 20px 0;
         }
         
         .command-table th {
@@ -273,11 +292,14 @@
             padding: 10px;
             text-align: left;
             border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            font-size: clamp(0.85rem, 1.7vw, 1rem);
+            white-space: nowrap;
         }
         
         .command-table td {
             padding: 8px 10px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: clamp(0.85rem, 1.7vw, 1rem);
         }
         
         .command-table tr:hover {
@@ -297,6 +319,7 @@
             padding: 15px;
             margin: 20px 0;
             border-radius: 0 5px 5px 0;
+            font-size: clamp(0.85rem, 1.7vw, 1rem);
         }
         
         .code-block {
@@ -306,13 +329,14 @@
             font-family: monospace;
             margin: 15px 0;
             overflow-x: auto;
+            font-size: clamp(0.8rem, 1.6vw, 0.95rem);
         }
         
-        /* Footer exacto como en la imagen */
+        /* Footer responsivo */
         footer {
             margin-top: 30px;
-            padding: 30px;
-            font-size: 1rem;
+            padding: 30px 15px;
+            font-size: clamp(0.85rem, 1.7vw, 1rem);
             animation: fadeIn 2s ease-in-out;
             background: rgba(0, 0, 0, 0.7);
             position: relative;
@@ -330,14 +354,16 @@
         }
         
         .footer-section {
-            flex: 1;
+            flex: 1 1 200px;
             min-width: 200px;
             text-align: left;
+            margin-bottom: 20px;
         }
         
         .footer-section h3 {
             margin-bottom: 15px;
             color: #ff00ff;
+            font-size: clamp(1rem, 2vw, 1.2rem);
         }
         
         .footer-section ul {
@@ -362,6 +388,7 @@
             display: flex;
             gap: 15px;
             margin-top: 15px;
+            flex-wrap: wrap;
         }
         
         .social-icons img {
@@ -377,7 +404,7 @@
             margin-top: 30px;
             padding-top: 15px;
             border-top: 1px solid rgba(255, 255, 255, 0.2);
-            font-size: 0.8rem;
+            font-size: clamp(0.7rem, 1.4vw, 0.8rem);
             color: #a0a0a0;
             text-align: center;
         }
@@ -411,11 +438,33 @@
           100% { transform: translateY(-15px); }
         }
         
-        /* Responsive */
+        /* Media queries mejorados */
+        /* Para tablets y dispositivos medianos */
+        @media (max-width: 992px) {
+            .doc-section {
+                padding: 20px 15px;
+            }
+            
+            .command-category {
+                padding: 12px;
+            }
+            
+            .main-content {
+                width: 95%;
+                padding: 10px 0;
+            }
+            
+            .note-box {
+                padding: 12px;
+            }
+        }
+        
+        /* Para dispositivos móviles */
         @media (max-width: 768px) {
             .footer-section {
                 flex: 1 1 100%;
                 text-align: center;
+                min-width: 100%;
             }
             
             .social-icons {
@@ -423,11 +472,69 @@
             }
             
             .doc-section {
-                padding: 20px 15px;
+                padding: 15px 12px;
+                margin-bottom: 30px;
             }
             
-            .command-table {
-                font-size: 0.9rem;
+            header {
+                padding: 15px 10px;
+            }
+            
+            .doc-section h2::after {
+                width: 80px;
+            }
+            
+            .command-category {
+                padding: 10px;
+            }
+            
+            .note-box {
+                padding: 10px;
+                margin: 15px 0;
+            }
+            
+            .doc-section ul, .doc-section ol {
+                margin-left: 20px;
+            }
+        }
+        
+        /* Para dispositivos muy pequeños */
+        @media (max-width: 480px) {
+            .footer-content {
+                gap: 20px;
+            }
+            
+            .footer-section {
+                margin-bottom: 15px;
+            }
+            
+            .doc-section {
+                padding: 12px 10px;
+                margin-bottom: 25px;
+            }
+            
+            .doc-section h2 {
+                margin-bottom: 15px;
+            }
+            
+            .doc-section h2::after {
+                width: 60px;
+            }
+            
+            .command-category {
+                margin: 20px 0 10px;
+            }
+            
+            .doc-section ul, .doc-section ol {
+                margin-left: 15px;
+            }
+            
+            header h1 {
+                margin-top: 10px;
+            }
+            
+            .copyright {
+                margin-top: 20px;
             }
         }
     </style>
@@ -473,36 +580,38 @@
                 <p>Sistema completo para administrar y moderar tu servidor con múltiples herramientas.</p>
                 
                 <h4>Comandos principales:</h4>
-                <table class="command-table">
-                    <tr>
-                        <th>Comando</th>
-                        <th>Descripción</th>
-                    </tr>
-                    <tr>
-                        <td>/ban</td>
-                        <td>Banea a un usuario del servidor</td>
-                    </tr>
-                    <tr>
-                        <td>/kick</td>
-                        <td>Expulsa a un usuario del servidor</td>
-                    </tr>
-                    <tr>
-                        <td>/mute</td>
-                        <td>Silencia a un usuario por un tiempo determinado</td>
-                    </tr>
-                    <tr>
-                        <td>/warn</td>
-                        <td>Advierte a un usuario y registra la infracción</td>
-                    </tr>
-                    <tr>
-                        <td>/clear</td>
-                        <td>Elimina un número específico de mensajes</td>
-                    </tr>
-                    <tr>
-                        <td>/logs</td>
-                        <td>Muestra registros de acciones de moderación</td>
-                    </tr>
-                </table>
+                <div class="command-table-container">
+                    <table class="command-table">
+                        <tr>
+                            <th>Comando</th>
+                            <th>Descripción</th>
+                        </tr>
+                        <tr>
+                            <td>/ban</td>
+                            <td>Banea a un usuario del servidor</td>
+                        </tr>
+                        <tr>
+                            <td>/kick</td>
+                            <td>Expulsa a un usuario del servidor</td>
+                        </tr>
+                        <tr>
+                            <td>/mute</td>
+                            <td>Silencia a un usuario por un tiempo determinado</td>
+                        </tr>
+                        <tr>
+                            <td>/warn</td>
+                            <td>Advierte a un usuario y registra la infracción</td>
+                        </tr>
+                        <tr>
+                            <td>/clear</td>
+                            <td>Elimina un número específico de mensajes</td>
+                        </tr>
+                        <tr>
+                            <td>/logs</td>
+                            <td>Muestra registros de acciones de moderación</td>
+                        </tr>
+                    </table>
+                </div>
                 
                 <h4>Eventos incluidos:</h4>
                 <ul>
@@ -519,36 +628,38 @@
                 <p>Sistema completo para comunidades de roleplay con gestión de identidades y economía.</p>
                 
                 <h4>Comandos principales:</h4>
-                <table class="command-table">
-                    <tr>
-                        <th>Comando</th>
-                        <th>Descripción</th>
-                    </tr>
-                    <tr>
-                        <td>/creardni</td>
-                        <td>Crea un DNI con tu información de personaje</td>
-                    </tr>
-                    <tr>
-                        <td>/borrardni</td>
-                        <td>Elimina tu DNI actual</td>
-                    </tr>
-                    <tr>
-                        <td>/verdni</td>
-                        <td>Muestra el DNI de un usuario</td>
-                    </tr>
-                    <tr>
-                        <td>/trabajo</td>
-                        <td>Gestiona el trabajo de tu personaje</td>
-                    </tr>
-                    <tr>
-                        <td>/inventario</td>
-                        <td>Muestra o gestiona tu inventario</td>
-                    </tr>
-                    <tr>
-                        <td>/transferir</td>
-                        <td>Transfiere dinero a otro usuario</td>
-                    </tr>
-                </table>
+                <div class="command-table-container">
+                    <table class="command-table">
+                        <tr>
+                            <th>Comando</th>
+                            <th>Descripción</th>
+                        </tr>
+                        <tr>
+                            <td>/creardni</td>
+                            <td>Crea un DNI con tu información de personaje</td>
+                        </tr>
+                        <tr>
+                            <td>/borrardni</td>
+                            <td>Elimina tu DNI actual</td>
+                        </tr>
+                        <tr>
+                            <td>/verdni</td>
+                            <td>Muestra el DNI de un usuario</td>
+                        </tr>
+                        <tr>
+                            <td>/trabajo</td>
+                            <td>Gestiona el trabajo de tu personaje</td>
+                        </tr>
+                        <tr>
+                            <td>/inventario</td>
+                            <td>Muestra o gestiona tu inventario</td>
+                        </tr>
+                        <tr>
+                            <td>/transferir</td>
+                            <td>Transfiere dinero a otro usuario</td>
+                        </tr>
+                    </table>
+                </div>
                 
                 <h4>Eventos incluidos:</h4>
                 <ul>
@@ -565,36 +676,38 @@
                 <p>Reproduce música de alta calidad con soporte para múltiples plataformas.</p>
                 
                 <h4>Comandos principales:</h4>
-                <table class="command-table">
-                    <tr>
-                        <th>Comando</th>
-                        <th>Descripción</th>
-                    </tr>
-                    <tr>
-                        <td>/play</td>
-                        <td>Reproduce una canción o añade a la cola</td>
-                    </tr>
-                    <tr>
-                        <td>/skip</td>
-                        <td>Salta a la siguiente canción</td>
-                    </tr>
-                    <tr>
-                        <td>/pause</td>
-                        <td>Pausa la reproducción actual</td>
-                    </tr>
-                    <tr>
-                        <td>/queue</td>
-                        <td>Muestra la cola de reproducción</td>
-                    </tr>
-                    <tr>
-                        <td>/lyrics</td>
-                        <td>Muestra la letra de la canción actual</td>
-                    </tr>
-                    <tr>
-                        <td>/filters</td>
-                        <td>Aplica efectos de audio (bass boost, nightcore, etc.)</td>
-                    </tr>
-                </table>
+                <div class="command-table-container">
+                    <table class="command-table">
+                        <tr>
+                            <th>Comando</th>
+                            <th>Descripción</th>
+                        </tr>
+                        <tr>
+                            <td>/play</td>
+                            <td>Reproduce una canción o añade a la cola</td>
+                        </tr>
+                        <tr>
+                            <td>/skip</td>
+                            <td>Salta a la siguiente canción</td>
+                        </tr>
+                        <tr>
+                            <td>/pause</td>
+                            <td>Pausa la reproducción actual</td>
+                        </tr>
+                        <tr>
+                            <td>/queue</td>
+                            <td>Muestra la cola de reproducción</td>
+                        </tr>
+                        <tr>
+                            <td>/lyrics</td>
+                            <td>Muestra la letra de la canción actual</td>
+                        </tr>
+                        <tr>
+                            <td>/filters</td>
+                            <td>Aplica efectos de audio (bass boost, nightcore, etc.)</td>
+                        </tr>
+                    </table>
+                </div>
                 
                 <h4>Eventos incluidos:</h4>
                 <ul>
@@ -616,28 +729,30 @@
                 <p>Versión ligera para moderar servidores pequeños o medianos.</p>
                 
                 <h4>Comandos principales:</h4>
-                <table class="command-table">
-                    <tr>
-                        <th>Comando</th>
-                        <th>Descripción</th>
-                    </tr>
-                    <tr>
-                        <td>/ban</td>
-                        <td>Banea a un usuario del servidor</td>
-                    </tr>
-                    <tr>
-                        <td>/kick</td>
-                        <td>Expulsa a un usuario del servidor</td>
-                    </tr>
-                    <tr>
-                        <td>/mute</td>
-                        <td>Silencia a un usuario</td>
-                    </tr>
-                    <tr>
-                        <td>/clear</td>
-                        <td>Elimina mensajes recientes</td>
-                    </tr>
-                </table>
+                <div class="command-table-container">
+                    <table class="command-table">
+                        <tr>
+                            <th>Comando</th>
+                            <th>Descripción</th>
+                        </tr>
+                        <tr>
+                            <td>/ban</td>
+                            <td>Banea a un usuario del servidor</td>
+                        </tr>
+                        <tr>
+                            <td>/kick</td>
+                            <td>Expulsa a un usuario del servidor</td>
+                        </tr>
+                        <tr>
+                            <td>/mute</td>
+                            <td>Silencia a un usuario</td>
+                        </tr>
+                        <tr>
+                            <td>/clear</td>
+                            <td>Elimina mensajes recientes</td>
+                        </tr>
+                    </table>
+                </div>
                 
                 <h4>Eventos incluidos:</h4>
                 <ul>
@@ -652,28 +767,30 @@
                 <p>Gestiona eventos y actividades en tu servidor.</p>
                 
                 <h4>Comandos principales:</h4>
-                <table class="command-table">
-                    <tr>
-                        <th>Comando</th>
-                        <th>Descripción</th>
-                    </tr>
-                    <tr>
-                        <td>/crearevento</td>
-                        <td>Crea un nuevo evento en el servidor</td>
-                    </tr>
-                    <tr>
-                        <td>/listarevento</td>
-                        <td>Muestra los eventos programados</td>
-                    </tr>
-                    <tr>
-                        <td>/participar</td>
-                        <td>Registra tu participación en un evento</td>
-                    </tr>
-                    <tr>
-                        <td>/recordatorio</td>
-                        <td>Configura recordatorios para eventos</td>
-                    </tr>
-                </table>
+                <div class="command-table-container">
+                    <table class="command-table">
+                        <tr>
+                            <th>Comando</th>
+                            <th>Descripción</th>
+                        </tr>
+                        <tr>
+                            <td>/crearevento</td>
+                            <td>Crea un nuevo evento en el servidor</td>
+                        </tr>
+                        <tr>
+                            <td>/listarevento</td>
+                            <td>Muestra los eventos programados</td>
+                        </tr>
+                        <tr>
+                            <td>/participar</td>
+                            <td>Registra tu participación en un evento</td>
+                        </tr>
+                        <tr>
+                            <td>/recordatorio</td>
+                            <td>Configura recordatorios para eventos</td>
+                        </tr>
+                    </table>
+                </div>
                 
                 <h4>Eventos incluidos:</h4>
                 <ul>
@@ -688,28 +805,30 @@
                 <p>Sistema de experiencia y niveles para miembros del servidor.</p>
                 
                 <h4>Comandos principales:</h4>
-                <table class="command-table">
-                    <tr>
-                        <th>Comando</th>
-                        <th>Descripción</th>
-                    </tr>
-                    <tr>
-                        <td>/nivel</td>
-                        <td>Muestra tu nivel actual y experiencia</td>
-                    </tr>
-                    <tr>
-                        <td>/ranking</td>
-                        <td>Muestra el ranking del servidor</td>
-                    </tr>
-                    <tr>
-                        <td>/recompensas</td>
-                        <td>Lista de recompensas por nivel</td>
-                    </tr>
-                    <tr>
-                        <td>/tarjeta</td>
-                        <td>Personaliza tu tarjeta de nivel</td>
-                    </tr>
-                </table>
+                <div class="command-table-container">
+                    <table class="command-table">
+                        <tr>
+                            <th>Comando</th>
+                            <th>Descripción</th>
+                        </tr>
+                        <tr>
+                            <td>/nivel</td>
+                            <td>Muestra tu nivel actual y experiencia</td>
+                        </tr>
+                        <tr>
+                            <td>/ranking</td>
+                            <td>Muestra el ranking del servidor</td>
+                        </tr>
+                        <tr>
+                            <td>/recompensas</td>
+                            <td>Lista de recompensas por nivel</td>
+                        </tr>
+                        <tr>
+                            <td>/tarjeta</td>
+                            <td>Personaliza tu tarjeta de nivel</td>
+                        </tr>
+                    </table>
+                </div>
                 
                 <h4>Eventos incluidos:</h4>
                 <ul>
