@@ -15,7 +15,7 @@ const paginaInstrucciones = 'instrucciones.html';
 const basePayPalUrl = 'https://www.paypal.me/BaciliaAlvarez/';
 
 // URL del webhook de Discord
-const webhookURL = 'TU_URL_DE_WEBHOOK_AQUÍ'; // Reemplaza con tu webhook real
+const webhookURL = 'https://discord.com/api/webhooks/1345247192151232562/GR_ZBmWUZUqU9_6Z4bD43dJDOeuPmEXj9hyyxEOnda7iJVh9b0Y2mTEZyl3nFt2z9FKI'; // Reemplaza con tu webhook real
 
 // Documento cargado
 document.addEventListener('DOMContentLoaded', function() {
