@@ -1,80 +1,45 @@
-// Archivo script.js para manejar las redirecciones de compra
+// Precios para cada producto (en euros)
+const precios = {
+    'Bot de Moderación': 24.99,
+    'Bot de Música': 19.99,
+    'Bot Personalizado': 49.99,
+    'Bot Mini-Moderación': 9.99,
+    'Bot de Eventos': 14.99,
+    'Bot de Niveles': 12.99
+};
 
+// URL de la página de instrucciones post-pago
+const paginaInstrucciones = 'instrucciones.html';
+
+// URL base de PayPal
+const basePayPalUrl = 'https://www.paypal.me/BaciliaAlvarez/';
+
+// URL del webhook de Discord
+const webhookURL = 'TU_URL_DE_WEBHOOK_AQUÍ'; // Reemplaza con tu webhook real
+
+// Documento cargado
 document.addEventListener('DOMContentLoaded', function() {
-    // Obtener todos los botones de compra
-    const botonesCompra = document.querySelectorAll('button:contains("Comprar")');
-    const botonesCarta = document.querySelectorAll('button:contains("Consultar")');
+    console.log('Tienda de Bots cargada correctamente');
     
-    // PayPal URL base - Usando tu enlace de PayPal.me
-    const basePayPalUrl = 'https://www.paypal.me/BaciliaAlvarez/';
-    
-    // Precios para cada producto (en euros)
-    const precios = {
-        'Bot de Moderación': 24.99,
-        'Bot de Música': 19.99,
-        'Bot Personalizado': 49.99,
-        'Bot Mini-Moderación': 9.99,
-        'Bot de Eventos': 14.99,
-        'Bot de Niveles': 12.99
-    };
-    
-    // URL de la página de instrucciones post-pago
-    const paginaInstrucciones = 'instrucciones.html';
-    
-    // Función para agregar el evento de clic a los botones de compra
-    botonesCompra.forEach(boton => {
-        boton.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Encontrar el título del bot (h2 más cercano dentro de la tarjeta)
-            const card = this.closest('.bot-card');
-            const titulo = card.querySelector('h2').textContent;
-            
-            // Verificar si tenemos el precio para este bot
-            if (precios[titulo]) {
-                // Extraer el precio del bot
-                const precio = precios[titulo];
-                
-                // Guardar información del producto en localStorage para usarla después
-                localStorage.setItem('ultimaCompra', JSON.stringify({
-                    producto: titulo,
-                    precio: precio + '€',
-                    timestamp: new Date().toISOString()
-                }));
-                
-                // Redireccionar a PayPal.me con el monto específico
-                window.location.href = basePayPalUrl + precio;
-                
-                // Configurar un temporizador para redirigir a la página de instrucciones después
-                // (ya que PayPal.me no tiene opciones de Return URL como los botones tradicionales)
-                localStorage.setItem('redirigirAInstrucciones', 'true');
-                
-            } else {
-                console.error('No se encontró precio para:', titulo);
-                alert('Error al procesar la compra. Por favor, inténtalo de nuevo o contáctanos.');
+    // Animaciones al hacer scroll
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
             }
         });
+    }, {threshold: 0.1});
+
+    document.querySelectorAll('.animate-on-scroll, .animate-in-left, .animate-in-right').forEach(el => {
+        observer.observe(el);
     });
     
-    // Manejar botones de consulta (para bots personalizados)
-    botonesCarta.forEach(boton => {
-        boton.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Redireccionar directamente a un formulario de contacto específico
-            window.location.href = 'contacto-personalizado.html';
-        });
-    });
-    
-    // Añadir un botón de confirmación después de pago
-    const paginaPrincipal = 'index.html';
-    
-    // Verificar si estamos en la página principal y si hay una compra pendiente
-    if (window.location.pathname.includes(paginaPrincipal) || localStorage.getItem('redirigirAInstrucciones') === 'true') {
+    // Verificar si hay una compra pendiente
+    if (localStorage.getItem('redirigirAInstrucciones') === 'true') {
         // Recuperar información de la compra
         const ultimaCompra = JSON.parse(localStorage.getItem('ultimaCompra') || '{}');
         
-        if (ultimaCompra.producto && localStorage.getItem('redirigirAInstrucciones') === 'true') {
+        if (ultimaCompra.producto) {
             // Crear un modal de confirmación
             const modal = document.createElement('div');
             modal.style.position = 'fixed';
@@ -122,36 +87,129 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     }
+    
+    // Manejo del formulario de contacto
+    const formularioContacto = document.getElementById('contactForm');
+    if (formularioContacto) {
+        formularioContacto.addEventListener('submit', function(e) {
+            e.preventDefault(); // Evitamos que el formulario se envíe normalmente
+            
+            // Obtenemos los valores de los campos
+            const nombre = document.getElementById('nombre').value;
+            const email = document.getElementById('email').value;
+            const asunto = document.getElementById('asunto').value;
+            const mensaje = document.getElementById('mensaje').value;
+            
+            // Construimos el mensaje para Discord
+            const data = {
+                embeds: [{
+                    title: 'Nueva consulta: ' + asunto,
+                    color: 10181046, // Color púrpura en decimal
+                    fields: [
+                        {
+                            name: 'Nombre',
+                            value: nombre,
+                            inline: true
+                        },
+                        {
+                            name: 'Email',
+                            value: email,
+                            inline: true
+                        },
+                        {
+                            name: 'Mensaje',
+                            value: mensaje
+                        }
+                    ],
+                    footer: {
+                        text: 'Enviado desde la Tienda de Bots Premium'
+                    },
+                    timestamp: new Date().toISOString()
+                }]
+            };
+            
+            // Enviamos el mensaje al webhook
+            fetch(webhookURL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Mensaje enviado correctamente
+                    alert('¡Mensaje enviado correctamente! Pronto nos pondremos en contacto contigo.');
+                    formularioContacto.reset(); // Limpiamos el formulario
+                } else {
+                    // Error al enviar
+                    alert('Ocurrió un error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde.');
+                }
+            })
+            .catch(error => {
+                // Error de red
+                console.error('Error:', error);
+                alert('Ocurrió un error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde.');
+            });
+        });
+    }
 });
 
-// Función auxiliar para seleccionar botones por texto (similar a jQuery :contains)
-NodeList.prototype.filter = Array.prototype.filter;
-HTMLCollection.prototype.filter = Array.prototype.filter;
-
-if (!Element.prototype.matches) {
-    Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector;
+// Funciones para los botones
+function comprarBot(boton) {
+    // Encontrar la tarjeta padre
+    const card = boton.closest('.bot-card');
+    // Obtener el título del bot
+    const titulo = card.querySelector('h2').textContent;
+    console.log('Comprando: ' + titulo);
+    
+    // Obtener el precio
+    const precio = precios[titulo];
+    if (!precio) {
+        console.error('No se encontró precio para:', titulo);
+        alert('Error al procesar la compra. Por favor, inténtalo de nuevo o contáctanos.');
+        return;
+    }
+    
+    // Guardar información del producto
+    localStorage.setItem('ultimaCompra', JSON.stringify({
+        producto: titulo,
+        precio: precio + '€',
+        timestamp: new Date().toISOString()
+    }));
+    
+    // Redireccionar a PayPal
+    window.location.href = basePayPalUrl + precio;
+    
+    // Marcar para mostrar la confirmación al regresar
+    localStorage.setItem('redirigirAInstrucciones', 'true');
 }
 
-// Definición personalizada de querySelectorAll para filtrar por texto contenido
-if (!document.querySelectorAll.contains) {
-    document.querySelectorAll = function(selector) {
-        if (selector.includes(':contains')) {
-            // Extraer el texto buscado
-            const regex = /:contains\("([^"]+)"\)/;
-            const match = selector.match(regex);
-            if (match && match[1]) {
-                const textToFind = match[1];
-                const baseSelector = selector.replace(/:contains\("([^"]+)"\)/, '');
-                
-                // Obtener todos los elementos que coinciden con el selector base
-                const allElements = document.querySelectorAll(baseSelector);
-                
-                // Filtrar por los que contienen el texto
-                return Array.from(allElements).filter(el => el.textContent.includes(textToFind));
-            }
-        }
-        
-        // Comportamiento normal si no hay :contains
-        return document.querySelectorAll(selector);
-    };
+function consultarBot(boton) {
+    const card = boton.closest('.bot-card');
+    const titulo = card.querySelector('h2').textContent;
+    console.log('Consultando sobre: ' + titulo);
+    
+    // Redireccionar a la página de contacto personalizado
+    window.location.href = 'contacto-personalizado.html';
+}
+
+function verInfo(boton) {
+    const card = boton.closest('.bot-card');
+    const titulo = card.querySelector('h2').textContent;
+    alert('Información sobre ' + titulo + '\nPróximamente más detalles sobre este bot.');
+}
+
+function verDemo(boton) {
+    const card = boton.closest('.bot-card');
+    const titulo = card.querySelector('h2').textContent;
+    alert('Demo de ' + titulo + '\nContacta con nosotros para programar una demostración en vivo.');
+}
+
+function verOfertas() {
+    alert('Próximamente: Catálogo de ofertas especiales\nUsa el código PREMIUM25 al realizar tu compra para obtener un 20% de descuento.');
+}
+
+function verPaquetes() {
+    alert('Próximamente: Paquetes con descuentos especiales\nCombina varios bots y ahorra hasta un 35%.');
 }
