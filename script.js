@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 alert("✅ ¡Mensaje enviado correctamente! Pronto nos pondremos en contacto.");
                 formulario.reset(); // Limpiar el formulario
             } else {
-                alert("⚠️ Ocurrió un error al enviar el mensaje. Inténtalo de nuevo más tarde.");
+                alert("⚠️ mensaje. Inténtalo de nuevo más tarde.");
             }
         })
         .catch(error => {
