@@ -1018,29 +1018,39 @@
 
     <section class="contacto glass-effect animate-on-scroll">
     <h2 class="categoria-titulo gradient-text">¿Tienes preguntas?</h2>
-    <p>Nuestro equipo está listo para ayudarte con cualquier duda o solicitud personalizada.</p><form id="contactForm">
-  <div class="form-group">
-    <label for="nombre">Nombre:</label>
-    <input type="text" id="nombre" name="nombre" required>
-</div>
+    <p>Nuestro equipo está listo para ayudarte con cualquier duda o solicitud personalizada.</p>
+    
+    <!-- Formulario modificado para usar FormSubmit -->
+    <form id="contactForm" action="https://formsubmit.co/eternidad.studios@gmail.com" method="POST">
+        <!-- Configuración de FormSubmit -->
+        <input type="hidden" name="_subject" value="Nueva consulta desde Tienda de Bots">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_next" value="https://tu-sitio.com/gracias.html">
+        <!-- Reemplaza la URL anterior con la URL de tu página de agradecimiento -->
 
-<div class="form-group">
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required>
-</div>
+        <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+        </div>
 
-<div class="form-group">
-    <label for="asunto">Asunto:</label>
-    <input type="text" id="asunto" name="asunto" required>
-</div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
 
-<div class="form-group">
-    <label for="mensaje">Mensaje:</label>
-    <textarea id="mensaje" name="mensaje" required></textarea>
-</div>
+        <div class="form-group">
+            <label for="asunto">Asunto:</label>
+            <input type="text" id="asunto" name="asunto" required>
+        </div>
 
-<button type="submit" class="submit-btn neon-border">Enviar mensaje</button>
-</form>
+        <div class="form-group">
+            <label for="mensaje">Mensaje:</label>
+            <textarea id="mensaje" name="mensaje" required></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn neon-border">Enviar mensaje</button>
+    </form>
     </section>
     
     <footer>
