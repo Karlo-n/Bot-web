@@ -14,25 +14,6 @@ const paginaInstrucciones = 'instrucciones.html';
 // URL base de PayPal
 const basePayPalUrl = 'https://www.paypal.me/BaciliaAlvarez/';
 
-// URL del webhook de Discord
-const webhookURL = 'https://discord.com/api/webhooks/1345247192151232562/GR_ZBmWUZUqU9_6Z4bD43dJDOeuPmEXj9hyyxEOnda7iJVh9b0Y2mTEZyl3nFt2z9FKI';
-
-// Función para enviar mensajes al webhook de Discord usando XMLHttpRequest
-function enviarADiscord(mensaje, nombreUsuario, avatarURL) {
-    const request = new XMLHttpRequest();
-    request.open("POST", webhookURL);
-    request.setRequestHeader('Content-type', 'application/json');
-    
-    const params = {
-        username: nombreUsuario || "Tienda de Bots Premium",
-        avatar_url: avatarURL || "https://i.imgur.com/xxxxxx.png", // Reemplaza con tu URL de avatar por defecto
-        content: mensaje
-    };
-    
-    request.send(JSON.stringify(params));
-    return request;
-}
-
 // Documento cargado
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Tienda de Bots cargada correctamente');
@@ -90,17 +71,8 @@ document.addEventListener('DOMContentLoaded', function() {
             // Evento para el botón de confirmación  
             document.getElementById('confirmar-pago').addEventListener('click', function() {  
                 localStorage.removeItem('redirigirAInstrucciones');  
-                
-                // Enviar notificación de pago confirmado a Discord
-                const mensajeCompra = `🎉 **NUEVA COMPRA COMPLETADA** 🎉\n` +
-                                     `**Producto:** ${ultimaCompra.producto}\n` +
-                                     `**Precio:** ${ultimaCompra.precio}\n` +
-                                     `**Fecha:** ${new Date().toLocaleString('es-ES')}`;
-                
-                enviarADiscord(mensajeCompra);
-                
-                document.body.removeChild(modal);
-                // Redireccionar a la página de instrucciones
+                document.body.removeChild(modal);  
+                // Redireccionar a la página de instrucciones  
                 window.location.href = paginaInstrucciones;  
             });  
             
@@ -113,72 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }  
     }  
     
-    // Manejo del formulario de contacto  
-    const formularioContacto = document.getElementById('contactForm');  
-    if (formularioContacto) {  
-        formularioContacto.addEventListener('submit', function(e) {  
-            e.preventDefault(); // Evitamos que el formulario se envíe normalmente  
-            
-            // Obtenemos los valores de los campos  
-            const nombre = document.getElementById('nombre').value;  
-            const email = document.getElementById('email').value;  
-            const asunto = document.getElementById('asunto').value;  
-            const mensaje = document.getElementById('mensaje').value;  
-            
-            // Verificamos que todos los campos necesarios estén completados
-            if (!nombre || !email || !mensaje) {
-                alert('Por favor, completa todos los campos obligatorios.');
-                return;
-            }
-            
-            // Mostramos indicador de carga
-            const botonEnviar = formularioContacto.querySelector('button[type="submit"]');
-            if (botonEnviar) {
-                botonEnviar.disabled = true;
-                botonEnviar.textContent = 'Enviando...';
-            }
-            
-            // Preparamos el mensaje para Discord
-            const mensajeContacto = `📧 **NUEVA CONSULTA** 📧\n` +
-                                   `**Asunto:** ${asunto || 'Sin asunto'}\n` +
-                                   `**Nombre:** ${nombre}\n` +
-                                   `**Email:** ${email}\n\n` +
-                                   `**Mensaje:**\n${mensaje}`;
-            
-            // Enviamos el mensaje al webhook usando XMLHttpRequest
-            const request = enviarADiscord(mensajeContacto);
-            
-            request.onload = function() {
-                if (request.status >= 200 && request.status < 300) {
-                    // Mensaje enviado correctamente  
-                    alert('¡Mensaje enviado correctamente! Pronto nos pondremos en contacto contigo.');  
-                    formularioContacto.reset(); // Limpiamos el formulario
-                } else {
-                    // Error al enviar
-                    console.error('Error:', request.statusText);
-                    alert('Ocurrió un error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde.');
-                }
-                
-                // Restauramos el botón
-                if (botonEnviar) {
-                    botonEnviar.disabled = false;
-                    botonEnviar.textContent = 'Enviar Mensaje';
-                }
-            };
-            
-            request.onerror = function() {
-                // Error de red
-                console.error('Error de conexión');
-                alert('Ocurrió un error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde.');
-                
-                // Restauramos el botón
-                if (botonEnviar) {
-                    botonEnviar.disabled = false;
-                    botonEnviar.textContent = 'Enviar Mensaje';
-                }
-            };
-        });  
-    }
+    // El formulario ahora es manejado por FormSubmit, no necesitamos código adicional aquí
 });
 
 // Funciones para los botones
@@ -207,14 +114,6 @@ function comprarBot(boton) {
         return;  
     }  
     
-    // Enviar notificación de intento de compra a Discord
-    const mensajeIntento = `🛒 **NUEVO INTENTO DE COMPRA** 🛒\n` +
-                          `**Producto:** ${titulo}\n` +
-                          `**Precio:** ${precio}€\n` +
-                          `**Estado:** Redirigido a PayPal`;
-    
-    enviarADiscord(mensajeIntento);
-    
     // Guardar información del producto  
     localStorage.setItem('ultimaCompra', JSON.stringify({  
         producto: titulo,  
@@ -236,13 +135,6 @@ function consultarBot(boton) {
     const titulo = card.querySelector('h2')?.textContent || 'Producto desconocido';
     console.log('Consultando sobre: ' + titulo);
 
-    // Enviar notificación de consulta a Discord
-    const mensajeConsulta = `❓ **NUEVA CONSULTA DE PRODUCTO** ❓\n` +
-                           `**Producto consultado:** ${titulo}\n` +
-                           `**Acción:** Usuario redirigido a página de contacto personalizado`;
-    
-    enviarADiscord(mensajeConsulta);
-    
     // Redireccionar a la página de contacto personalizado  
     window.location.href = 'contacto-personalizado.html';
 }
@@ -260,13 +152,6 @@ function verDemo(boton) {
     if (!card) return;
     
     const titulo = card.querySelector('h2')?.textContent || 'Producto desconocido';
-    
-    // Enviar notificación de solicitud de demo a Discord
-    const mensajeDemo = `🎮 **NUEVA SOLICITUD DE DEMOSTRACIÓN** 🎮\n` +
-                       `**Producto:** ${titulo}`;
-    
-    enviarADiscord(mensajeDemo);
-    
     alert('Demo de ' + titulo + '\nContacta con nosotros para programar una demostración en vivo.');
 }
 
