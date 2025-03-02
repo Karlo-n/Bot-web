@@ -138,6 +138,94 @@
             justify-content: center;
             color: #999;
             background-color: #f9f9f9;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .signature-box:hover {
+            background-color: #f0f0f0;
+            border-color: #666;
+        }
+        
+        /* Modal para la firma */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 600px;
+            overflow: hidden;
+        }
+        
+        .modal-header {
+            padding: 15px 20px;
+            background-color: #1c3c5f;
+            color: white;
+        }
+        
+        .modal-header h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+        
+        .modal-body {
+            padding: 20px;
+        }
+        
+        #signature-pad {
+            width: 100%;
+            height: 200px;
+            border: 1px solid #ddd;
+            background-color: white;
+            margin-bottom: 20px;
+            touch-action: none;
+        }
+        
+        .signature-controls {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+        
+        .btn-primary {
+            background-color: #1c3c5f;
+            color: white;
+        }
+        
+        .btn-danger {
+            background-color: #d9534f;
+            color: white;
+        }
+        
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
         }
         .footer {
             margin-top: 40px;
@@ -220,7 +308,22 @@
                 
                 <div class="form-group">
                     <label>Firma digital:</label>
-                    <div class="signature-box">Firmar aquí</div>
+                    <div class="signature-box" id="signature-area">Haga clic aquí para firmar</div>
+                    <div id="signature-modal" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3>Dibuje su firma</h3>
+                            </div>
+                            <div class="modal-body">
+                                <canvas id="signature-pad"></canvas>
+                                <div class="signature-controls">
+                                    <button id="clear-btn" class="btn btn-secondary">Rehacer</button>
+                                    <button id="cancel-btn" class="btn btn-danger">Cancelar</button>
+                                    <button id="accept-btn" class="btn btn-primary">Aceptar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -230,5 +333,122 @@
             <p>Fecha de creación del documento: 01 de marzo de 2025</p>
         </div>
     </div>
+
+    <script>
+        // Variables para el pad de firma
+        const signatureArea = document.getElementById('signature-area');
+        const signatureModal = document.getElementById('signature-modal');
+        const canvas = document.getElementById('signature-pad');
+        const clearBtn = document.getElementById('clear-btn');
+        const cancelBtn = document.getElementById('cancel-btn');
+        const acceptBtn = document.getElementById('accept-btn');
+        const ctx = canvas.getContext('2d');
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+        
+        // Ajustar tamaño del canvas
+        function resizeCanvas() {
+            const parentWidth = canvas.parentElement.clientWidth;
+            canvas.width = parentWidth;
+            canvas.height = 200;
+            
+            // Configurar estilo de dibujo
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.strokeStyle = '#000';
+        }
+        
+        // Abrir modal de firma
+        signatureArea.addEventListener('click', function() {
+            signatureModal.style.display = 'flex';
+            resizeCanvas();
+        });
+        
+        // Funcionalidad de dibujo
+        function startDrawing(e) {
+            isDrawing = true;
+            [lastX, lastY] = getCoordinates(e);
+        }
+        
+        function draw(e) {
+            if (!isDrawing) return;
+            e.preventDefault();
+            
+            const [currentX, currentY] = getCoordinates(e);
+            
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(currentX, currentY);
+            ctx.stroke();
+            
+            [lastX, lastY] = [currentX, currentY];
+        }
+        
+        function stopDrawing() {
+            isDrawing = false;
+        }
+        
+        // Obtener coordenadas para diferentes tipos de dispositivos
+        function getCoordinates(e) {
+            const rect = canvas.getBoundingClientRect();
+            const touch = e.touches && e.touches[0];
+            
+            const clientX = touch ? touch.clientX : e.clientX;
+            const clientY = touch ? touch.clientY : e.clientY;
+            
+            return [
+                clientX - rect.left,
+                clientY - rect.top
+            ];
+        }
+        
+        // Limpiar el canvas para rehacer la firma
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+        
+        // Cerrar el modal sin guardar la firma
+        function cancelSignature() {
+            clearCanvas();
+            signatureModal.style.display = 'none';
+        }
+        
+        // Aceptar y guardar la firma
+        function acceptSignature() {
+            // Guardar la firma como imagen
+            const signatureImage = canvas.toDataURL('image/png');
+            
+            // Mostrar la firma en el área de firma
+            signatureArea.innerHTML = '<img src="' + signatureImage + '" alt="Firma" style="max-width: 100%; max-height: 100%;">';
+            
+            // Cerrar el modal
+            signatureModal.style.display = 'none';
+        }
+        
+        // Eventos de mouse
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseout', stopDrawing);
+        
+        // Eventos táctiles
+        canvas.addEventListener('touchstart', startDrawing);
+        canvas.addEventListener('touchmove', draw);
+        canvas.addEventListener('touchend', stopDrawing);
+        
+        // Botones
+        clearBtn.addEventListener('click', clearCanvas);
+        cancelBtn.addEventListener('click', cancelSignature);
+        acceptBtn.addEventListener('click', acceptSignature);
+        
+        // Cerrar modal al hacer clic fuera
+        window.addEventListener('click', function(e) {
+            if (e.target === signatureModal) {
+                cancelSignature();
+            }
+        });
+    </script>
 </body>
 </html>
