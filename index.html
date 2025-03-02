@@ -844,3 +844,38 @@
             // Actualizar barra de progreso (ciclo de un día)
             const dayProgress = (elapsedTime % 86400) / 86400 * 100;
             document.getElementById("progressBar").style.width = `${dayProgress}%`;
+        }, 1000);
+        
+        // Efecto de hover para stats-box
+        document.querySelectorAll('.stat-box').forEach(box => {
+            box.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px)';
+            });
+            
+            box.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+        
+        // Añadir efecto de parpadeo a las etiquetas de estado
+        setInterval(() => {
+            document.querySelectorAll('.status-badge').forEach(badge => {
+                badge.style.opacity = badge.style.opacity === '0.7' ? '1' : '0.7';
+            });
+        }, 1000);
+        
+        // Efectos extras de desplazamiento
+        window.addEventListener('scroll', function() {
+            const scrollY = window.scrollY;
+            
+            // Efecto parallax para elementos con clase parallax
+            document.querySelectorAll('.stat-box').forEach((element, index) => {
+                const speed = 0.05;
+                const yPos = -(scrollY * speed * (index * 0.1 + 1));
+                element.style.backgroundPosition = `center ${yPos}px`;
+            });
+        });
+    </script>
+
+</body>
+</html>
