@@ -1,881 +1,1120 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
+<html lang="es"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API Karl</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Fuentes de Google -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Tienda de Bots Premium</title>
+    <link rel="stylesheet" href="efectos.css">
+    <script src="script.js" defer=""></script>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="favicon.png">
-
-    <!-- Metadatos Open Graph -->
-    <meta property="og:title" content="API Karl">
-    <meta property="og:description" content="Disfruta de APIKARL y sus apis.">
-    <meta property="og:image" content="https://apikarl.com/preview.png">
-    <meta property="og:url" content="https://apikarl.com">
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="shortcut icon" href="favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="favicon.png">
+    
+    <!-- Metaetiquetas para vista previa al compartir enlaces (Open Graph) -->
+    <meta property="og:title" content="Bots Discord Kapirium">
+    <meta property="og:description" content="Guía completa para compras y precios">
+    <meta property="og:image" content="favicon.png">
+    <meta property="og:url" content="http://bot.apikarl.com/">
     <meta property="og:type" content="website">
+    
+    <!-- Metaetiquetas para Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="API Karl">
-    <meta name="twitter:description" content="Descubre herramientas avanzadas para desarrollo y entretenimiento con API Karl.">
-    <meta name="twitter:image" content="https://apikarl.com/preview.png">
+    <meta name="twitter:title" content="Documentación - Bots Discord Kapirium">
+    <meta name="twitter:description" content="Guía completa para configurar y utilizar los bots de Kapirium en Discord. Comandos, eventos y características.">
+    <meta name="twitter:image" content="favicon.png">
+    
+    <!-- Metaetiquetas para SEO -->
+    <meta name="description" content="Documentación oficial de los bots de Discord de Kapirium. Aprende a configurar y utilizar todas las funciones de nuestros bots.">
+    <meta name="keywords" content="Discord, bots, Kapirium, documentación, comandos, moderación, música, roleplay, eventos">
     
     <style>
-        :root {
-            --primary: #4deeea;
-            --secondary: #74ee15;
-            --accent: #ffe700;
-            --dark-bg: #0a0f1a;
-            --card-bg: rgba(20, 25, 40, 0.9);
-            --glow-primary: 0 0 10px rgba(77, 238, 234, 0.7);
-            --glow-secondary: 0 0 10px rgba(116, 238, 21, 0.7);
-            --glow-accent: 0 0 10px rgba(255, 231, 0, 0.7);
-            --card-shadow: 0 4px 20px rgba(77, 238, 234, 0.2);
-            --text-shadow: 0 0 5px rgba(77, 238, 234, 0.7);
+        /* Estilos base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-
+        
         body {
-            background: var(--dark-bg);
+            font-family: 'Arial', sans-serif;
+            background: black;
             color: white;
-            font-family: 'Rajdhani', sans-serif;
+            text-align: center;
             overflow-x: hidden;
             position: relative;
-            margin: 0;
-            line-height: 1.6;
+        }
+        
+        /* Fondo negro con púrpura brillante en movimiento */
+        .cosmic-background {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: #000;
+          overflow: hidden;
+          z-index: -2;
         }
 
-        /* Fondo animado con partículas */
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle, rgba(20, 25, 40, 0.3) 10%, transparent 10%);
-            background-size: 30px 30px;
-            animation: backgroundAnimation 100s linear infinite;
-            z-index: -1;
+        /* Neblina de fondo que da sensación de profundidad */
+        .cosmic-background::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: radial-gradient(circle at center, rgba(76, 0, 153, 0.2) 0%, rgba(0, 0, 0, 0.8) 70%, rgba(0, 0, 0, 1) 100%);
+          animation: pulseBg 8s ease-in-out infinite alternate;
+          z-index: -1;
         }
 
-        @keyframes backgroundAnimation {
-            0% {
-                background-position: 0 0;
-            }
-            100% {
-                background-position: 1000px 1000px;
-            }
+        @keyframes pulseBg {
+          0% {
+            opacity: 0.5;
+            transform: scale(1);
+          }
+          100% {
+            opacity: 0.8;
+            transform: scale(1.1);
+          }
         }
 
-        /* Líneas de malla futurista */
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                linear-gradient(rgba(77, 238, 234, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(77, 238, 234, 0.05) 1px, transparent 1px);
-            background-size: 40px 40px;
-            z-index: -1;
+        /* Estrellas brillantes */
+        .stars {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          z-index: -1;
         }
 
-        /* Navbar mejorado */
-        .navbar {
+        /* Puntos de luz más pequeños */
+        .stars::before,
+        .stars::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-image: 
+            radial-gradient(1px 1px at 25% 25%, rgba(255, 255, 255, 0.8) 50%, transparent 100%),
+            radial-gradient(1px 1px at 50% 50%, rgba(255, 255, 255, 0.8) 50%, transparent 100%),
+            radial-gradient(2px 2px at 75% 75%, rgba(255, 255, 255, 0.9) 50%, transparent 100%),
+            radial-gradient(2px 2px at 20% 85%, rgba(255, 0, 255, 0.9) 50%, transparent 100%),
+            radial-gradient(1px 1px at 35% 45%, rgba(221, 160, 221, 0.8) 50%, transparent 100%),
+            radial-gradient(2px 2px at 65% 15%, rgba(147, 112, 219, 0.8) 50%, transparent 100%),
+            radial-gradient(1px 1px at 90% 35%, rgba(138, 43, 226, 0.7) 50%, transparent 100%);
+          background-repeat: repeat;
+          background-size: 800px 800px;
+          opacity: 0.3;
+          animation: twinkleStars 6s ease-in-out infinite alternate;
+        }
+
+        .stars::after {
+          background-size: 400px 400px;
+          animation-duration: 8s;
+          animation-delay: 1s;
+        }
+
+        @keyframes twinkleStars {
+          0% {
+            opacity: 0.3;
+            transform: translateY(0);
+          }
+          100% {
+            opacity: 0.7;
+            transform: translateY(-10px);
+          }
+        }
+
+        /* Nebulosas púrpuras */
+        .nebula {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: 
+            radial-gradient(ellipse at 20% 20%, rgba(147, 0, 255, 0.2) 0%, rgba(147, 0, 255, 0) 60%),
+            radial-gradient(ellipse at 80% 80%, rgba(186, 85, 211, 0.2) 0%, rgba(186, 85, 211, 0) 60%),
+            radial-gradient(ellipse at 50% 30%, rgba(138, 43, 226, 0.15) 0%, rgba(138, 43, 226, 0) 70%),
+            radial-gradient(ellipse at 30% 70%, rgba(153, 50, 204, 0.15) 0%, rgba(153, 50, 204, 0) 70%);
+          filter: blur(8px);
+          opacity: 0.5;
+          animation: nebulaMove 20s ease-in-out infinite alternate;
+          z-index: -1;
+        }
+
+        @keyframes nebulaMove {
+          0% {
+            transform: scale(1) rotate(0deg);
+            opacity: 0.4;
+          }
+          100% {
+            transform: scale(1.1) rotate(2deg);
+            opacity: 0.7;
+          }
+        }
+
+        /* Estrellas que se desplazan lentamente */
+        .shooting-stars {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          transform: rotate(-35deg);
+          z-index: -1;
+        }
+
+        .shooting-stars::before,
+        .shooting-stars::after {
+          content: "";
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          background-image: 
+            linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 100%);
+          animation: shootingStars 10s linear infinite;
+          opacity: 0;
+        }
+
+        .shooting-stars::after {
+          animation-delay: 5s;
+        }
+
+        @keyframes shootingStars {
+          0% {
+            opacity: 0;
+            transform: translateX(-100%) translateY(100%);
+          }
+          10%, 15% {
+            opacity: 0.3;
+          }
+          100% {
+            opacity: 0;
+            transform: translateX(100%) translateY(-100%);
+          }
+        }
+
+        /* Nubes brillantes púrpuras */
+        .glowing-clouds {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background: 
+            radial-gradient(ellipse at 30% 70%, rgba(221, 160, 221, 0.2) 0%, rgba(221, 160, 221, 0) 70%),
+            radial-gradient(ellipse at 70% 40%, rgba(186, 85, 211, 0.2) 0%, rgba(186, 85, 211, 0) 70%);
+          filter: blur(30px);
+          animation: glowClouds 15s ease-in-out infinite alternate;
+          z-index: -1;
+        }
+
+        @keyframes glowClouds {
+          0% {
+            opacity: 0.3;
+            transform: translateY(-10px);
+          }
+          100% {
+            opacity: 0.6;
+            transform: translateY(10px);
+          }
+        }
+
+        /* Añade un efecto similar a auroras boreales en la parte inferior */
+        .aurora {
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 30%;
+          background: linear-gradient(to top, 
+            rgba(191, 0, 255, 0.2) 0%, 
+            rgba(137, 43, 226, 0.1) 40%, 
+            rgba(123, 104, 238, 0.05) 60%, 
+            transparent 100%);
+          filter: blur(10px);
+          transform-origin: bottom;
+          animation: auroraMove 20s ease-in-out infinite alternate;
+          z-index: -1;
+        }
+
+        @keyframes auroraMove {
+          0% {
+            transform: scaleY(0.8);
+            opacity: 0.3;
+          }
+          100% {
+            transform: scaleY(1.2);
+            opacity: 0.5;
+          }
+        }
+        
+        /* Encabezado */
+        header {
+            padding: 20px;
+            font-size: 2.5rem;
+            text-shadow: 3px 3px 7px black;
+            animation: fadeIn 2s ease-in-out;
+            position: relative;
+            z-index: 10;
+        }
+        
+        header img {
+            width: 80%;
+            max-width: 800px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.9);
+            animation: floatAnimation 5s infinite ease-in-out;
+        }
+        
+        header h1 {
+            margin-top: 15px;
+            color: #f0f0f0;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        
+        header p {
+            margin-top: 10px;
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            color: #d0d0d0;
+        }
+        
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes floatAnimation {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        /* Sección de productos */
+        .productos {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 30px;
-            background: rgba(10, 15, 30, 0.95);
-            box-shadow: 0 0 20px rgba(77, 238, 234, 0.2);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(77, 238, 234, 0.2);
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            padding: 40px;
+            position: relative;
+            z-index: 10;
         }
-
-        .navbar-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 24px;
-            font-weight: bold;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+        
+        .categoria-titulo {
+            width: 100%;
+            font-size: 2rem;
+            margin: 30px 0 20px;
+            text-shadow: 0px 0px 10px rgba(255, 0, 255, 0.7);
+            position: relative;
+        }
+        
+        .categoria-titulo::after {
+            content: '';
             position: absolute;
+            bottom: -10px;
             left: 50%;
             transform: translateX(-50%);
-            letter-spacing: 2px;
-            text-shadow: var(--text-shadow);
-            transition: all 0.3s ease;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, #ff00ff, #00ffff);
+            border-radius: 3px;
         }
-
-        .navbar-title:hover {
-            transform: translateX(-50%) scale(1.05);
-            text-shadow: 0 0 10px var(--primary);
-        }
-
-        .discord-icon {
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            filter: drop-shadow(0 0 2px var(--primary));
-        }
-
-        .discord-icon:hover {
-            transform: rotate(5deg) scale(1.1);
-            filter: drop-shadow(0 0 5px var(--primary));
-        }
-
-        .menu-btn {
-            font-size: 24px;
-            cursor: pointer;
-            background: none;
-            border: none;
-            color: var(--primary);
-            transition: all 0.3s ease;
-        }
-
-        .menu-btn:hover {
-            transform: rotate(90deg);
-            color: var(--secondary);
-        }
-
-        .menu-container {
-            position: relative;
-            display: inline-block;
-        }
-
-        .menu-content {
-            display: none;
-            position: absolute;
-            top: 40px;
-            right: 0;
-            background: rgba(20, 25, 40, 0.95);
-            border-radius: 10px;
-            padding: 15px;
-            box-shadow: 0 0 20px rgba(77, 238, 234, 0.3);
-            min-width: 180px;
-            opacity: 0;
-            transform: translateY(-10px);
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-            z-index: 20;
-            border: 1px solid rgba(77, 238, 234, 0.2);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-        }
-
-        .menu-visible {
-            display: block;
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .menu-content b {
-            display: block;
-            color: var(--primary);
-            margin: 10px 0 5px;
-            font-size: 14px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            border-bottom: 1px solid rgba(77, 238, 234, 0.2);
-            padding-bottom: 3px;
-        }
-
-        .menu-content a {
-            display: block;
-            padding: 8px 10px;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-            margin: 2px 0;
-        }
-
-        .menu-content a:hover {
-            background: rgba(77, 238, 234, 0.1);
-            transform: translateX(5px);
-            color: var(--primary);
-        }
-
-        /* Stats container con mejor diseño */
-        .stats-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            max-width: 1100px;
-            margin: 60px auto;
+        
+        /* Tarjetas de bots */
+        .bot-card {
+            background: linear-gradient(135deg, #800080, #0000ff, #ff00ff);
             padding: 20px;
-            z-index: 5;
-            animation: fadeIn 1s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .stat-box {
-            background: var(--card-bg);
-            padding: 25px;
             border-radius: 15px;
+            width: 280px;
             text-align: center;
-            box-shadow: var(--card-shadow);
-            transition: all 0.4s ease;
+            color: white;
+            box-shadow: 0px 6px 15px rgba(255, 255, 255, 0.6);
+            transform: scale(1);
+            transition: transform 0.3s, background 1s, box-shadow 0.5s;
+            animation: glowAnimation 2s infinite alternate;
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(77, 238, 234, 0.1);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
         }
-
-        .stat-box::before {
+        
+        .bot-card::before {
             content: '';
             position: absolute;
             top: -50%;
             left: -50%;
             width: 200%;
             height: 200%;
-            background: conic-gradient(
-                transparent, 
-                rgba(77, 238, 234, 0.1), 
-                transparent 30%
-            );
-            animation: rotate 10s linear infinite;
-            z-index: -1;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+            z-index: 1;
         }
-
-        @keyframes rotate {
-            100% {
-                transform: rotate(360deg);
-            }
+        
+        .bot-card:hover::before {
+            opacity: 1;
         }
-
-        .stat-box:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(77, 238, 234, 0.3);
+        
+        .bot-card:hover {
+            transform: scale(1.05);
+            background: linear-gradient(135deg, #ff1493, #1e90ff, #ff4500);
+            box-shadow: 0px 8px 20px rgba(255, 255, 255, 0.9);
         }
-
-        .stat-box img {
-            width: 50px;
-            height: 50px;
-            margin: 0 auto 15px;
-            object-fit: contain;
-            filter: drop-shadow(0 0 5px var(--primary));
-            transition: all 0.3s ease;
-        }
-
-        .stat-box:hover img {
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        .stat-box h2 {
-            color: var(--primary);
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.3rem;
-            margin-bottom: 10px;
+        
+        .bot-card h2 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            color: #f0f0f0;
             position: relative;
-            display: inline-block;
+            z-index: 2;
         }
-
-        .stat-box h2::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -5px;
-            width: 0;
-            height: 2px;
-            background: var(--secondary);
-            transition: width 0.4s ease;
-        }
-
-        .stat-box:hover h2::after {
-            width: 100%;
-        }
-
-        .stat-box p {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 1.2rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .stat-box:hover p {
-            color: white;
-            text-shadow: 0 0 5px rgba(77, 238, 234, 0.7);
-        }
-
-        .clock {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.4rem;
-            font-weight: bold;
-            letter-spacing: 2px;
-            color: var(--accent);
-            text-shadow: 0 0 5px rgba(255, 231, 0, 0.5);
-        }
-
-        /* Animación de carga */
-        .loading {
-            position: relative;
-        }
-
-        .loading::after {
-            content: '...';
-            display: inline-block;
-            animation: dots 1.5s infinite;
-            width: 20px;
-            text-align: left;
-        }
-
-        @keyframes dots {
-            0%, 20% { content: '.'; }
-            40% { content: '..'; }
-            60%, 100% { content: '...'; }
-        }
-
-        /* Barra de progreso para tiempo activo */
-        .progress-container {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.1);
+        
+        .bot-card img {
             border-radius: 10px;
-            margin-top: 15px;
-            overflow: hidden;
+            margin-bottom: 15px;
+            transition: transform 0.3s;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
             position: relative;
+            z-index: 2;
         }
-
-        .progress-bar {
-            height: 8px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            border-radius: 10px;
-            width: 0%;
-            transition: width 1s linear;
-            position: relative;
+        
+        .bot-card:hover img {
+            transform: scale(1.05);
         }
-
-        .progress-bar::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(
-                to right,
-                transparent,
-                rgba(255, 255, 255, 0.5),
-                transparent
-            );
-            animation: shimmer 2s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        /* Efectos de pulso para los valores */
-        .pulse-value {
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        /* Footer con información adicional */
-        .footer {
-            text-align: center;
-            padding: 30px 0;
-            margin-top: 60px;
-            background: rgba(10, 15, 30, 0.8);
-            position: relative;
-            border-top: 1px solid rgba(77, 238, 234, 0.2);
-        }
-
-        .footer p {
-            color: rgba(255, 255, 255, 0.7);
+        
+        .bot-card p {
+            margin-bottom: 15px;
+            line-height: 1.5;
             font-size: 0.9rem;
-            margin: 5px 0;
+            color: #d0d0d0;
+            position: relative;
+            z-index: 2;
         }
-
-        .footer a {
-            color: var(--primary);
-            text-decoration: none;
-            transition: all 0.3s ease;
+        
+        .precio {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #00ff00;
+            margin: 10px 0;
+            position: relative;
+            z-index: 2;
         }
-
-        .footer a:hover {
-            color: var(--secondary);
-            text-decoration: underline;
+        
+        .rating {
+            color: gold;
+            font-size: 1.2rem;
+            margin: 10px 0;
+            position: relative;
+            z-index: 2;
         }
-
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 20px 0;
+        
+        .features {
+            margin: 15px 0;
+            font-size: 0.8rem;
+            text-align: left;
+            padding-left: 20px;
+            position: relative;
+            z-index: 2;
         }
-
-        .social-icon {
-            display: flex;
+        
+        .features li {
+            margin-bottom: 5px;
+            list-style-type: none;
+            position: relative;
+        }
+        
+        .features li::before {
+            content: '✓';
+            color: #00ff00;
+            position: absolute;
+            left: -15px;
+        }
+        
+        @keyframes glowAnimation {
+            0% { box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.3); }
+            100% { box-shadow: 0px 0px 30px rgba(255, 255, 255, 0.9); }
+        }
+        
+        /* Botones rediseñados más pequeños */
+        button {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 3px 6px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(77, 238, 234, 0.1);
-            color: var(--primary);
-            transition: all 0.3s ease;
-            font-size: 18px;
+            gap: 3px;
+            font-size: 0.6rem;
+            box-shadow: 0px 2px 4px rgba(0, 255, 0, 0.5);
+            animation: buttonGlow 1.5s infinite alternate;
+            margin: 0 2px;
+            position: relative;
+            z-index: 2;
         }
-
-        .social-icon:hover {
-            transform: translateY(-5px);
-            background: var(--primary);
-            color: var(--dark-bg);
-            box-shadow: var(--glow-primary);
+        
+        @keyframes buttonGlow {
+            0% { box-shadow: 0px 0px 4px rgba(0, 255, 0, 0.5); }
+            100% { box-shadow: 0px 0px 8px rgba(0, 255, 0, 1); }
         }
-
-        /* Menú hamburguesa para móviles */
-        @media (max-width: 768px) {
-            .navbar {
-                padding: 15px 20px;
-            }
-
-            .navbar-title {
-                font-size: 20px;
-            }
-
-            .stats-container {
-                grid-template-columns: 1fr;
-                margin: 40px auto;
-                padding: 15px;
-            }
+        
+        button:hover {
+            background-color: purple;
+            transform: scale(1.02);
+            box-shadow: 0px 0px 6px rgba(0, 255, 0, 1);
         }
-
-        /* Animación de carga inicial */
-        .page-loader {
+        
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 10px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Estilos para enlaces que actúan como botones */
+        .btn-style {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 3px 6px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            font-size: 0.6rem;
+            box-shadow: 0px 2px 4px rgba(0, 255, 0, 0.5);
+            animation: buttonGlow 1.5s infinite alternate;
+            margin: 0 2px;
+            position: relative;
+            z-index: 2;
+            text-decoration: none;
+        }
+        
+        .btn-style:hover {
+            background-color: purple;
+            transform: scale(1.02);
+            box-shadow: 0px 0px 6px rgba(0, 255, 0, 1);
+        }
+        
+        /* Etiquetas */
+        .tag {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 0, 255, 0.7);
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            z-index: 3;
+        }
+        
+        .tag.nuevo {
+            background: rgba(0, 255, 0, 0.7);
+        }
+        
+        .tag.oferta {
+            background: rgba(255, 0, 0, 0.7);
+        }
+        
+        /* Banner promocional */
+        .promo-banner {
+            background: linear-gradient(135deg, #ff1493, #1e90ff);
+            padding: 15px;
+            margin: 30px auto;
+            width: 90%;
+            max-width: 1000px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.7);
+            position: relative;
+            overflow: hidden;
+            z-index: 10;
+        }
+        
+        .promo-banner h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .promo-banner p {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+        
+        /* Testimonios */
+        .testimonios {
+            margin: 50px auto;
+            max-width: 1200px;
+        }
+        
+        .testimonio {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.3);
+            text-align: left;
+        }
+        
+        .testimonio-autor {
+            font-weight: bold;
+            font-style: italic;
+            text-align: right;
+            margin-top: 10px;
+        }
+        
+        /* Formulario de contacto */
+        .contacto {
+            margin: 50px auto;
+            max-width: 600px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5);
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #4b0082;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+        }
+        
+        textarea {
+            min-height: 100px;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #ff00ff, #0000ff);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .submit-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 0px 15px rgba(255, 0, 255, 0.7);
+        }
+        
+        /* Footer */
+        footer {
+            margin-top: 30px;
+            padding: 30px;
+            font-size: 1rem;
+            animation: fadeIn 2s ease-in-out;
+            background: rgba(0, 0, 0, 0.7);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+            text-align: left;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 15px;
+            color: #ff00ff;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-section a {
+            color: #d0d0d0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: #00ffff;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-icons img {
+            width: 25px;
+            transition: transform 0.3s;
+        }
+        
+        .social-icons img:hover {
+            transform: scale(1.2);
+        }
+        
+        .copyright {
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.8rem;
+            color: #a0a0a0;
+        }
+        
+        /* Partículas de fondo */
+        .particles {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--dark-bg);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.6s ease, visibility 0.6s ease;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                font-size: 2rem;
+            }
+            
+            .bot-card {
+                width: 100%;
+                max-width: 320px;
+            }
+            
+            .footer-section {
+                flex: 1 1 100%;
+                text-align: center;
+            }
+            
+            .social-icons {
+                justify-content: center;
+            }
+        }
+        
+        /* Efectos avanzados */
+        .animate-on-scroll {
+          opacity: 0;
+          transform: translateY(30px);
+          transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
 
-        .loader-hidden {
-            opacity: 0;
-            visibility: hidden;
+        .animate-on-scroll.visible {
+          opacity: 1;
+          transform: translateY(0);
         }
 
-        .loader-content {
-            text-align: center;
+        .animate-in-left {
+          opacity: 0;
+          transform: translateX(-50px);
+          transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
 
-        .loader-spinner {
-            width: 60px;
-            height: 60px;
-            border: 5px solid rgba(77, 238, 234, 0.3);
-            border-radius: 50%;
-            border-top-color: var(--primary);
-            animation: spin 1s infinite ease;
+        .animate-in-left.visible {
+          opacity: 1;
+          transform: translateX(0);
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .animate-in-right {
+          opacity: 0;
+          transform: translateX(50px);
+          transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
 
-        /* Botón de volumen para música */
-        .volume-control {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 40px;
-            height: 40px;
-            background: rgba(20, 25, 40, 0.7);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            z-index: 10;
-            box-shadow: 0 0 10px rgba(77, 238, 234, 0.2);
-            border: 1px solid rgba(77, 238, 234, 0.1);
+        .animate-in-right.visible {
+          opacity: 1;
+          transform: translateX(0);
+        }
+        
+        .gradient-text {
+          background: linear-gradient(45deg, #ff00ff, #00ffff);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          display: inline-block;
+          font-weight: bold;
+          letter-spacing: 1px;
         }
 
-        .volume-control:hover {
-            background: rgba(77, 238, 234, 0.2);
-            transform: scale(1.1);
+        .gradient-text-gold {
+          background: linear-gradient(45deg, #ffd700, #ff8c00);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          display: inline-block;
+          font-weight: bold;
+        }
+        
+        .neon-text {
+          color: #fff;
+          text-shadow: 
+            0 0 5px #fff, 
+            0 0 10px #fff, 
+            0 0 15px #0073e6, 
+            0 0 20px #0073e6, 
+            0 0 25px #0073e6, 
+            0 0 30px #0073e6, 
+            0 0 35px #0073e6;
         }
 
-        .volume-control i {
-            color: var(--primary);
-            font-size: 18px;
+        .neon-border {
+          border: 2px solid transparent;
+          border-radius: 10px;
+          animation: neonBorder 1.5s infinite alternate;
         }
 
-        /* Notificación de nuevos datos */
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(20, 25, 40, 0.9);
-            color: white;
-            padding: 15px 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(77, 238, 234, 0.3);
-            transform: translateX(200%);
-            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-            z-index: 1000;
-            border-left: 4px solid var(--primary);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
+        @keyframes neonBorder {
+          from { 
+            box-shadow: 
+              0 0 5px #fff,
+              0 0 10px #fff,
+              0 0 15px #fff,
+              0 0 20px #ff00de,
+              0 0 35px #ff00de;
+          }
+          to { 
+            box-shadow: 
+              0 0 10px #fff,
+              0 0 20px #fff,
+              0 0 30px #fff,
+              0 0 40px #ff00de,
+              0 0 70px #ff00de;
+          }
+        }
+        
+        .floating {
+          animation: floating 3s ease-in-out infinite alternate;
         }
 
-        .notification.show {
-            transform: translateX(0);
+        @keyframes floating {
+          0% { transform: translateY(0); }
+          100% { transform: translateY(-15px); }
         }
 
-        .notification-content {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .floating-slow {
+          animation: floating-slow 5s ease-in-out infinite alternate;
         }
 
-        .notification-icon {
-            color: var(--primary);
-            font-size: 20px;
+        @keyframes floating-slow {
+          0% { transform: translateY(0); }
+          100% { transform: translateY(-10px); }
         }
-
-        /* Estilos adicionales para los nuevos elementos */
-        .stat-box .status-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: var(--secondary);
-            color: var(--dark-bg);
-            padding: 3px 8px;
-            border-radius: 10px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            box-shadow: var(--glow-secondary);
-            animation: pulse 2s infinite;
-        }
-
-        .data-icon {
-            font-size: 40px;
-            color: var(--primary);
-            margin-bottom: 15px;
-            filter: drop-shadow(0 0 5px var(--primary));
-            transition: all 0.3s ease;
-        }
-
-        .stat-box:hover .data-icon {
-            transform: scale(1.1) rotate(10deg);
-            color: var(--secondary);
+        
+        .glass-effect {
+          background: rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          border-radius: 10px;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
 <body>
-    <!-- Loader inicial -->
-    <div class="page-loader" id="pageLoader">
-        <div class="loader-content">
-            <div class="loader-spinner"></div>
-            <h2 style="margin-top: 20px; font-family: 'Orbitron', sans-serif; color: var(--primary);">APIKARL</h2>
-        </div>
+    <!-- Fondo cósmico -->
+    <div class="cosmic-background">
+        <div class="stars"></div>
+        <div class="nebula"></div>
+        <div class="shooting-stars"></div>
+        <div class="glowing-clouds"></div>
+        <div class="aurora"></div>
     </div>
-
-    <nav class="navbar">
-        <a href="https://discord.gg/PvQvJ7JvEx" target="_blank" class="discord-link">
-            <img src="discord.png" alt="Discord" class="discord-icon">
+    
+    <header>
+        <img src="banner.png" alt="Banner de la Tienda de Bots" class="floating">
+        <h1 class="fade-in gradient-text">Tienda de Bots Premium</h1>
+        <p class="fade-in animate-on-scroll visible">Explora nuestra selección exclusiva de bots diseñados profesionalmente para optimizar y mejorar tu experiencia digital. Somos especialistas en soluciones automatizadas para Discord y más plataformas.</p>
+    </header>
+    
+    <div class="promo-banner neon-border">
+        <h2 class="gradient-text-gold">¡OFERTA ESPECIAL DE LANZAMIENTO!</h2>
+        <p>Obtén un 20% de descuento en todos nuestros bots premium usando el código: <strong class="neon-text">PREMIUM25</strong></p>
+        <a href="#" onclick="alert('Próximamente: Catálogo de ofertas especiales con código PREMIUM25.'); return false;" class="btn-style">
+            <img src="carrito.png" alt="Carrito" width="10"> Ver ofertas
         </a>
-
-        <span class="navbar-title">API Karl</span>
-
-        <div class="menu-container">
-            <button class="menu-btn" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
-            <div id="menu" class="menu-content">
-                <b>API</b>
-                <a href="https://apikarl.com/docs/utilidad"><i class="fas fa-tools"></i> Utilidades</a>
-                <a href="https://apikarl.com/docs/diversion"><i class="fas fa-gamepad"></i> Divertido</a>
-                <b>Info</b>
-                <a href="http://apikarl.com"><i class="fas fa-home"></i> Casa</a>
-                <a href="docs/"><i class="fas fa-book"></i> Documentación</a>
+    </div>
+    
+    <h2 class="categoria-titulo gradient-text">Bots Destacados</h2>
+    
+    <section class="productos">
+        <div class="bot-card animate-in-left visible">
+            <span class="tag oferta">-15%</span>
+            <h2>Bot de Moderación</h2>
+            <img src="rp.png" alt="Bot de RP" width="200">
+            <p>Sistema avanzado de moderación con verificación de DNIs, integración con Roblox y más funciones.</p>
+            <div class="rating">★★★★★</div>
+            <div class="precio neon-text">24.99€</div>
+            <ul class="features">
+                <li>Verificación automática</li>
+                <li>Sistema anti-spam</li>
+                <li>Logs detallados</li>
+            </ul>
+            <div class="button-container">
+                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&amp;business=bacialvarez.5678@gmail.com&amp;item_name=Bot%20de%20Moderaci%C3%B3n&amp;amount=24.99&amp;currency_code=EUR" class="btn-style">
+                    <img src="carrito.png" alt="Carrito" width="10"> Comprar
+                </a>
+                <a href="#" onclick="alert('Información sobre este bot: Próximamente más detalles.'); return false;" class="btn-style">
+                    <img src="info.png" alt="Info" width="10"> Info
+                </a>
             </div>
         </div>
-    </nav>
-
-    <!-- Notificación -->
-    <div class="notification" id="notification">
-        <div class="notification-content">
-            <i class="fas fa-info-circle notification-icon"></i>
-            <span id="notificationText">¡Datos actualizados!</span>
-        </div>
-    </div>
-
-    <!-- Control de volumen -->
-    <div class="volume-control" id="volumeControl">
-        <i class="fas fa-volume-up" id="volumeIcon"></i>
-    </div>
-
-    <!-- Música de fondo -->
-    <audio id="bgMusic" loop>
-        <source src="music" type="audio/mpeg">
-        Tu navegador no soporta el elemento de audio.
-    </audio>
-
-    <div class="stats-container">
-        <div class="stat-box">
-            <div class="status-badge">Activo</div>
-            <i class="fas fa-network-wired data-icon"></i>
-            <h2 class="text-blue-400">Conexión</h2>
-            <p id="ip" class="text-gray-300 loading">Verificando</p>
-        </div>
-
-        <div class="stat-box">
-            <div class="status-badge">En línea</div>
-            <i class="fas fa-users data-icon"></i>
-            <h2 class="text-blue-400">Usuarios</h2>
-            <p id="visitantes" class="text-gray-300 loading pulse-value">Calculando</p>
-        </div>
-
-        <div class="stat-box">
-            <img src="reloj.png" alt="Tiempo Activo">
-            <h2 class="text-blue-400">Tiempo Activo</h2>
-            <p id="tiempoActivo" class="text-gray-300">Cargando</p>
-            <div class="progress-container">
-                <div class="progress-bar" id="progressBar"></div>
+        
+        <div class="bot-card animate-on-scroll visible">
+            <span class="tag nuevo">NUEVO</span>
+            <h2>Bot de Música</h2>
+            <img src="music.png" alt="Bot de Música" width="200" class="floating-slow">
+            <p>Reproduce música de alta calidad en tu servidor de Discord con amplio soporte para plataformas streaming.</p>
+            <div class="rating">★★★★☆</div>
+            <div class="precio neon-text">19.99€</div>
+            <ul class="features">
+                <li>Sin anuncios</li>
+                <li>Audio 320kbps</li>
+                <li>Múltiples plataformas</li>
+            </ul>
+            <div class="button-container">
+                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&amp;business=bacialvarez.5678@gmail.com&amp;item_name=Bot%20de%20Musica&amp;amount=19.99&amp;currency_code=EUR" class="btn-style">
+                    <img src="carrito.png" alt="Carrito" width="10"> Comprar
+                </a>
+                <a href="#" onclick="alert('Información sobre este bot: Próximamente más detalles.'); return false;" class="btn-style">
+                    <img src="info.png" alt="Info" width="10"> Info
+                </a>
             </div>
         </div>
-
-        <div class="stat-box">
-            <img src="reloj.png" alt="Reloj">
-            <h2 class="text-blue-400">Hora actual</h2>
-            <p id="clock" class="clock">00:00:00</p>
+        
+        <div class="bot-card animate-in-right visible">
+            <h2>Bot Personalizado</h2>
+            <img src="custom.png" alt="Bot Personalizado" width="200" class="floating">
+            <p>Crea un bot a medida según las necesidades específicas de tu comunidad o negocio.</p>
+            <div class="rating">★★★★★</div>
+            <div class="precio neon-text">Desde 49.99€</div>
+            <ul class="features">
+                <li>Desarrollo a medida</li>
+                <li>Soporte premium</li>
+                <li>Actualizaciones incluidas</li>
+            </ul>
+            <div class="button-container">
+                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&amp;business=bacialvarez.5678@gmail.com&amp;item_name=Bot%20customizado&amp;amount=49.99&amp;currency_code=EUR" class="btn-style">
+                    <img src="carrito.png" alt="Carrito" width="10"> Comprar
+                </a>
+                <a href="#" onclick="alert('Información sobre este bot: Próximamente más detalles.'); return false;" class="btn-style">
+                    <img src="info.png" alt="Info" width="10"> Info
+                </a>
+            </div>
         </div>
+    </section>
+    
+    <h2 class="categoria-titulo gradient-text">Bots Económicos</h2>
+    
+    <section class="productos">
+        <div class="bot-card animate-in-left visible">
+            <h2>Bot Mini-Moderación</h2>
+            <img src="mini-mod.png" alt="Mini-Moderación" width="200">
+            <p>Versión simplificada de nuestro bot de moderación con funciones esenciales.</p>
+            <div class="rating">★★★☆☆</div>
+            <div class="precio neon-text">9.99€</div>
+            <ul class="features">
+                <li>Comandos básicos</li>
+                <li>Alertas automáticas</li>
+                <li>Soporte incluido</li>
+            </ul>
+            <div class="button-container">
+                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&amp;business=bacialvarez.5678@gmail.com&amp;item_name=Bot%20mini&amp;amount=9.99&amp;currency_code=EUR" class="btn-style">
+                    <img src="carrito.png" alt="Carrito" width="10"> Comprar
+                </a>
+                <a href="#" onclick="alert('Información sobre este bot: Próximamente más detalles.'); return false;" class="btn-style">
+                    <img src="info.png" alt="Info" width="10"> Info
+                </a>
+            </div>
+        </div>
+        
+        <div class="bot-card animate-on-scroll visible">
+            <h2>Bot de Eventos</h2>
+            <img src="eventos.png" alt="Bot de Eventos" width="200" class="floating-slow">
+            <p>Organiza y gestiona eventos en tu servidor con RSVP, recordatorios y más.</p>
+            <div class="rating">★★★★☆</div>
+            <div class="precio neon-text">14.99€</div>
+            <ul class="features">
+                <li>Calendario integrado</li>
+                <li>Notificaciones</li>
+                <li>Roles automáticos</li>
+            </ul>
+            <div class="button-container">
+                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&amp;business=bacialvarez.5678@gmail.com&amp;item_name=Bot%20eventos&amp;amount=14.99&amp;currency_code=EUR" class="btn-style">
+                    <img src="carrito.png" alt="Carrito" width="10"> Comprar
+                </a>
+                <a href="#" onclick="alert('Información sobre este bot: Próximamente más detalles.'); return false;" class="btn-style">
+                    <img src="info.png" alt="Info" width="10"> Info
+                </a>
+            </div>
+        </div>
+        
+        <div class="bot-card animate-in-right visible">
+            <span class="tag oferta">HOT</span>
+            <h2>Bot de Niveles</h2>
+            <img src="niveles.png" alt="Bot de Niveles" width="200">
+            <p>Sistema de niveles y experiencia para usuarios con recompensas automáticas.</p>
+            <div class="rating">★★★★☆</div>
+            <div class="precio neon-text">12.99€</div>
+            <ul class="features">
+                <li>Tarjetas personalizables</li>
+                <li>Roles automáticos</li>
+                <li>Rankings semanales</li>
+            </ul>
+            <div class="button-container">
+                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&amp;business=bacialvarez.5678@gmail.com&amp;item_name=Bot%20niveles&amp;amount=12.99&amp;currency_code=EUR" class="btn-style">
+                    <img src="carrito.png" alt="Carrito" width="10"> Comprar
+                </a>
+                <a href="#" onclick="alert('Información sobre este bot: Próximamente más detalles.'); return false;" class="btn-style">
+                    <img src="info.png" alt="Info" width="10"> Info
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <div class="promo-banner neon-border animate-on-scroll visible">
+        <h2 class="gradient-text-gold">¿NECESITAS VARIOS BOTS?</h2>
+        <p>Consulta nuestros paquetes con descuentos de hasta el 35% al combinar múltiples bots</p>
+        <a href="#" onclick="alert('Próximamente: Paquetes con descuentos especiales. Combina varios bots y ahorra hasta un 35%.'); return false;" class="btn-style">
+            <img src="descuento.png" alt="Descuento" width="10"> Ver paquetes
+        </a>
     </div>
+    
+    <section class="testimonios">
+        <h2 class="categoria-titulo gradient-text">Lo que dicen nuestros clientes</h2>
+        
+        <div class="testimonio animate-in-left glass-effect visible">
+            <p>"El bot personalizado gue increíble, musica de alta calidad,minijuegos,economia veloz y bien estructura,simplemente wow.."</p>
+            <div class="testimonio-autor">- Enriix, servidor de 10,000+ miembros</div>
+        </div>
+        
+        <div class="testimonio animate-on-scroll glass-effect visible">
+            <p>"El bot de moderacion fue hermoso,me permitio cambiar algunos comandos definidos por los que queria,y venia con una AI de minecraft como bienvenida 🙏"</p>
+            <div class="testimonio-autor">- Sneiq, comunidad de mc +2,800</div>
+        </div>
+        
+        <div class="testimonio animate-in-right glass-effect visible">
+            <p>"un bot de rp...hermano dni,borrar dni,ver dni y todo se guarda en una data,ptm es hermoso 🙏🙏"</p>
+            <div class="testimonio-autor">- Dibu, comunidad ER:lc +170</div>
+        </div>
+    </section>
 
-    <!-- Sección de características -->
-    <div class="stats-container">
-        <div class="stat-box">
-            <i class="fas fa-rocket" style="font-size: 40px; color: var(--primary); margin-bottom: 15px;"></i>
-            <h2>API de Alta Velocidad</h2>
-            <p>Accede a nuestros servicios con respuestas ultrarrápidas y alta disponibilidad.</p>
+    <section class="contacto glass-effect animate-on-scroll visible">
+    <h2 class="categoria-titulo gradient-text">¿Tienes preguntas?</h2>
+    <p>Nuestro equipo está listo para ayudarte con cualquier duda o solicitud personalizada.</p>
+    
+    <!-- Formulario modificado para usar FormSubmit -->
+    <form id="contactForm" action="https://formsubmit.co/eternidad.studios@gmail.com" method="POST">
+        <!-- Configuración de FormSubmit -->
+        <input type="hidden" name="_subject" value="Nueva consulta desde Tienda de Bots">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_next" value="https://tu-sitio.com/gracias.html">
+        <!-- Reemplaza la URL anterior con la URL de tu página de agradecimiento -->
+
+        <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required="">
         </div>
 
-        <div class="stat-box">
-            <i class="fas fa-shield-alt" style="font-size: 40px; color: var(--secondary); margin-bottom: 15px;"></i>
-            <h2>Seguridad Garantizada</h2>
-            <p>Todas las peticiones están protegidas con encriptación de nivel militar.</p>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required="">
         </div>
 
-        <div class="stat-box">
-            <i class="fas fa-code" style="font-size: 40px; color: var(--accent); margin-bottom: 15px;"></i>
-            <h2>Fácil Integración</h2>
-            <p>Documentación completa y ejemplos prácticos para implementación rápida.</p>
+        <div class="form-group">
+            <label for="asunto">Asunto:</label>
+            <input type="text" id="asunto" name="asunto" required="">
         </div>
-    </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="social-icons">
-            <a href="https://www.tiktok.com/@pixelrun" target="_blank" class="social-icon"><i class="fab fa-tiktok"></i></a>
-            <a href="https://wa.me/523326811294?text=%F0%9F%8C%90-¡Hola!,%20me%20interesa%20tu%20bot%20o%20alguna%20información%20extra" target="_blank" class="social-icon"><i class="fab fa-whatsapp"></i></a>
-            <a href="https://discord.gg/PvQvJ7JvEx" target="_blank" class="social-icon"><i class="fab fa-discord"></i></a>
+        <div class="form-group">
+            <label for="mensaje">Mensaje:</label>
+            <textarea id="mensaje" name="mensaje" required=""></textarea>
         </div>
-        <p>© 2025 API Karl - Todos los derechos reservados</p>
-        <p>Plataforma desarrollada con <i class="fas fa-heart" style="color: var(--accent);"></i> para desarrolladores</p>
+
+        <button type="submit" class="submit-btn neon-border">Enviar mensaje</button>
+    </form>
+    </section>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 class="gradient-text">Enlaces rápidos</h3>
+                <ul>
+                    <li><a href="http://bot.apikarl.com">Inicio</a></li>
+                    <li><a href="/firma/acepta">condiciones</a></li>
+                    <li><a href="#">Ofertas</a></li>
+                    <li><a href="#">Soporte</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3 class="gradient-text">Soporte</h3>
+                <ul>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="/docs">Documentación</a></li>
+                    <li><a href="#">Tutoriales</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3 class="gradient-text">Contáctanos</h3>
+                <p>support@tiendabots.com</p>
+                <p>+34 612 345 678</p>
+                <div class="social-icons">
+                    <a href="https://discord.gg/YJCTpncreg"><img src="discord.png" alt="Discord" class="floating"></a>
+                    <a href="https://www.tiktok.com/@sentinelalphax?_t=ZM-8uJBHlQ8Sgf&amp;_r=1"><img src="tiktok.png" alt="tiktok" class="floating-slow"></a>
+                    <a href="https://wa.me/523326811294?text=%F0%9F%8C%90-¡Hola!,%20me%20interesa%20tu%20bot%20o%20alguna%20información%20extra"><img src="wsp.png" alt="WhatsApp" class="floating"></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>© 2025 Venta de Bots Premium | Creado con profesionalismo en JS y JSON.</p>
+            <p>Todos los derechos reservados. Términos y Condiciones | Política de Privacidad</p>
+        </div>
     </footer>
 
-    <script>
-        // Mostrar loader inicial
-        window.addEventListener('load', function() {
-            setTimeout(function() {
-                document.getElementById('pageLoader').classList.add('loader-hidden');
-            }, 1500);
-        });
-
-        // Función para mostrar notificaciones
-        function showNotification(message) {
-            const notification = document.getElementById('notification');
-            document.getElementById('notificationText').textContent = message;
-            notification.classList.add('show');
-            
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 3000);
-        }
-
-        // Control de volumen
-        const volumeControl = document.getElementById('volumeControl');
-        const volumeIcon = document.getElementById('volumeIcon');
-        const bgMusic = document.getElementById('bgMusic');
-        let isMuted = true;
-
-        volumeControl.addEventListener('click', function() {
-            if (isMuted) {
-                bgMusic.play();
-                volumeIcon.classList.remove('fa-volume-up');
-                volumeIcon.classList.add('fa-volume-mute');
-                isMuted = false;
-            } else {
-                bgMusic.pause();
-                volumeIcon.classList.remove('fa-volume-mute');
-                volumeIcon.classList.add('fa-volume-up');
-                isMuted = true;
-            }
-        });
-
-        // Función para el menú
-        function toggleMenu() {
-            let menu = document.getElementById("menu");
-            menu.classList.toggle("menu-visible");
-        }
-
-        // Cerrar el menú al hacer clic fuera de él
-        document.addEventListener('click', function(event) {
-            const menu = document.getElementById('menu');
-            const menuBtn = document.querySelector('.menu-btn');
-            
-            if (!menu.contains(event.target) && !menuBtn.contains(event.target) && menu.classList.contains('menu-visible')) {
-                menu.classList.remove('menu-visible');
-            }
-        });
-
-        // Obtener datos
-        async function obtenerDatos() {
-            try {
-                // Quitar clase de carga después de obtener datos
-                document.getElementById("ip").classList.add('loading');
-                document.getElementById("visitantes").classList.add('loading');
-                
-                // Mostrar estado de conexión en lugar de la IP
-                setTimeout(() => {
-                    document.getElementById("ip").textContent = "Estable (100%)";
-                    document.getElementById("ip").classList.remove('loading');
-                    showNotification("¡Conexión estable establecida!");
-                }, 1500);
-                
-                // Simular contador de usuarios
-                const visitantesElement = document.getElementById("visitantes");
-                const randomUsers = Math.floor(Math.random() * 500) + 1500; // Entre 1500 y 2000
-                let currentUsers = 0;
-                
-                setTimeout(() => {
-                    visitantesElement.classList.remove('loading');
-                    
-                    const interval = setInterval(() => {
-                        currentUsers += Math.ceil(randomUsers / 20);
-                        if (currentUsers >= randomUsers) {
-                            currentUsers = randomUsers;
-                            clearInterval(interval);
-                        }
-                        visitantesElement.textContent = currentUsers.toLocaleString();
-                    }, 100);
-                }, 2000);
-                
-            } catch (error) {
-                document.getElementById("ip").textContent = "Error de conexión";
-                document.getElementById("visitantes").textContent = "No disponible";
-                document.getElementById("ip").classList.remove('loading');
-                document.getElementById("visitantes").classList.remove('loading');
-            }
-        }
-
-        obtenerDatos();
-
-        // Tiempo activo con barra de progreso
-        let startTime = localStorage.getItem("startTime");
-        if (!startTime) {
-            startTime = Date.now();
-            localStorage.setItem("startTime", startTime);
-        }
-
-        setInterval(() => {
-            // Actualizar reloj
-            const now = new Date();
-            document.getElementById("clock").innerText = now.toLocaleTimeString();
-            
-            // Tiempo activo
-            let elapsedTime = Math.floor((Date.now() - startTime) / 1000);
-            let hours = Math.floor(elapsedTime / 3600);
-            let minutes = Math.floor((elapsedTime % 3600) / 60);
-            let seconds = elapsedTime % 60;
-            
-            let formattedTime = '';
-            if (hours > 0) {
-                formattedTime += `${hours}h `;
-            }
-            if (minutes > 0 || hours > 0) {
-                formattedTime += `${minutes}m `;
-            }
-            formattedTime += `${seconds}s`;
-            
-            document.getElementById("tiempoActivo").innerText = formattedTime;
-            
-            // Actualizar barra de progreso (ciclo de un día)
-            const dayProgress = (elapsedTime % 86400) / 86400 * 100;
-            document.getElementById("progressBar").style.width = `${dayProgress}%`;
-        }, 1000);
-        
-        // Efecto de hover para stats-box
-        document.querySelectorAll('.stat-box').forEach(box => {
-            box.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-10px)';
-            });
-            
-            box.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0)';
-            });
-        });
-        
-        // Añadir efecto de parpadeo a las etiquetas de estado
-        setInterval(() => {
-            document.querySelectorAll('.status-badge').forEach(badge => {
-                badge.style.opacity = badge.style.opacity === '0.7' ? '1' : '0.7';
-            });
-        }, 1000);
-        
-        // Efectos extras de desplazamiento
-        window.addEventListener('scroll', function() {
-            const scrollY = window.scrollY;
-            
-            // Efecto parallax para elementos con clase parallax
-            document.querySelectorAll('.stat-box').forEach((element, index) => {
-                const speed = 0.05;
-                const yPos = -(scrollY * speed * (index * 0.1 + 1));
-                element.style.backgroundPosition = `center ${yPos}px`;
-            });
-        });
-    </script>
 
 </body>
 </html>
