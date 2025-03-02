@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acuerdo Legal</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            background-image: radial-gradient(#ddd 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            position: relative;
+            border: 1px solid #e0e0e0;
+        }
+        
+        /* Decoraciones en las esquinas */
+        .container::before,
+        .container::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border-color: #1c3c5f;
+            border-style: solid;
+        }
+        
+        .container::before {
+            top: 10px;
+            left: 10px;
+            border-width: 3px 0 0 3px;
+        }
+        
+        .container::after {
+            top: 10px;
+            right: 10px;
+            border-width: 3px 3px 0 0;
+        }
+        
+        /* Decoraciones esquinas inferiores */
+        .footer::before,
+        .footer::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border-color: #1c3c5f;
+            border-style: solid;
+        }
+        
+        .footer::before {
+            bottom: 10px;
+            left: 10px;
+            border-width: 0 0 3px 3px;
+        }
+        
+        .footer::after {
+            bottom: 10px;
+            right: 10px;
+            border-width: 0 3px 3px 0;
+        }
+        
+        /* Logo K */
+        .logo {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            background-color: black;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            border-radius: 4px;
+            z-index: 10;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #1c3c5f;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #1c3c5f;
+            margin: 0;
+            font-size: 28px;
+        }
+        .content {
+            line-height: 1.6;
+        }
+        .highlight {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-left: 4px solid #1c3c5f;
+            margin: 20px 0;
+        }
+        .signature-section {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #1c3c5f;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .signature-box {
+            border: 1px dashed #aaa;
+            height: 120px;
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            background-color: #f9f9f9;
+        }
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            position: relative;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        /* Bordes decorativos en los lados */
+        .side-decoration-left,
+        .side-decoration-right {
+            position: absolute;
+            top: 50%;
+            width: 3px;
+            height: 70%;
+            background-color: #1c3c5f;
+            transform: translateY(-50%);
+        }
+        
+        .side-decoration-left {
+            left: 0;
+        }
+        
+        .side-decoration-right {
+            right: 0;
+        }
+        .warning {
+            background-color: #fff8f8;
+            border-left: 4px solid #d9534f;
+            padding: 15px;
+            margin: 20px 0;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">K</div>
+        <div class="side-decoration-left"></div>
+        <div class="side-decoration-right"></div>
+        <div class="header">
+            <h1>ACUERDO DE CONFIDENCIALIDAD Y NO DIVULGACIÓN</h1>
+            <p>Protección de archivos y carpetas digitales</p>
+        </div>
+        
+        <div class="content">
+            <p>Por medio del presente documento, se establece un acuerdo legal entre las partes:</p>
+            
+            <p><strong>Usuario propietario del contenido:</strong> pixelforge_nine-scriptweaver-karl-kevin</p>
+            
+            <div class="highlight">
+                <p>El firmante de este documento <strong>AFIRMA Y ACEPTA</strong> que queda terminantemente prohibido compartir, distribuir, copiar o divulgar cualquier tipo de archivo o carpeta digital recibido del usuario pixelforge_nine-scriptweaver-karl-kevin sin su consentimiento expreso previo.</p>
+            </div>
+            
+            <div class="warning">
+                <p><strong>AVISO LEGAL:</strong> El usuario acepta que cualquier intento de compartir cualquier tipo de archivo hecho por el usuario pixelforge_nine-scriptweaver-karl-kevin SIN su consentimiento puede resultar en acciones legales de acuerdo con los Términos de Servicio de Discord y las leyes aplicables en su país de residencia.</p>
+            </div>
+            
+            <p>Al firmar este documento, usted reconoce haber leído, entendido y aceptado los términos y condiciones establecidos en el presente acuerdo.</p>
+            
+            <div class="signature-section">
+                <div class="form-group">
+                    <label>Nombre de usuario:</label>
+                    <input type="text" placeholder="Ingrese su nombre de usuario">
+                </div>
+                
+                <div class="form-group">
+                    <label>Nombre real completo:</label>
+                    <input type="text" placeholder="Ingrese su nombre real completo">
+                </div>
+                
+                <div class="form-group">
+                    <label>Fecha del acuerdo:</label>
+                    <input type="date">
+                </div>
+                
+                <div class="form-group">
+                    <label>Firma digital:</label>
+                    <div class="signature-box">Firmar aquí</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Este es un documento legal vinculante. Se recomienda guardar una copia para sus registros.</p>
+            <p>Fecha de creación del documento: 01 de marzo de 2025</p>
+        </div>
+    </div>
+</body>
+</html>
