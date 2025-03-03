@@ -1,0 +1,1616 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estado de Servicio - API Karl</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fuentes de Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Chart.js para gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    
+    <style>
+        :root {
+            --primary: #4deeea;
+            --secondary: #74ee15;
+            --accent: #ffe700;
+            --warning: #ffa500;
+            --danger: #ff4646;
+            --success: #00ff9d;
+            --dark-bg: #0a0f1a;
+            --card-bg: rgba(20, 25, 40, 0.9);
+            --glow-primary: 0 0 10px rgba(77, 238, 234, 0.7);
+            --glow-secondary: 0 0 10px rgba(116, 238, 21, 0.7);
+            --glow-accent: 0 0 10px rgba(255, 231, 0, 0.7);
+            --glow-success: 0 0 10px rgba(0, 255, 157, 0.7);
+            --glow-warning: 0 0 10px rgba(255, 165, 0, 0.7);
+            --glow-danger: 0 0 10px rgba(255, 70, 70, 0.7);
+            --card-shadow: 0 4px 20px rgba(77, 238, 234, 0.2);
+            --text-shadow: 0 0 5px rgba(77, 238, 234, 0.7);
+        }
+
+        body {
+            background: var(--dark-bg);
+            color: white;
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* Fondo animado con partículas */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle, rgba(20, 25, 40, 0.3) 10%, transparent 10%);
+            background-size: 30px 30px;
+            animation: backgroundAnimation 100s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes backgroundAnimation {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 1000px 1000px;
+            }
+        }
+
+        /* Líneas de malla futurista */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(rgba(77, 238, 234, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(77, 238, 234, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+        }
+
+        /* Navbar mejorado */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background: rgba(10, 15, 30, 0.95);
+            box-shadow: 0 0 20px rgba(77, 238, 234, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(77, 238, 234, 0.2);
+        }
+
+        .navbar-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            letter-spacing: 2px;
+            text-shadow: var(--text-shadow);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-title:hover {
+            transform: translateX(-50%) scale(1.05);
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        .discord-icon {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 0 2px var(--primary));
+        }
+
+        .discord-icon:hover {
+            transform: rotate(5deg) scale(1.1);
+            filter: drop-shadow(0 0 5px var(--primary));
+        }
+
+        .menu-btn {
+            font-size: 24px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .menu-btn:hover {
+            transform: rotate(90deg);
+            color: var(--secondary);
+        }
+
+        .menu-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .menu-content {
+            display: none;
+            position: absolute;
+            top: 40px;
+            right: 0;
+            background: rgba(20, 25, 40, 0.95);
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 0 20px rgba(77, 238, 234, 0.3);
+            min-width: 180px;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 20;
+            border: 1px solid rgba(77, 238, 234, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .menu-visible {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .menu-content b {
+            display: block;
+            color: var(--primary);
+            margin: 10px 0 5px;
+            font-size: 14px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(77, 238, 234, 0.2);
+            padding-bottom: 3px;
+        }
+
+        .menu-content a {
+            display: block;
+            padding: 8px 10px;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            margin: 2px 0;
+        }
+
+        .menu-content a:hover {
+            background: rgba(77, 238, 234, 0.1);
+            transform: translateX(5px);
+            color: var(--primary);
+        }
+
+        /* Header */
+        header {
+            padding: 40px 20px;
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: bold;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: var(--text-shadow);
+            margin-bottom: 15px;
+            animation: fadeIn 2s ease-in-out;
+        }
+        
+        header p {
+            font-size: clamp(0.9rem, 2vw, 1.2rem);
+            max-width: 800px;
+            margin: 0 auto;
+            color: #d0d0d0;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes floatAnimation {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Estado General - Caja grande de estado */
+        .general-status {
+            max-width: 1200px;
+            margin: 0 auto 40px;
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(77, 238, 234, 0.2);
+            box-shadow: var(--card-shadow);
+            animation: fadeIn 1s ease-out;
+        }
+
+        .general-status::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                transparent, 
+                rgba(77, 238, 234, 0.1), 
+                transparent 30%
+            );
+            animation: rotate 20s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .status-indicator {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 40px;
+            color: var(--dark-bg);
+            position: relative;
+            animation: pulse 2s infinite alternate;
+        }
+
+        .status-indicator-online {
+            background: linear-gradient(135deg, var(--success), var(--secondary));
+            box-shadow: var(--glow-success);
+        }
+
+        .status-indicator-partial {
+            background: linear-gradient(135deg, var(--warning), var(--accent));
+            box-shadow: var(--glow-warning);
+        }
+
+        .status-indicator-offline {
+            background: linear-gradient(135deg, var(--danger), #ff7070);
+            box-shadow: var(--glow-danger);
+        }
+
+        .status-indicator::after {
+            content: '';
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .status-title {
+            font-size: 2rem;
+            font-family: 'Orbitron', sans-serif;
+            margin: 10px 0;
+            color: white;
+        }
+
+        .status-message {
+            font-size: 1.2rem;
+            margin: 10px 0 30px;
+            color: #d0d0d0;
+        }
+
+        .uptime-badge {
+            background: rgba(77, 238, 234, 0.1);
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            color: var(--primary);
+            border: 1px solid rgba(77, 238, 234, 0.3);
+            box-shadow: var(--glow-primary);
+        }
+
+        /* Grid de servicios */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+            padding: 0 20px;
+        }
+
+        .service-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(77, 238, 234, 0.2);
+            box-shadow: var(--card-shadow);
+            transition: all 0.4s ease;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(77, 238, 234, 0.3);
+        }
+
+        .service-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .service-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .service-status {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .status-online {
+            background: rgba(0, 255, 157, 0.2);
+            color: var(--success);
+            border: 1px solid rgba(0, 255, 157, 0.3);
+        }
+
+        .status-degraded {
+            background: rgba(255, 165, 0, 0.2);
+            color: var(--warning);
+            border: 1px solid rgba(255, 165, 0, 0.3);
+        }
+
+        .status-offline {
+            background: rgba(255, 70, 70, 0.2);
+            color: var(--danger);
+            border: 1px solid rgba(255, 70, 70, 0.3);
+        }
+
+        .service-details {
+            margin-top: 10px;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(77, 238, 234, 0.1);
+        }
+
+        .detail-label {
+            color: #a0a0a0;
+        }
+
+        .detail-value {
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Gráficos */
+        .metrics-section {
+            max-width: 1200px;
+            margin: 0 auto 40px;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+            text-shadow: var(--text-shadow);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 3px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .metric-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(77, 238, 234, 0.2);
+            box-shadow: var(--card-shadow);
+        }
+
+        .metric-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin-top: 20px;
+        }
+
+        /* Controles de tiempo */
+        .timeframe-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 30px 0;
+        }
+
+        .timeframe-btn {
+            padding: 8px 15px;
+            background: rgba(77, 238, 234, 0.1);
+            border: 1px solid rgba(77, 238, 234, 0.3);
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: bold;
+        }
+
+        .timeframe-btn:hover {
+            background: rgba(77, 238, 234, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .timeframe-btn.active {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: var(--dark-bg);
+            box-shadow: var(--glow-primary);
+        }
+
+        /* Sección de incidencias recientes */
+        .incidents-section {
+            max-width: 1200px;
+            margin: 0 auto 60px;
+            padding: 0 20px;
+        }
+
+        .incidents-list {
+            margin-top: 30px;
+        }
+
+        .incident-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(77, 238, 234, 0.2);
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+        }
+
+        .incident-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(77, 238, 234, 0.3);
+        }
+
+        .incident-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(77, 238, 234, 0.2);
+        }
+
+        .incident-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .incident-timestamp {
+            font-size: 0.9rem;
+            color: #a0a0a0;
+        }
+
+        .incident-services {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0;
+            flex-wrap: wrap;
+        }
+
+        .incident-service-tag {
+            background: rgba(77, 238, 234, 0.1);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            color: var(--primary);
+            border: 1px solid rgba(77, 238, 234, 0.2);
+        }
+
+        .incident-description {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+
+        .incident-status {
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .incident-resolved {
+            background: rgba(0, 255, 157, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(0, 255, 157, 0.3);
+        }
+
+        .incident-investigating {
+            background: rgba(255, 165, 0, 0.1);
+            color: var(--warning);
+            border: 1px solid rgba(255, 165, 0, 0.3);
+        }
+
+        /* Suscripción a notificaciones */
+        .notification-box {
+            max-width: 1200px;
+            margin: 0 auto 60px;
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(77, 238, 234, 0.2);
+            box-shadow: var(--card-shadow);
+        }
+
+        .notification-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            text-shadow: var(--text-shadow);
+        }
+
+        .notification-form {
+            display: flex;
+            max-width: 500px;
+            margin: 20px auto;
+            gap: 10px;
+        }
+
+        .notification-input {
+            flex: 1;
+            padding: 12px 15px;
+            background: rgba(10, 15, 30, 0.8);
+            border: 1px solid rgba(77, 238, 234, 0.3);
+            border-radius: 8px;
+            color: white;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .notification-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: var(--glow-primary);
+        }
+
+        .notification-btn {
+            padding: 0 20px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: var(--dark-bg);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: var(--glow-primary);
+        }
+
+        .notification-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(77, 238, 234, 0.4);
+        }
+
+        /* Toast de notificación */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(20, 25, 40, 0.9);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(77, 238, 234, 0.3);
+            transform: translateX(200%);
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 1000;
+            border-left: 4px solid var(--primary);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(10, 15, 30, 0.8);
+            padding: 30px 20px;
+            text-align: center;
+            position: relative;
+            border-top: 1px solid rgba(77, 238, 234, 0.2);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: var(--primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--secondary);
+            text-shadow: var(--glow-secondary);
+        }
+
+        .footer-copyright {
+            color: #a0a0a0;
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .navbar-title {
+                font-size: 20px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .notification-form {
+                flex-direction: column;
+            }
+
+            .timeframe-controls {
+                flex-wrap: wrap;
+            }
+        }
+
+        /* Animación de carga inicial */
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        .loader-hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-content {
+            text-align: center;
+        }
+
+        .loader-spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(77, 238, 234, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s infinite ease;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Loader inicial -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <h2 style="margin-top: 20px; font-family: 'Orbitron', sans-serif; color: var(--primary);">Estado de Servicio</h2>
+        </div>
+    </div>
+
+    <!-- Toast de notificación -->
+    <div class="toast" id="toast">
+        <i class="fas fa-bell" style="color: var(--primary);"></i>
+        <span id="toastMessage">Mensaje de notificación</span>
+    </div>
+
+    <nav class="navbar">
+        <a href="https://discord.gg/PvQvJ7JvEx" target="_blank" class="discord-link">
+            <img src="discord.png" alt="Discord" class="discord-icon">
+        </a>
+
+        <span class="navbar-title">Estado de Servicio</span>
+
+        <div class="menu-container">
+            <button class="menu-btn" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+            <div id="menu" class="menu-content">
+                <b>Navegación</b>
+                <a href="#general"><i class="fas fa-chart-line"></i> Estado General</a>
+                <a href="#services"><i class="fas fa-server"></i> Servicios</a>
+                <a href="#metrics"><i class="fas fa-chart-bar"></i> Métricas</a>
+                <a href="#incidents"><i class="fas fa-exclamation-triangle"></i> Incidentes</a>
+                <b>Enlaces</b>
+                <a href="http://apikarl.com"><i class="fas fa-home"></i> Inicio</a>
+                <a href="http://apikarl.com/docs"><i class="fas fa-book"></i> Documentación</a>
+            </div>
+        </div>
+    </nav>
+    
+    <header>
+        <h1>Estado de Servicio</h1>
+        <p>Monitoreo en tiempo real de todos nuestros servicios y APIs</p>
+    </header>
+    
+    <!-- Estado General -->
+    <section id="general" class="general-status">
+        <div class="status-indicator status-indicator-online">
+            <i class="fas fa-check"></i>
+        </div>
+        <h2 class="status-title">Todos los sistemas operativos</h2>
+        <p class="status-message">Todos nuestros servicios están funcionando correctamente.</p>
+        <div class="uptime-badge">
+            <i class="fas fa-clock"></i>
+            <span>Tiempo de actividad: 99.97%</span>
+        </div>
+    </section>
+    
+    <!-- Controles de tiempo -->
+    <div class="timeframe-controls">
+        <button class="timeframe-btn" onclick="updateTimeframe('24h')">24 horas</button>
+        <button class="timeframe-btn active" onclick="updateTimeframe('7d')">7 días</button>
+        <button class="timeframe-btn" onclick="updateTimeframe('30d')">30 días</button>
+        <button class="timeframe-btn" onclick="updateTimeframe('90d')">90 días</button>
+    </div>
+    
+    <!-- Servicios -->
+    <section id="services" class="services-grid">
+        <div class="service-card">
+            <div class="service-header">
+                <div class="service-name">
+                    <i class="fas fa-cloud"></i>
+                    API Principal
+                </div>
+                <div class="service-status status-online">Operativo</div>
+            </div>
+            <div class="service-details">
+                <div class="detail-item">
+                    <div class="detail-label">Tiempo de actividad</div>
+                    <div class="detail-value">99.99%</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Tiempo de respuesta</div>
+                    <div class="detail-value">124ms</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Última actualización</div>
+                    <div class="detail-value">Hace 2 minutos</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="service-card">
+            <div class="service-header">
+                <div class="service-name">
+                    <i class="fas fa-database"></i>
+                    Base de Datos
+                </div>
+                <div class="service-status status-online">Operativo</div>
+            </div>
+            <div class="service-details">
+                <div class="detail-item">
+                    <div class="detail-label">Tiempo de actividad</div>
+                    <div class="detail-value">99.95%</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Tiempo de respuesta</div>
+                    <div class="detail-value">37ms</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Última actualización</div>
+                    <div class="detail-value">Hace 2 minutos</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="service-card">
+            <div class="service-header">
+                <div class="service-name">
+                    <i class="fas fa-shield-alt"></i>
+                    Autenticación
+                </div>
+                <div class="service-status status-degraded">Degradado</div>
+            </div>
+            <div class="service-details">
+                <div class="detail-item">
+                    <div class="detail-label">Tiempo de actividad</div>
+                    <div class="detail-value">98.73%</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Tiempo de respuesta</div>
+                    <div class="detail-value">356ms</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Última actualización</div>
+                    <div class="detail-value">Hace 2 minutos</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="service-card">
+            <div class="service-header">
+                <div class="service-name">
+                    <i class="fas fa-file-alt"></i>
+                    Almacenamiento
+                </div>
+                <div class="service-status status-online">Operativo</div>
+            </div>
+            <div class="service-details">
+                <div class="detail-item">
+                    <div class="detail-label">Tiempo de actividad</div>
+                    <div class="detail-value">99.98%</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Tiempo de respuesta</div>
+                    <div class="detail-value">87ms</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Última actualización</div>
+                    <div class="detail-value">Hace 2 minutos</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="service-card">
+            <div class="service-header">
+                <div class="service-name">
+                    <i class="fas fa-bell"></i>
+                    Notificaciones
+                </div>
+                <div class="service-status status-online">Operativo</div>
+            </div>
+            <div class="service-details">
+                <div class="detail-item">
+                    <div class="detail-label">Tiempo de actividad</div>
+                    <div class="detail-value">99.92%</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Tiempo de respuesta</div>
+                    <div class="detail-value">102ms</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Última actualización</div>
+                    <div class="detail-value">Hace 2 minutos</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="service-card">
+            <div class="service-header">
+                <div class="service-name">
+                    <i class="fas fa-server"></i>
+                    CDN
+                </div>
+                <div class="service-status status-online">Operativo</div>
+            </div>
+            <div class="service-details">
+                <div class="detail-item">
+                    <div class="detail-label">Tiempo de actividad</div>
+                    <div class="detail-value">99.97%</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Tiempo de respuesta</div>
+                    <div class="detail-value">45ms</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Última actualización</div>
+                    <div class="detail-value">Hace 2 minutos</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Métricas -->
+    <section id="metrics" class="metrics-section">
+        <h2 class="section-title">Métricas de Rendimiento</h2>
+        
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <h3 class="metric-title">Tiempo de Respuesta</h3>
+                <div class="chart-container">
+                    <canvas id="responseTimeChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="metric-card">
+                <h3 class="metric-title">Solicitudes por Minuto</h3>
+                <div class="chart-container">
+                    <canvas id="requestsChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="metric-card">
+                <h3 class="metric-title">Uso de CPU</h3>
+                <div class="chart-container">
+                    <canvas id="cpuUsageChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="metric-card">
+                <h3 class="metric-title">Uso de Memoria</h3>
+                <div class="chart-container">
+                    <canvas id="memoryUsageChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Incidentes Recientes -->
+    <section id="incidents" class="incidents-section">
+        <h2 class="section-title">Incidentes Recientes</h2>
+        
+        <div class="incidents-list">
+            <div class="incident-card">
+                <div class="incident-header">
+                    <div class="incident-title">Degradación del servicio de autenticación</div>
+                    <div class="incident-timestamp">01 de marzo de 2025, 10:42 AM UTC</div>
+                </div>
+                <div class="incident-services">
+                    <div class="incident-service-tag">Autenticación</div>
+                </div>
+                <div class="incident-description">
+                    Estamos experimentando una degradación en el servicio de autenticación, lo que está causando tiempos de respuesta más lentos de lo normal. Nuestro equipo está investigando el problema y trabajando para resolverlo lo antes posible.
+                </div>
+                <div class="incident-status incident-investigating">Investigando</div>
+            </div>
+            
+            <div class="incident-card">
+                <div class="incident-header">
+                    <div class="incident-title">Interrupción temporal en la API Principal</div>
+                    <div class="incident-timestamp">28 de febrero de 2025, 15:23 PM UTC</div>
+                </div>
+                <div class="incident-services">
+                    <div class="incident-service-tag">API Principal</div>
+                    <div class="incident-service-tag">Base de Datos</div>
+                </div>
+                <div class="incident-description">
+                    Se produjo una interrupción de 5 minutos en la API Principal debido a un pico inesperado de tráfico. Implementamos medidas para aumentar la capacidad y supervisamos la situación.
+                </div>
+                <div class="incident-status incident-resolved">Resuelto</div>
+            </div>
+            
+            <div class="incident-card">
+                <div class="incident-header">
+                    <div class="incident-title">Latencia elevada en la CDN</div>
+                    <div class="incident-timestamp">25 de febrero de 2025, 08:15 AM UTC</div>
+                </div>
+                <div class="incident-services">
+                    <div class="incident-service-tag">CDN</div>
+                </div>
+                <div class="incident-description">
+                    Detectamos latencia más alta de lo normal en nuestra CDN, afectando a usuarios en la región de Europa. El problema fue causado por tareas de mantenimiento no programadas por parte de nuestro proveedor. La situación se ha normalizado completamente.
+                </div>
+                <div class="incident-status incident-resolved">Resuelto</div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Suscripción a notificaciones -->
+    <section class="notification-box">
+        <h3 class="notification-title">Recibe alertas sobre el estado del servicio</h3>
+        <p>Suscríbete para recibir notificaciones en tiempo real sobre incidentes y mantenimientos programados.</p>
+        
+        <div class="notification-form">
+            <input type="email" class="notification-input" placeholder="Introduce tu correo electrónico" id="notificationEmail">
+            <button class="notification-btn" onclick="subscribeToNotifications()">Suscribirse</button>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#" class="footer-link">Inicio</a>
+                <a href="#" class="footer-link">Documentación</a>
+                <a href="#" class="footer-link">Contacto</a>
+                <a href="#" class="footer-link">Política de Privacidad</a>
+                <a href="#" class="footer-link">Términos de Servicio</a>
+            </div>
+            <div class="footer-copyright">
+                © 2025 API Karl. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mostrar loader inicial
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('pageLoader').classList.add('loader-hidden');
+                showToast("Última actualización: Hace 2 minutos");
+            }, 1500);
+        });
+
+        // Función para mostrar toast
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 5000);
+        }
+
+        // Función para el menú
+        function toggleMenu() {
+            let menu = document.getElementById("menu");
+            menu.classList.toggle("menu-visible");
+        }
+
+        // Cerrar el menú al hacer clic fuera de él
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('menu');
+            const menuBtn = document.querySelector('.menu-btn');
+            
+            if (!menu.contains(event.target) && !menuBtn.contains(event.target) && menu.classList.contains('menu-visible')) {
+                menu.classList.remove('menu-visible');
+            }
+        });
+
+        // Cambiar el rango de tiempo para las gráficas
+        function updateTimeframe(timeframe) {
+            const buttons = document.querySelectorAll('.timeframe-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            
+            // Actualizar gráficas según el periodo seleccionado
+            updateCharts(timeframe);
+            
+            showToast(`Mostrando datos de los últimos ${timeframe === '24h' ? '24 horas' : 
+                                                      timeframe === '7d' ? '7 días' : 
+                                                      timeframe === '30d' ? '30 días' : '90 días'}`);
+        }
+
+        // Suscripción a notificaciones
+        function subscribeToNotifications() {
+            const email = document.getElementById('notificationEmail').value;
+            
+            if (!email || !email.includes('@') || !email.includes('.')) {
+                showToast("Por favor, introduce un correo electrónico válido");
+                return;
+            }
+            
+            // Simular envío de solicitud
+            showToast("¡Te has suscrito correctamente a las notificaciones!");
+            document.getElementById('notificationEmail').value = '';
+        }
+
+        // Funciones para inicializar y actualizar gráficas
+        function initCharts() {
+            // Gráfica de tiempo de respuesta
+            const responseTimeCtx = document.getElementById('responseTimeChart').getContext('2d');
+            window.responseTimeChart = new Chart(responseTimeCtx, {
+                type: 'line',
+                data: {
+                    labels: generateTimeLabels(24),
+                    datasets: [{
+                        label: 'API Principal',
+                        data: generateRandomData(24, 100, 150),
+                        borderColor: '#4deeea',
+                        backgroundColor: 'rgba(77, 238, 234, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        pointBackgroundColor: '#4deeea',
+                        pointBorderColor: '#0a0f1a',
+                        pointRadius: 4
+                    },
+                    {
+                        label: 'Autenticación',
+                        data: generateRandomData(24, 300, 400),
+                        borderColor: '#ffe700',
+                        backgroundColor: 'rgba(255, 231, 0, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        pointBackgroundColor: '#ffe700',
+                        pointBorderColor: '#0a0f1a',
+                        pointRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'white'
+                            }
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            backgroundColor: 'rgba(20, 25, 40, 0.9)',
+                            titleColor: '#4deeea',
+                            bodyColor: 'white',
+                            borderColor: 'rgba(77, 238, 234, 0.3)',
+                            borderWidth: 1
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                color: 'rgba(77, 238, 234, 0.1)'
+                            },
+                            ticks: {
+                                color: 'white'
+                            }
+                        },
+                        y: {
+                            grid: {
+                                color: 'rgba(77, 238, 234, 0.1)'
+                            },
+                            ticks: {
+                                color: 'white'
+                            },
+                            title: {
+                                display: true,
+                                text: 'Tiempo (ms)',
+                                color: 'white'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Gráfica de solicitudes por minuto
+            const requestsCtx = document.getElementById('requestsChart').getContext('2d');
+            window.requestsChart = new Chart(requestsCtx, {
+                type: 'bar',
+                data: {
+                    labels: generateTimeLabels(24),
+                    datasets: [{
+                        label: 'Solicitudes por minuto',
+                        data: generateRandomData(24, 800, 1200),
+                        backgroundColor: 'rgba(116, 238, 21, 0.6)',
+                        borderColor: '#74ee15',
+                        borderWidth: 1,
+                        borderRadius: 5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'white'
+                            }
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            backgroundColor: 'rgba(20, 25, 40, 0.9)',
+                            titleColor: '#74ee15',
+                            bodyColor: 'white',
+                            borderColor: 'rgba(116, 238, 21, 0.3)',
+                            borderWidth: 1
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                color: 'rgba(77, 238, 234, 0.1)'
+                            },
+                            ticks: {
+                                color: 'white'
+                            }
+                        },
+                        y: {
+                            grid: {
+                                color: 'rgba(77, 238, 234, 0.1)'
+                            },
+                            ticks: {
+                                color: 'white'
+                            },
+                            title: {
+                                display: true,
+                                text: 'Solicitudes',
+                                color: 'white'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Gráfica de uso de CPU
+            const cpuUsageCtx = document.getElementById('cpuUsageChart').getContext('2d');
+            window.cpuUsageChart = new Chart(cpuUsageCtx, {
+                type: 'line',
+                data: {
+                    labels: generateTimeLabels(24),
+                    datasets: [{
+                        label: 'Uso de CPU',
+                        data: generateRandomData(24, 30, 70),
+                        borderColor: '#ffe700',
+                        backgroundColor: 'rgba(255, 231, 0, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        pointBackgroundColor: '#ffe700',
+                        pointBorderColor: '#0a0f1a',
+                        pointRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'white'
+                            }
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            backgroundColor: 'rgba(20, 25, 40, 0.9)',
+                            titleColor: '#ffe700',
+                            bodyColor: 'white',
+                            borderColor: 'rgba(255, 231, 0, 0.3)',
+                            borderWidth: 1
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                color: 'rgba(77, 238, 234, 0.1)'
+                            },
+                            ticks: {
+                                color: 'white'
+                            }
+                        },
+                        y: {
+                            grid: {
+                                color: 'rgba(77, 238, 234, 0.1)'
+                            },
+                            ticks: {
+                                color: 'white'
+                            },
+                            title: {
+                                display: true,
+                                text: 'Uso (%)',
+                                color: 'white'
+                            },
+                            min: 0,
+                            max: 100
+                        }
+                    }
+                }
+            });
+            
+            // Gráfica de uso de memoria
+            const memoryUsageCtx = document.getElementById('memoryUsageChart').getContext('2d');
+            window.memoryUsageChart = new Chart(memoryUsageCtx, {
+                type: 'line',
+                data: {
+                    labels: generateTimeLabels(24),
+                    datasets: [{
+                        label: 'Uso de Memoria',
+                        data: generateRandomData(24, 40, 75),
+                        borderColor: '#4deeea',
+                        backgroundColor: 'rgba(77, 238, 234, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        pointBackgroundColor: '#4deeea',
+                        pointBorderColor: '#0a0f1a',
+                        pointRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'white'
+                            }
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            backgroundColor: 'rgba(20, 25, 40, 0.9)',
+                            titleColor: '#4deeea',
+                            bodyColor: 'white',
+                            borderColor: 'rgba(77, 238, 234, 0.3)',
+                            borderWidth: 1
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                color: 'rgba(77, 238, 234, 0.1)'
+                            },
+                            ticks: {
+                                color: 'white'
+                            }
+                        },
+                        y: {
+                            grid: {
+                                color: 'rgba(77, 238, 234, 0.1)'
+                            },
+                            ticks: {
+                                color: 'white'
+                            },
+                            title: {
+                                display: true,
+                                text: 'Uso (%)',
+                                color: 'white'
+                            },
+                            min: 0,
+                            max: 100
+                        }
+                    }
+                }
+            });
+        }
+
+        // Actualizar las gráficas con nuevos datos dependiendo del periodo seleccionado
+        function updateCharts(timeframe) {
+            let points = 24;
+            
+            switch(timeframe) {
+                case '24h':
+                    points = 24;
+                    break;
+                case '7d':
+                    points = 7;
+                    break;
+                case '30d':
+                    points = 30;
+                    break;
+                case '90d':
+                    points = 90;
+                    break;
+            }
+            
+            const labels = timeframe === '24h' ? generateTimeLabels(points) : generateDateLabels(points);
+            
+            // Actualizar gráfica de tiempo de respuesta
+            window.responseTimeChart.data.labels = labels;
+            window.responseTimeChart.data.datasets[0].data = generateRandomData(points, 100, 150);
+            window.responseTimeChart.data.datasets[1].data = generateRandomData(points, 300, 400);
+            window.responseTimeChart.update();
+            
+            // Actualizar gráfica de solicitudes
+            window.requestsChart.data.labels = labels;
+            window.requestsChart.data.datasets[0].data = generateRandomData(points, 800, 1200);
+            window.requestsChart.update();
+            
+            // Actualizar gráfica de uso de CPU
+            window.cpuUsageChart.data.labels = labels;
+            window.cpuUsageChart.data.datasets[0].data = generateRandomData(points, 30, 70);
+            window.cpuUsageChart.update();
+            
+            // Actualizar gráfica de uso de memoria
+            window.memoryUsageChart.data.labels = labels;
+            window.memoryUsageChart.data.datasets[0].data = generateRandomData(points, 40, 75);
+            window.memoryUsageChart.update();
+        }
+
+        // Generar etiquetas de tiempo para las gráficas (formato de hora)
+        function generateTimeLabels(count) {
+            const labels = [];
+            const now = new Date();
+            
+            for (let i = count - 1; i >= 0; i--) {
+                const time = new Date(now);
+                time.setHours(now.getHours() - i);
+                labels.push(time.getHours() + ':00');
+            }
+            
+            return labels;
+        }
+
+        // Generar etiquetas de fecha para las gráficas (formato de día)
+        function generateDateLabels(count) {
+            const labels = [];
+            const now = new Date();
+            
+            for (let i = count - 1; i >= 0; i--) {
+                const date = new Date(now);
+                date.setDate(now.getDate() - i);
+                labels.push(`${date.getDate()}/${date.getMonth() + 1}`);
+            }
+            
+            return labels;
+        }
+
+        // Generar datos aleatorios para las gráficas
+        function generateRandomData(count, min, max) {
+            return Array.from({ length: count }, () => Math.floor(Math.random() * (max - min + 1)) + min);
+        }
+
+        // Inicializar las gráficas cuando la página cargue
+        document.addEventListener('DOMContentLoaded', function() {
+            initCharts();
+            
+            // Simular actualizaciones periódicas
+            setInterval(() => {
+                const timeframe = document.querySelector('.timeframe-btn.active').innerText;
+                let period = '7d';
+                
+                if (timeframe === '24 horas') period = '24h';
+                else if (timeframe === '30 días') period = '30d';
+                else if (timeframe === '90 días') period = '90d';
+                
+                updateCharts(period);
+                
+                // Actualizar tiempos de "última actualización"
+                document.querySelectorAll('.detail-value').forEach(el => {
+                    if (el.textContent.includes('Hace')) {
+                        el.textContent = 'Hace 2 minutos';
+                    }
+                });
+                
+            }, 60000); // Actualizar cada minuto
+        });
+
+        // Animación para cards al hacer scroll
+        const animateOnScroll = () => {
+            const cards = document.querySelectorAll('.service-card, .metric-card, .incident-card');
+            
+            cards.forEach(card => {
+                const cardTop = card.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (cardTop < windowHeight - 100) {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                } else {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(30px)';
+                }
+            });
+        };
+
+        // Inicializar animación al cargar
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.service-card, .metric-card, .incident-card');
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'all 0.5s ease';
+            });
+            
+            animateOnScroll();
+        });
+
+        // Animar al hacer scroll
+        window.addEventListener('scroll', animateOnScroll);
+    </script>
+</body>
+</html>
