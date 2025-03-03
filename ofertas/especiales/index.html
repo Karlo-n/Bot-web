@@ -1,0 +1,1519 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ofertas Especiales - Bots Premium</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fuentes de Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <!-- Metadatos Open Graph -->
+    <meta property="og:title" content="Ofertas Especiales - Bots Discord Kapirium">
+    <meta property="og:description" content="Descuentos exclusivos y promociones limitadas en bots para Discord">
+    <meta property="og:image" content="favicon.png">
+    <meta property="og:url" content="http://bot.apikarl.com/ofertas">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Ofertas Especiales - Bots Discord Kapirium">
+    <meta name="twitter:description" content="Descuentos exclusivos y promociones limitadas en bots para Discord">
+    <meta name="twitter:image" content="favicon.png">
+    
+    <style>
+        :root {
+            --primary: #4deeea;
+            --secondary: #74ee15;
+            --accent: #ffe700;
+            --accent2: #ff6b6b;
+            --dark-bg: #0a0f1a;
+            --card-bg: rgba(20, 25, 40, 0.9);
+            --glow-primary: 0 0 10px rgba(77, 238, 234, 0.7);
+            --glow-secondary: 0 0 10px rgba(116, 238, 21, 0.7);
+            --glow-accent: 0 0 10px rgba(255, 231, 0, 0.7);
+            --glow-accent2: 0 0 10px rgba(255, 107, 107, 0.7);
+            --card-shadow: 0 4px 20px rgba(77, 238, 234, 0.2);
+            --text-shadow: 0 0 5px rgba(77, 238, 234, 0.7);
+        }
+
+        body {
+            background: var(--dark-bg);
+            color: white;
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* Fondo animado con partículas */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle, rgba(20, 25, 40, 0.3) 10%, transparent 10%);
+            background-size: 30px 30px;
+            animation: backgroundAnimation 100s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes backgroundAnimation {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 1000px 1000px;
+            }
+        }
+
+        /* Líneas de malla futurista */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(rgba(77, 238, 234, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(77, 238, 234, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+        }
+
+        /* Navbar mejorado */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background: rgba(10, 15, 30, 0.95);
+            box-shadow: 0 0 20px rgba(77, 238, 234, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(77, 238, 234, 0.2);
+        }
+
+        .navbar-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            letter-spacing: 2px;
+            text-shadow: var(--text-shadow);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-title:hover {
+            transform: translateX(-50%) scale(1.05);
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        .discord-icon {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 0 2px var(--primary));
+        }
+
+        .discord-icon:hover {
+            transform: rotate(5deg) scale(1.1);
+            filter: drop-shadow(0 0 5px var(--primary));
+        }
+
+        .menu-btn {
+            font-size: 24px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .menu-btn:hover {
+            transform: rotate(90deg);
+            color: var(--secondary);
+        }
+
+        .menu-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .menu-content {
+            display: none;
+            position: absolute;
+            top: 40px;
+            right: 0;
+            background: rgba(20, 25, 40, 0.95);
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 0 20px rgba(77, 238, 234, 0.3);
+            min-width: 180px;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 20;
+            border: 1px solid rgba(77, 238, 234, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .menu-visible {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .menu-content b {
+            display: block;
+            color: var(--primary);
+            margin: 10px 0 5px;
+            font-size: 14px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(77, 238, 234, 0.2);
+            padding-bottom: 3px;
+        }
+
+        .menu-content a {
+            display: block;
+            padding: 8px 10px;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            margin: 2px 0;
+        }
+
+        .menu-content a:hover {
+            background: rgba(77, 238, 234, 0.1);
+            transform: translateX(5px);
+            color: var(--primary);
+        }
+
+        /* Header */
+        header {
+            padding: 20px;
+            font-size: 2.5rem;
+            text-shadow: 3px 3px 7px black;
+            animation: fadeIn 2s ease-in-out;
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        header img {
+            width: 80%;
+            max-width: 800px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 20px rgba(77, 238, 234, 0.7);
+            animation: floatAnimation 5s infinite ease-in-out;
+            margin: 0 auto;
+            display: block;
+        }
+        
+        header h1 {
+            margin-top: 15px;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        header p {
+            margin-top: 10px;
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            color: #d0d0d0;
+        }
+
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes floatAnimation {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Títulos de categoría */
+        .categoria-titulo {
+            width: 100%;
+            font-size: 2rem;
+            margin: 30px 0 20px;
+            text-shadow: var(--text-shadow);
+            position: relative;
+            text-align: center;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary);
+        }
+        
+        .categoria-titulo::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 3px;
+        }
+
+        /* Tarjetas de ofertas */
+        .oferta-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 15px;
+            width: 320px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(77, 238, 234, 0.1);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            margin-bottom: 30px;
+        }
+
+        .oferta-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                transparent, 
+                rgba(77, 238, 234, 0.1), 
+                transparent 30%
+            );
+            animation: rotate 10s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .oferta-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(77, 238, 234, 0.3);
+        }
+
+        .oferta-card h2 {
+            color: var(--primary);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .oferta-card h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            transition: width 0.4s ease;
+        }
+
+        .oferta-card:hover h2::after {
+            width: 100%;
+        }
+
+        .oferta-card .oferta-icon {
+            font-size: 40px;
+            color: var(--accent);
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 5px var(--accent));
+            transition: all 0.3s ease;
+        }
+
+        .oferta-card:hover .oferta-icon {
+            transform: scale(1.1) rotate(10deg);
+            color: var(--secondary);
+        }
+
+        /* Precios con descuento */
+        .precio-original {
+            text-decoration: line-through;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .precio-oferta {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent);
+            margin-bottom: 10px;
+            text-shadow: var(--glow-accent);
+        }
+
+        .ahorro {
+            background: rgba(116, 238, 21, 0.2);
+            color: var(--secondary);
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 15px;
+            box-shadow: var(--glow-secondary);
+        }
+
+        /* Features */
+        .features {
+            margin: 15px 0;
+            font-size: 0.9rem;
+            text-align: left;
+            padding-left: 20px;
+        }
+        
+        .features li {
+            margin-bottom: 5px;
+            list-style-type: none;
+            position: relative;
+        }
+        
+        .features li::before {
+            content: '✓';
+            color: var(--secondary);
+            position: absolute;
+            left: -15px;
+            text-shadow: var(--glow-secondary);
+        }
+
+        /* Etiquetas */
+        .tag {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 231, 0, 0.2);
+            padding: 5px 10px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            box-shadow: var(--glow-accent);
+        }
+        
+        .tag.limitado {
+            background: rgba(255, 107, 107, 0.2);
+            box-shadow: var(--glow-accent2);
+            color: var(--accent2);
+        }
+        
+        .tag.popular {
+            background: rgba(116, 238, 21, 0.2);
+            box-shadow: var(--glow-secondary);
+            color: var(--secondary);
+        }
+
+        .tag.exclusivo {
+            background: rgba(77, 238, 234, 0.2);
+            box-shadow: var(--glow-primary);
+            color: var(--primary);
+        }
+
+        /* Botones */
+        .btn-style {
+            background: rgba(77, 238, 234, 0.1);
+            color: white;
+            border: 1px solid rgba(77, 238, 234, 0.3);
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: var(--glow-primary);
+            margin-top: 10px;
+        }
+        
+        .btn-style:hover {
+            background: rgba(77, 238, 234, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(77, 238, 234, 0.4);
+        }
+
+        .btn-accent {
+            background: rgba(255, 231, 0, 0.1);
+            border: 1px solid rgba(255, 231, 0, 0.3);
+            box-shadow: var(--glow-accent);
+        }
+
+        .btn-accent:hover {
+            background: rgba(255, 231, 0, 0.2);
+            box-shadow: 0 5px 15px rgba(255, 231, 0, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(116, 238, 21, 0.1);
+            border: 1px solid rgba(116, 238, 21, 0.3);
+            box-shadow: var(--glow-secondary);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(116, 238, 21, 0.2);
+            box-shadow: 0 5px 15px rgba(116, 238, 21, 0.4);
+        }
+
+        /* Contador de tiempo */
+        .countdown-container {
+            margin: 20px auto 40px;
+            text-align: center;
+            max-width: 500px;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .countdown-item {
+            background: rgba(20, 25, 40, 0.9);
+            border-radius: 10px;
+            padding: 15px;
+            min-width: 80px;
+            border: 1px solid rgba(77, 238, 234, 0.2);
+            box-shadow: var(--glow-primary);
+        }
+
+        .countdown-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: var(--accent);
+            text-shadow: var(--glow-accent);
+        }
+
+        .countdown-label {
+            font-size: 0.8rem;
+            color: var(--primary);
+            margin-top: 5px;
+        }
+
+        /* Sección de paquetes */
+        .paquetes-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px auto;
+            max-width: 1200px;
+        }
+
+        .paquete-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            width: 350px;
+            border: 1px solid rgba(77, 238, 234, 0.2);
+            box-shadow: var(--card-shadow);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .paquete-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(77, 238, 234, 0.3);
+        }
+
+        .paquete-titulo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--primary);
+            text-shadow: var(--text-shadow);
+        }
+
+        .paquete-precio {
+            text-align: center;
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin-bottom: 10px;
+            text-shadow: var(--glow-accent);
+        }
+
+        .paquete-precio span {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .paquete-ahorro {
+            text-align: center;
+            color: var(--secondary);
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .paquete-bots {
+            margin-bottom: 20px;
+        }
+
+        .paquete-bot {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 8px;
+            background: rgba(77, 238, 234, 0.05);
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .paquete-bot:hover {
+            background: rgba(77, 238, 234, 0.1);
+            transform: translateX(5px);
+        }
+
+        .paquete-bot-icon {
+            color: var(--primary);
+            font-size: 20px;
+            margin-right: 10px;
+        }
+
+        /* Código promocional */
+        .codigo-promo {
+            background: linear-gradient(135deg, rgba(20, 25, 40, 0.9), rgba(30, 35, 50, 0.9));
+            border: 1px dashed var(--accent);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            margin: 30px auto;
+            max-width: 500px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .codigo-valor {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 3px;
+            color: var(--accent);
+            background: rgba(255, 231, 0, 0.1);
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            display: inline-block;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-shadow: var(--glow-accent);
+        }
+
+        .codigo-valor:hover {
+            background: rgba(255, 231, 0, 0.2);
+            transform: scale(1.05);
+        }
+
+        .codigo-valor::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            100% {
+                left: 100%;
+            }
+        }
+
+        .codigo-info {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Carrusel de ofertas */
+        .carousel-container {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .carousel {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .carousel-slide {
+            flex: 0 0 100%;
+            background: var(--card-bg);
+            padding: 30px;
+            border: 1px solid rgba(77, 238, 234, 0.2);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        .carousel-content {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .carousel-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .carousel-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .carousel-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .carousel-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+            text-shadow: var(--glow-accent);
+        }
+
+        .carousel-description {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .carousel-price {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+            text-shadow: var(--glow-secondary);
+        }
+
+        .carousel-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background: var(--primary);
+            box-shadow: var(--glow-primary);
+        }
+
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background: rgba(20, 25, 40, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            color: var(--primary);
+            font-size: 20px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(77, 238, 234, 0.3);
+        }
+
+        .carousel-arrow:hover {
+            background: rgba(77, 238, 234, 0.2);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .carousel-prev {
+            left: 20px;
+        }
+
+        .carousel-next {
+            right: 20px;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 60px;
+            padding: 30px;
+            background: rgba(10, 15, 30, 0.8);
+            position: relative;
+            border-top: 1px solid rgba(77, 238, 234, 0.2);
+            z-index: 10;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+            text-align: left;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 15px;
+            color: var(--primary);
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-section a {
+            color: #d0d0d0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: var(--primary);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(77, 238, 234, 0.1);
+            color: var(--primary);
+            transition: all 0.3s ease;
+            font-size: 18px;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px);
+            background: var(--primary);
+            color: var(--dark-bg);
+            box-shadow: var(--glow-primary);
+        }
+        
+        .copyright {
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.8rem;
+            color: #a0a0a0;
+            text-align: center;
+        }
+
+        /* Toast de notificación */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(20, 25, 40, 0.9);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(77, 238, 234, 0.3);
+            transform: translateY(200%);
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 1000;
+            border-left: 4px solid var(--primary);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+        }
+
+        .toast-icon {
+            color: var(--primary);
+            font-size: 20px;
+        }
+
+        /* Animación de elementos */
+    .animate-on-scroll {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .animate-on-scroll.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .animate-in-left {
+        opacity: 0;
+        transform: translateX(-50px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .animate-in-left.visible {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .animate-in-right {
+        opacity: 0;
+        transform: translateX(50px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .animate-in-right.visible {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .animate-scale {
+        opacity: 0;
+        transform: scale(0.8);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .animate-scale.visible {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    /* Animación de carga inicial */
+    .page-loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--dark-bg);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+
+    .loader-hidden {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .loader-content {
+        text-align: center;
+    }
+
+    .loader-spinner {
+        width: 60px;
+        height: 60px;
+        border: 5px solid rgba(77, 238, 234, 0.3);
+        border-radius: 50%;
+        border-top-color: var(--primary);
+        animation: spin 1s infinite ease;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    /* Media queries */
+    @media (max-width: 768px) {
+        .navbar {
+            padding: 15px 20px;
+        }
+
+        .navbar-title {
+            font-size: 20px;
+        }
+
+        .paquetes-container {
+            gap: 20px;
+            padding: 15px;
+        }
+
+        .paquete-card {
+            width: 100%;
+            max-width: 320px;
+        }
+
+        .countdown-item {
+            min-width: 60px;
+            padding: 10px;
+        }
+
+        .countdown-number {
+            font-size: 1.5rem;
+        }
+
+        .codigo-valor {
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+        }
+
+        .carousel-arrow {
+            width: 30px;
+            height: 30px;
+            font-size: 16px;
+        }
+    }
+</style>
+</head>
+<body>
+    <!-- Loader inicial -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <h2 style="margin-top: 20px; font-family: 'Orbitron', sans-serif; color: var(--primary);">Ofertas Especiales</h2>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <a href="https://discord.gg/PvQvJ7JvEx" target="_blank" class="discord-link">
+            <img src="/api/placeholder/30/30" alt="Discord" class="discord-icon">
+        </a>
+
+        <span class="navbar-title">Ofertas Especiales</span>
+
+        <div class="menu-container">
+            <button class="menu-btn" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+            <div id="menu" class="menu-content">
+                <b>Categorías</b>
+                <a href="#ofertas-flash"><i class="fas fa-bolt"></i> Ofertas Flash</a>
+                <a href="#paquetes"><i class="fas fa-box"></i> Paquetes</a>
+                <a href="#exclusivas"><i class="fas fa-star"></i> Exclusivas</a>
+                <b>Info</b>
+                <a href="http://bot.apikarl.com"><i class="fas fa-home"></i> Inicio</a>
+                <a href="/docs"><i class="fas fa-book"></i> Documentación</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Toast de notificación -->
+    <div class="toast" id="toast">
+        <i class="fas fa-bell toast-icon"></i>
+        <span id="toastMessage">¡Código copiado al portapapeles!</span>
+    </div>
+
+    <header>
+        <img src="/api/placeholder/800/300" alt="Banner de Ofertas Especiales" class="floating">
+        <h1 class="animate-on-scroll">OFERTAS ESPECIALES</h1>
+        <p class="fade-in animate-on-scroll">Descubre nuestras promociones exclusivas por tiempo limitado. Bots premium a precios increíbles, combos especiales y descuentos para potenciar tu servidor de Discord.</p>
+    </header>
+
+    <!-- Banner de cuenta regresiva -->
+    <div class="countdown-container animate-scale">
+        <h2 style="color: var(--accent); font-family: 'Orbitron', sans-serif;">LA OFERTA TERMINA EN:</h2>
+        <div class="countdown" id="countdown">
+            <div class="countdown-item">
+                <div class="countdown-number" id="countdown-days">00</div>
+                <div class="countdown-label">Días</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-number" id="countdown-hours">00</div>
+                <div class="countdown-label">Horas</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-number" id="countdown-minutes">00</div>
+                <div class="countdown-label">Minutos</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-number" id="countdown-seconds">00</div>
+                <div class="countdown-label">Segundos</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Código promocional -->
+    <div class="codigo-promo animate-on-scroll">
+        <h3 style="color: var(--primary); font-family: 'Orbitron', sans-serif;">CÓDIGO PROMOCIONAL</h3>
+        <p>Usa este código al finalizar tu compra para obtener un 25% de descuento</p>
+        <div class="codigo-valor" id="codigoPromo" onclick="copiarCodigo()">PREMIUM25</div>
+        <div class="codigo-info">Haz clic en el código para copiarlo</div>
+    </div>
+
+    <!-- Carrusel de ofertas destacadas -->
+    <h2 class="categoria-titulo" id="ofertas-flash">OFERTAS FLASH</h2>
+    
+    <div class="carousel-container animate-on-scroll">
+        <div class="carousel" id="carousel">
+            <div class="carousel-slide">
+                <div class="carousel-content">
+                    <div class="carousel-info">
+                        <div class="carousel-title">Bot de Moderación PRO</div>
+                        <div class="carousel-description">Sistema completo de moderación con verificación, anti-spam, y panel de administración. ¡Potencia la seguridad de tu servidor!</div>
+                        <div class="carousel-price"><span style="text-decoration: line-through; color: rgba(255,255,255,0.6); font-size: 1.2rem; margin-right: 10px;">24.99€</span> 17.99€ <span style="background: rgba(255,107,107,0.2); color: var(--accent2); padding: 3px 8px; border-radius: 5px; font-size: 0.8rem; margin-left: 10px;">-28%</span></div>
+                        <a href="#" class="btn-style btn-accent"><i class="fas fa-bolt"></i> ¡Aprovechar oferta!</a>
+                    </div>
+                    <div class="carousel-image">
+                        <img src="/api/placeholder/300/200" alt="Bot de Moderación PRO">
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-slide">
+                <div class="carousel-content">
+                    <div class="carousel-info">
+                        <div class="carousel-title">Bot de Música Premium</div>
+                        <div class="carousel-description">Reproduce música de alta calidad en tu servidor. Sin anuncios, audio 320kbps y soporte para múltiples plataformas.</div>
+                        <div class="carousel-price"><span style="text-decoration: line-through; color: rgba(255,255,255,0.6); font-size: 1.2rem; margin-right: 10px;">19.99€</span> 14.99€ <span style="background: rgba(255,107,107,0.2); color: var(--accent2); padding: 3px 8px; border-radius: 5px; font-size: 0.8rem; margin-left: 10px;">-25%</span></div>
+                        <a href="#" class="btn-style btn-accent"><i class="fas fa-bolt"></i> ¡Aprovechar oferta!</a>
+                    </div>
+                    <div class="carousel-image">
+                        <img src="/api/placeholder/300/200" alt="Bot de Música Premium">
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-slide">
+                <div class="carousel-content">
+                    <div class="carousel-info">
+                        <div class="carousel-title">Bot de Roleplay Elite</div>
+                        <div class="carousel-description">Sistema completo para servidores RP con DNI, profesiones, economía avanzada y más.</div>
+                        <div class="carousel-price"><span style="text-decoration: line-through; color: rgba(255,255,255,0.6); font-size: 1.2rem; margin-right: 10px;">29.99€</span> 19.99€ <span style="background: rgba(255,107,107,0.2); color: var(--accent2); padding: 3px 8px; border-radius: 5px; font-size: 0.8rem; margin-left: 10px;">-33%</span></div>
+                        <a href="#" class="btn-style btn-accent"><i class="fas fa-bolt"></i> ¡Aprovechar oferta!</a>
+                    </div>
+                    <div class="carousel-image">
+                        <img src="/api/placeholder/300/200" alt="Bot de Roleplay Elite">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-arrow carousel-prev" onclick="moveCarousel(-1)"><i class="fas fa-chevron-left"></i></div>
+        <div class="carousel-arrow carousel-next" onclick="moveCarousel(1)"><i class="fas fa-chevron-right"></i></div>
+        <div class="carousel-controls" id="carouselControls"></div>
+    </div>
+
+    <h2 class="categoria-titulo" id="paquetes">PAQUETES DE AHORRO</h2>
+    
+    <div class="paquetes-container">
+        <div class="paquete-card animate-in-left">
+            <span class="tag popular">POPULAR</span>
+            <div class="paquete-titulo">PACK BÁSICO</div>
+            <div class="paquete-precio">29.99€ <span>/ pack</span></div>
+            <div class="paquete-ahorro">¡Ahorra un 25% comprando el pack!</div>
+            
+            <div class="paquete-bots">
+                <div class="paquete-bot">
+                    <i class="fas fa-shield-alt paquete-bot-icon"></i>
+                    <div>
+                        <strong>Bot de Mini-Moderación</strong>
+                        <div style="font-size: 0.9rem; color: rgba(255,255,255,0.7);">Comandos básicos de moderación</div>
+                    </div>
+                </div>
+                <div class="paquete-bot">
+                    <i class="fas fa-music paquete-bot-icon"></i>
+                    <div>
+                        <strong>Bot de Música</strong>
+                        <div style="font-size: 0.9rem; color: rgba(255,255,255,0.7);">Reproduce música de alta calidad</div>
+                    </div>
+                </div>
+                <div class="paquete-bot">
+                    <i class="fas fa-calendar-alt paquete-bot-icon"></i>
+                    <div>
+                        <strong>Bot de Eventos</strong>
+                        <div style="font-size: 0.9rem; color: rgba(255,255,255,0.7);">Organiza eventos en tu servidor</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 20px;">
+                <a href="#" class="btn-style btn-secondary"><i class="fas fa-shopping-cart"></i> Comprar Pack</a>
+            </div>
+        </div>
+        
+        <div class="paquete-card animate-on-scroll">
+            <span class="tag exclusivo">EXCLUSIVO</span>
+            <div class="paquete-titulo">PACK PREMIUM</div>
+            <div class="paquete-precio">49.99€ <span>/ pack</span></div>
+            <div class="paquete-ahorro">¡Ahorra un 35% comprando el pack!</div>
+            
+            <div class="paquete-bots">
+                <div class="paquete-bot">
+                    <i class="fas fa-shield-alt paquete-bot-icon"></i>
+                    <div>
+                        <strong>Bot de Moderación PRO</strong>
+                        <div style="font-size: 0.9rem; color: rgba(255,255,255,0.7);">Sistema avanzado de moderación</div>
+                    </div>
+                </div>
+                <div class="paquete-bot">
+                    <i class="fas fa-music paquete-bot-icon"></i>
+                    <div>
+                        <strong>Bot de Música Premium</strong>
+                        <div style="font-size: 0.9rem; color: rgba(255,255,255,0.7);">Audio de alta calidad y sin anuncios</div>
+                    </div>
+                </div>
+                <div class="paquete-bot">
+                    <i class="fas fa-ticket-alt paquete-bot-icon"></i>
+                    <div>
+                        <strong>Bot de Tickets</strong>
+                        <div style="font-size: 0.9rem; color: rgba(255,255,255,0.7);">Sistema completo de tickets</div>
+                    </div>
+                </div>
+                <div class="paquete-bot">
+                    <i class="fas fa-chart-line paquete-bot-icon"></i>
+                    <div>
+                        <strong>Bot de Niveles</strong>
+                        <div style="font-size: 0.9rem; color: rgba(255,255,255,0.7);">Sistema de niveles y recompensas</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 20px;">
+                <a href="#" class="btn-style btn-secondary"><i class="fas fa-shopping-cart"></i> Comprar Pack</a>
+            </div>
+        </div>
+        
+        <div class="paquete-card animate-in-right">
+            <span class="tag limitado">LIMITADO</span>
+            <div class="paquete-titulo">PACK ROLEPLAY</div>
+            <div class="paquete-precio">39.99€ <span>/ pack</span></div>
+            <div class="paquete-ahorro">¡Ahorra un 30% comprando el pack!</div>
+            
+            <div class="paquete-bots">
+                <div class="paquete-bot">
+                    <i class="fas fa-theater-masks paquete-bot-icon"></i>
+                    <div>
+                        <strong>Bot de Roleplay</strong>
+                        <div style="font-size: 0.9rem; color: rgba(255,255,255,0.7);">Sistema completo para RP</div>
+                    </div>
+                </div>
+                <div class="paquete-bot">
+                    <i class="fas fa-coins paquete-bot-icon"></i>
+                    <div>
+                        <strong>Bot de Economía</strong>
+                        <div style="font-size: 0.9rem; color: rgba(255,255,255,0.7);">Sistema monetario completo</div>
+                    </div>
+                </div>
+                <div class="paquete-bot">
+                    <i class="fas fa-store paquete-bot-icon"></i>
+                    <div>
+                        <strong>Bot de Tienda</strong>
+                        <div style="font-size: 0.9rem; color: rgba(255,255,255,0.7);">Configura tu tienda virtual</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 20px;">
+                <a href="#" class="btn-style btn-secondary"><i class="fas fa-shopping-cart"></i> Comprar Pack</a>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="categoria-titulo" id="exclusivas">OFERTAS EXCLUSIVAS</h2>
+    
+    <section style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1200px; margin: 0 auto;">
+        <div class="oferta-card animate-in-left">
+            <span class="tag limitado">72H</span>
+            <i class="fas fa-robot oferta-icon"></i>
+            <h2>Bot Personalizado</h2>
+            <div class="precio-original">49.99€</div>
+            <div class="precio-oferta">34.99€</div>
+            <div class="ahorro">Ahorras: 15€</div>
+            <p>Crea un bot a medida según las necesidades específicas de tu comunidad o negocio. Incluye soporte premium y actualizaciones.</p>
+            <ul class="features">
+                <li>Desarrollo a medida</li>
+                <li>Soporte 24/7</li>
+                <li>Actualizaciones gratuitas</li>
+                <li>Panel de control premium</li>
+            </ul>
+            <a href="#" class="btn-style"><i class="fas fa-shopping-cart"></i> Comprar ahora</a>
+        </div>
+        
+        <div class="oferta-card animate-on-scroll">
+            <span class="tag exclusivo">VIP</span>
+            <i class="fas fa-crown oferta-icon"></i>
+            <h2>Suscripción Anual</h2>
+            <div class="precio-original">99.99€/año</div>
+            <div class="precio-oferta">69.99€/año</div>
+            <div class="ahorro">Ahorras: 30€</div>
+            <p>Acceso a todos nuestros bots premium con actualizaciones ilimitadas durante un año. Perfecto para servidores en crecimiento.</p>
+            <ul class="features">
+                <li>Todos los bots incluidos</li>
+                <li>Actualizaciones prioritarias</li>
+                <li>Soporte VIP</li>
+                <li>Funciones exclusivas</li>
+            </ul>
+            <a href="#" class="btn-style"><i class="fas fa-shopping-cart"></i> Comprar ahora</a>
+        </div>
+        
+        <div class="oferta-card animate-in-right">
+            <span class="tag popular">TOP</span>
+            <i class="fas fa-gift oferta-icon"></i>
+            <h2>2x1 en Bots</h2>
+            <div class="precio-original">Desde 19.99€</div>
+            <div class="precio-oferta">Mismo precio</div>
+            <div class="ahorro">2 por 1</div>
+            <p>Compra cualquier bot y llévate otro del mismo valor o menor completamente gratis. Oferta válida en toda la tienda.</p>
+            <ul class="features">
+                <li>Bot principal a precio regular</li>
+                <li>Segundo bot gratis</li>
+                <li>Aplicable a cualquier bot</li>
+                <li>Soporte para ambos bots</li>
+            </ul>
+            <a href="#" class="btn-style"><i class="fas fa-shopping-cart"></i> Ver bots</a>
+        </div>
+    </section>
+
+    <div class="promo-banner animate-on-scroll" style="margin-top: 50px; background: linear-gradient(135deg, rgba(20, 25, 40, 0.9), rgba(30, 35, 50, 0.9));">
+        <h2 style="color: var(--accent);">¿NECESITAS UNA SOLUCIÓN COMPLETA?</h2>
+        <p>Contacta con nuestro equipo para obtener asesoramiento personalizado y un plan a medida para tu servidor</p>
+        <div style="margin-top: 20px;">
+            <a href="#" class="btn-style btn-accent" style="margin-right: 10px;"><i class="fas fa-headset"></i> Hablar con un asesor</a>
+            <a href="#" class="btn-style"><i class="fas fa-paper-plane"></i> Enviar mensaje</a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Enlaces rápidos</h3>
+                <ul>
+                    <li><a href="http://bot.apikarl.com">Inicio</a></li>
+                    <li><a href="/firma/acepta">Términos y condiciones</a></li>
+                    <li><a href="#">Ofertas especiales</a></li>
+                    <li><a href="#">Soporte técnico</a></li>
+                    <li><a href="#">Blog de novedades</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Soporte</h3>
+                <ul>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="/docs">Documentación</a></li>
+                    <li><a href="#">Tutoriales</a></li>
+                    <li><a href="#">Centro de ayuda</a></li>
+                    <li><a href="https://bot.apikarl.com/servicio/estado">Estado del servicio</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contáctanos</h3>
+                <p>support@tiendabots.com</p>
+                <p>+33 2681 1294</p>
+                <div class="social-icons">
+                    <a href="https://discord.gg/YJCTpncreg" class="social-icon"><i class="fab fa-discord"></i></a>
+                    <a href="https://www.tiktok.com/@sentinelalphax?_t=ZM-8uJBHlQ8Sgf&_r=1" class="social-icon"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://wa.me/523326811294?text=%F0%9F%8C%90-¡Hola!,%20me%20interesa%20tu%20bot%20o%20alguna%20información%20extra" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>© 2025 Venta de Bots Premium | Desarrollado con <i class="fas fa-heart" style="color: var(--primary);"></i> para desarrolladores</p>
+            <p>Todos los derechos reservados. Términos y Condiciones | Política de Privacidad</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mostrar loader inicial
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('pageLoader').classList.add('loader-hidden');
+            }, 1500);
+        });
+
+        // Función para el menú
+        function toggleMenu() {
+            let menu = document.getElementById("menu");
+            menu.classList.toggle("menu-visible");
+        }
+
+        // Cerrar el menú al hacer clic fuera de él
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('menu');
+            const menuBtn = document.querySelector('.menu-btn');
+            
+            if (!menu.contains(event.target) && !menuBtn.contains(event.target) && menu.classList.contains('menu-visible')) {
+                menu.classList.remove('menu-visible');
+            }
+        });
+
+        // Detectar elementos cuando son visibles en la pantalla
+        function checkVisibility() {
+            const elements = document.querySelectorAll('.animate-on-scroll, .animate-in-left, .animate-in-right, .animate-scale');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementBottom = element.getBoundingClientRect().bottom;
+                
+                // Verificar si el elemento está visible en la ventana
+                if (elementTop < window.innerHeight - 50 && elementBottom > 0) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+        
+        // Comprobar visibilidad al cargar y al hacer scroll
+        window.addEventListener('load', checkVisibility);
+        window.addEventListener('scroll', checkVisibility);
+
+        // Countdown timer
+        function updateCountdown() {
+            // Fecha objetivo: 7 días desde ahora
+            const targetDate = new Date();
+            targetDate.setDate(targetDate.getDate() + 7);
+            
+            const currentDate = new Date();
+            const difference = targetDate - currentDate;
+            
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+            
+            document.getElementById('countdown-days').innerText = days.toString().padStart(2, '0');
+            document.getElementById('countdown-hours').innerText = hours.toString().padStart(2, '0');
+            document.getElementById('countdown-minutes').innerText = minutes.toString().padStart(2, '0');
+            document.getElementById('countdown-seconds').innerText = seconds.toString().padStart(2, '0');
+        }
+        
+        // Actualizar el countdown cada segundo
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Copiar código promocional
+        function copiarCodigo() {
+            const codigo = document.getElementById('codigoPromo').innerText;
+            navigator.clipboard.writeText(codigo)
+                .then(() => {
+                    showToast('¡Código copiado al portapapeles!');
+                })
+                .catch(err => {
+                    showToast('Error al copiar el código');
+                    console.error('Error al copiar: ', err);
+                });
+        }
+
+        // Mostrar toast de notificación
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Carrusel de ofertas
+        let currentSlide = 0;
+        const carousel = document.getElementById('carousel');
+        const slides = carousel.querySelectorAll('.carousel-slide');
+        const controlsContainer = document.getElementById('carouselControls');
+
+        // Crear los dots de control
+        slides.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.classList.add('carousel-dot');
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(index));
+            controlsContainer.appendChild(dot);
+        });
+
+        // Función para ir a un slide específico
+        function goToSlide(index) {
+            currentSlide = index;
+            updateCarousel();
+        }
+
+        // Función para mover el carrusel
+        function moveCarousel(direction) {
+            currentSlide = (currentSlide + direction + slides.length) % slides.length;
+            updateCarousel();
+        }
+
+        // Actualizar la visualización del carrusel
+        function updateCarousel() {
+            carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // Actualizar dots activos
+            const dots = controlsContainer.querySelectorAll('.carousel-dot');
+            dots.forEach((dot, index) => {
+                if (index === currentSlide) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+
+        // Auto-reproducción del carrusel
+        setInterval(() => {
+            moveCarousel(1);
+        }, 5000);
+    </script>
+</body>
+</html>
