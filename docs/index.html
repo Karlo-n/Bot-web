@@ -4,15 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Documentación - Bots Discord Kapirium</title>
-    <link rel="stylesheet" href="efectos.css">
-    <script src="script.js" defer></script>
-    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fuentes de Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <!-- Favicon -->
-    <link rel="icon" href="favicon.png" type="image/png">
-    <link rel="shortcut icon" href="favicon.png" type="image/png">
-    <link rel="apple-touch-icon" href="favicon.png">
-    
-    <!-- Metaetiquetas para vista previa al compartir enlaces (Open Graph) -->
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <!-- Metaetiquetas Open Graph -->
     <meta property="og:title" content="Documentación - Bots Discord Kapirium">
     <meta property="og:description" content="Guía completa para configurar y utilizar los bots de Kapirium en Discord. Comandos, eventos y características.">
     <meta property="og:image" content="favicon.png">
@@ -28,196 +32,226 @@
     <!-- Metaetiquetas para SEO -->
     <meta name="description" content="Documentación oficial de los bots de Discord de Kapirium. Aprende a configurar y utilizar todas las funciones de nuestros bots.">
     <meta name="keywords" content="Discord, bots, Kapirium, documentación, comandos, moderación, música, roleplay, eventos">
+    
     <style>
-        /* Estilos base */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --primary: #4deeea;
+            --secondary: #74ee15;
+            --accent: #ffe700;
+            --dark-bg: #0a0f1a;
+            --card-bg: rgba(20, 25, 40, 0.9);
+            --glow-primary: 0 0 10px rgba(77, 238, 234, 0.7);
+            --glow-secondary: 0 0 10px rgba(116, 238, 21, 0.7);
+            --glow-accent: 0 0 10px rgba(255, 231, 0, 0.7);
+            --card-shadow: 0 4px 20px rgba(77, 238, 234, 0.2);
+            --text-shadow: 0 0 5px rgba(77, 238, 234, 0.7);
         }
-        
+
         body {
-            font-family: 'Arial', sans-serif;
-            background: black;
+            background: var(--dark-bg);
             color: white;
-            text-align: center;
+            font-family: 'Rajdhani', sans-serif;
             overflow-x: hidden;
             position: relative;
+            margin: 0;
             line-height: 1.6;
         }
-        
-        /* Fondo negro con púrpura brillante en movimiento */
-        .cosmic-background {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background-color: #000;
-          overflow: hidden;
-          z-index: -2;
+
+        /* Fondo animado con partículas */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle, rgba(20, 25, 40, 0.3) 10%, transparent 10%);
+            background-size: 30px 30px;
+            animation: backgroundAnimation 100s linear infinite;
+            z-index: -1;
         }
 
-        /* Neblina de fondo que da sensación de profundidad */
-        .cosmic-background::before {
-          content: "";
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: radial-gradient(circle at center, rgba(76, 0, 153, 0.2) 0%, rgba(0, 0, 0, 0.8) 70%, rgba(0, 0, 0, 1) 100%);
-          animation: pulseBg 8s ease-in-out infinite alternate;
-          z-index: -1;
+        @keyframes backgroundAnimation {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 1000px 1000px;
+            }
         }
 
-        @keyframes pulseBg {
-          0% {
-            opacity: 0.5;
-            transform: scale(1);
-          }
-          100% {
-            opacity: 0.8;
-            transform: scale(1.1);
-          }
+        /* Líneas de malla futurista */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(rgba(77, 238, 234, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(77, 238, 234, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
         }
 
-        /* Estrellas brillantes */
-        .stars {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          z-index: -1;
+        /* Navbar mejorado */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background: rgba(10, 15, 30, 0.95);
+            box-shadow: 0 0 20px rgba(77, 238, 234, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(77, 238, 234, 0.2);
         }
 
-        /* Puntos de luz más pequeños */
-        .stars::before,
-        .stars::after {
-          content: "";
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background-image: 
-            radial-gradient(1px 1px at 25% 25%, rgba(255, 255, 255, 0.8) 50%, transparent 100%),
-            radial-gradient(1px 1px at 50% 50%, rgba(255, 255, 255, 0.8) 50%, transparent 100%),
-            radial-gradient(2px 2px at 75% 75%, rgba(255, 255, 255, 0.9) 50%, transparent 100%),
-            radial-gradient(2px 2px at 20% 85%, rgba(255, 0, 255, 0.9) 50%, transparent 100%),
-            radial-gradient(1px 1px at 35% 45%, rgba(221, 160, 221, 0.8) 50%, transparent 100%),
-            radial-gradient(2px 2px at 65% 15%, rgba(147, 112, 219, 0.8) 50%, transparent 100%),
-            radial-gradient(1px 1px at 90% 35%, rgba(138, 43, 226, 0.7) 50%, transparent 100%);
-          background-repeat: repeat;
-          background-size: 800px 800px;
-          opacity: 0.3;
-          animation: twinkleStars 6s ease-in-out infinite alternate;
+        .navbar-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            letter-spacing: 2px;
+            text-shadow: var(--text-shadow);
+            transition: all 0.3s ease;
         }
 
-        .stars::after {
-          background-size: 400px 400px;
-          animation-duration: 8s;
-          animation-delay: 1s;
+        .navbar-title:hover {
+            transform: translateX(-50%) scale(1.05);
+            text-shadow: 0 0 10px var(--primary);
         }
 
-        @keyframes twinkleStars {
-          0% {
-            opacity: 0.3;
-            transform: translateY(0);
-          }
-          100% {
-            opacity: 0.7;
+        .discord-icon {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 0 2px var(--primary));
+        }
+
+        .discord-icon:hover {
+            transform: rotate(5deg) scale(1.1);
+            filter: drop-shadow(0 0 5px var(--primary));
+        }
+
+        .menu-btn {
+            font-size: 24px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .menu-btn:hover {
+            transform: rotate(90deg);
+            color: var(--secondary);
+        }
+
+        .menu-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .menu-content {
+            display: none;
+            position: absolute;
+            top: 40px;
+            right: 0;
+            background: rgba(20, 25, 40, 0.95);
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 0 20px rgba(77, 238, 234, 0.3);
+            min-width: 180px;
+            opacity: 0;
             transform: translateY(-10px);
-          }
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 20;
+            border: 1px solid rgba(77, 238, 234, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
-        /* Nebulosas púrpuras */
-        .nebula {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: 
-            radial-gradient(ellipse at 20% 20%, rgba(147, 0, 255, 0.2) 0%, rgba(147, 0, 255, 0) 60%),
-            radial-gradient(ellipse at 80% 80%, rgba(186, 85, 211, 0.2) 0%, rgba(186, 85, 211, 0) 60%),
-            radial-gradient(ellipse at 50% 30%, rgba(138, 43, 226, 0.15) 0%, rgba(138, 43, 226, 0) 70%),
-            radial-gradient(ellipse at 30% 70%, rgba(153, 50, 204, 0.15) 0%, rgba(153, 50, 204, 0) 70%);
-          filter: blur(8px);
-          opacity: 0.5;
-          animation: nebulaMove 20s ease-in-out infinite alternate;
-          z-index: -1;
+        .menu-visible {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        @keyframes nebulaMove {
-          0% {
-            transform: scale(1) rotate(0deg);
-            opacity: 0.4;
-          }
-          100% {
-            transform: scale(1.1) rotate(2deg);
-            opacity: 0.7;
-          }
+        .menu-content b {
+            display: block;
+            color: var(--primary);
+            margin: 10px 0 5px;
+            font-size: 14px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(77, 238, 234, 0.2);
+            padding-bottom: 3px;
         }
 
-        /* Auroras boreales en la parte inferior */
-        .aurora {
-          position: fixed;
-          bottom: 0;
-          left: 0;
-          width: 100%;
-          height: 30%;
-          background: linear-gradient(to top, 
-            rgba(191, 0, 255, 0.2) 0%, 
-            rgba(137, 43, 226, 0.1) 40%, 
-            rgba(123, 104, 238, 0.05) 60%, 
-            transparent 100%);
-          filter: blur(10px);
-          transform-origin: bottom;
-          animation: auroraMove 20s ease-in-out infinite alternate;
-          z-index: -1;
+        .menu-content a {
+            display: block;
+            padding: 8px 10px;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            margin: 2px 0;
         }
 
-        @keyframes auroraMove {
-          0% {
-            transform: scaleY(0.8);
-            opacity: 0.3;
-          }
-          100% {
-            transform: scaleY(1.2);
-            opacity: 0.5;
-          }
+        .menu-content a:hover {
+            background: rgba(77, 238, 234, 0.1);
+            transform: translateX(5px);
+            color: var(--primary);
         }
-        
-        /* Encabezado */
+
+        /* Header */
         header {
-            padding: 20px;
+            padding: 40px 20px;
             position: relative;
             z-index: 10;
-            margin-bottom: 20px;
+            text-align: center;
+            margin-bottom: 40px;
         }
         
         header h1 {
-            margin-top: 15px;
-            color: #f0f0f0;
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: bold;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
             text-transform: uppercase;
             letter-spacing: 3px;
-            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            text-shadow: var(--text-shadow);
+            margin-bottom: 15px;
+            animation: fadeIn 2s ease-in-out;
         }
         
         header p {
-            margin-top: 10px;
             font-size: clamp(0.9rem, 2vw, 1.2rem);
             max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
+            margin: 0 auto;
             color: #d0d0d0;
-            padding: 0 15px;
+            animation: fadeIn 2s ease-in-out;
         }
-        
+
         /* Animaciones */
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         @keyframes floatAnimation {
@@ -225,8 +259,8 @@
             50% { transform: translateY(-10px); }
             100% { transform: translateY(0px); }
         }
-        
-        /* Contenido principal */
+
+        /* Documentación Container */
         .main-content {
             width: 95%;
             max-width: 1200px;
@@ -235,23 +269,59 @@
             position: relative;
             z-index: 10;
         }
-        
+
+        /* Secciones de documentación */
         .doc-section {
-            background: rgba(0, 0, 0, 0.5);
+            background: var(--card-bg);
             border-radius: 15px;
-            padding: 20px;
+            padding: 25px;
             margin-bottom: 40px;
-            box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.1);
             text-align: left;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(77, 238, 234, 0.1);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            box-shadow: var(--card-shadow);
+            transition: all 0.4s ease;
+            animation: fadeIn 1s ease-out;
         }
-        
+
+        .doc-section:hover {
+            box-shadow: 0 10px 30px rgba(77, 238, 234, 0.3);
+        }
+
+        .doc-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                transparent, 
+                rgba(77, 238, 234, 0.1), 
+                transparent 30%
+            );
+            animation: rotate 20s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
         .doc-section h2 {
+            font-family: 'Orbitron', sans-serif;
             font-size: clamp(1.4rem, 3vw, 1.8rem);
             margin-bottom: 20px;
             text-align: center;
-            color: #f0f0f0;
+            color: var(--primary);
             padding-bottom: 10px;
             position: relative;
+            text-shadow: var(--text-shadow);
         }
         
         .doc-section h2::after {
@@ -262,20 +332,24 @@
             transform: translateX(-50%);
             width: 100px;
             height: 3px;
-            background: linear-gradient(to right, #ff00ff, #00ffff);
+            background: linear-gradient(to right, var(--primary), var(--secondary));
             border-radius: 3px;
         }
         
         .doc-section h3 {
+            font-family: 'Orbitron', sans-serif;
             font-size: clamp(1.2rem, 2.5vw, 1.4rem);
             margin: 25px 0 15px;
-            color: #f0f0f0;
+            color: var(--secondary);
+            text-shadow: var(--glow-secondary);
         }
         
         .doc-section h4 {
+            font-family: 'Orbitron', sans-serif;
             font-size: clamp(1rem, 2vw, 1.2rem);
             margin: 20px 0 10px;
-            color: #f0f0f0;
+            color: var(--accent);
+            text-shadow: var(--glow-accent);
         }
         
         .doc-section p {
@@ -292,15 +366,37 @@
         
         .doc-section li {
             margin-bottom: 8px;
+            position: relative;
         }
-        
-        /* Tabla de comandos - Versión responsiva */
+
+        .doc-section ul li::before {
+            content: '●';
+            color: var(--secondary);
+            position: absolute;
+            left: -15px;
+            text-shadow: var(--glow-secondary);
+            font-size: 0.8em;
+        }
+
+        /* Categorías de comandos */
+        .command-category {
+            background: rgba(20, 25, 40, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 25px 0 15px;
+            border: 1px solid rgba(77, 238, 234, 0.2);
+            box-shadow: 0 0 15px rgba(77, 238, 234, 0.1);
+        }
+
+        /* Tabla de comandos */
         .command-table-container {
             width: 100%;
             overflow-x: auto;
             margin: 20px 0;
             scrollbar-width: thin;
-            scrollbar-color: rgba(255, 0, 255, 0.5) rgba(0, 0, 0, 0.1);
+            scrollbar-color: rgba(77, 238, 234, 0.5) rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(77, 238, 234, 0.1);
         }
         
         .command-table {
@@ -310,60 +406,103 @@
         }
         
         .command-table th {
-            background-color: rgba(138, 43, 226, 0.3);
-            padding: 10px;
+            background-color: rgba(77, 238, 234, 0.2);
+            padding: 12px 15px;
             text-align: left;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 2px solid rgba(77, 238, 234, 0.3);
             font-size: clamp(0.85rem, 1.7vw, 1rem);
-            white-space: nowrap;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary);
+            text-shadow: var(--text-shadow);
         }
         
         .command-table td {
-            padding: 8px 10px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 10px 15px;
+            border-bottom: 1px solid rgba(77, 238, 234, 0.1);
             font-size: clamp(0.85rem, 1.7vw, 1rem);
         }
         
         .command-table tr:hover {
-            background-color: rgba(255, 255, 255, 0.05);
+            background-color: rgba(77, 238, 234, 0.05);
         }
-        
-        .command-category {
-            background-color: rgba(138, 43, 226, 0.2);
-            padding: 15px;
-            border-radius: 10px;
-            margin: 25px 0 15px;
-        }
-        
+
+        /* Nota informativa */
         .note-box {
-            background-color: rgba(255, 255, 255, 0.1);
-            border-left: 4px solid #ff00ff;
+            background: rgba(20, 25, 40, 0.7);
+            border-left: 4px solid var(--primary);
             padding: 15px;
             margin: 20px 0;
             border-radius: 0 5px 5px 0;
             font-size: clamp(0.85rem, 1.7vw, 1rem);
+            box-shadow: var(--glow-primary);
         }
-        
-        .code-block {
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 15px;
-            border-radius: 5px;
-            font-family: monospace;
-            margin: 15px 0;
-            overflow-x: auto;
-            font-size: clamp(0.8rem, 1.6vw, 0.95rem);
+
+        .note-box strong {
+            color: var(--primary);
+            font-family: 'Orbitron', sans-serif;
         }
-        
-        /* Footer responsivo */
-        footer {
-            margin-top: 30px;
-            padding: 30px 15px;
-            font-size: clamp(0.85rem, 1.7vw, 1rem);
-            animation: fadeIn 2s ease-in-out;
-            background: rgba(0, 0, 0, 0.7);
+
+        /* Notificación */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(20, 25, 40, 0.9);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(77, 238, 234, 0.3);
+            transform: translateX(200%);
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 1000;
+            border-left: 4px solid var(--primary);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .notification-icon {
+            color: var(--primary);
+            font-size: 20px;
+        }
+
+        /* Efectos adicionales */
+        .gradient-text {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: bold;
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 60px;
+            padding: 30px;
+            background: rgba(10, 15, 30, 0.8);
             position: relative;
+            border-top: 1px solid rgba(77, 238, 234, 0.2);
             z-index: 10;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .footer-content {
@@ -376,16 +515,15 @@
         }
         
         .footer-section {
-            flex: 1 1 200px;
+            flex: 1;
             min-width: 200px;
             text-align: left;
-            margin-bottom: 20px;
         }
         
         .footer-section h3 {
             margin-bottom: 15px;
-            color: #ff00ff;
-            font-size: clamp(1rem, 2vw, 1.2rem);
+            color: var(--primary);
+            font-family: 'Orbitron', sans-serif;
         }
         
         .footer-section ul {
@@ -403,72 +541,117 @@
         }
         
         .footer-section a:hover {
-            color: #00ffff;
+            color: var(--primary);
         }
         
         .social-icons {
             display: flex;
             gap: 15px;
             margin-top: 15px;
-            flex-wrap: wrap;
         }
         
-        .social-icons img {
-            width: 25px;
-            transition: transform 0.3s;
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(77, 238, 234, 0.1);
+            color: var(--primary);
+            transition: all 0.3s ease;
+            font-size: 18px;
         }
-        
-        .social-icons img:hover {
-            transform: scale(1.2);
+
+        .social-icon:hover {
+            transform: translateY(-5px);
+            background: var(--primary);
+            color: var(--dark-bg);
+            box-shadow: var(--glow-primary);
         }
         
         .copyright {
             margin-top: 30px;
             padding-top: 15px;
             border-top: 1px solid rgba(255, 255, 255, 0.2);
-            font-size: clamp(0.7rem, 1.4vw, 0.8rem);
+            font-size: 0.8rem;
             color: #a0a0a0;
             text-align: center;
         }
-        
-        /* Efectos avanzados y animaciones */
-        .gradient-text {
-          background: linear-gradient(45deg, #ff00ff, #00ffff);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          display: inline-block;
-          font-weight: bold;
+
+        /* Animación de carga inicial */
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
         }
 
-        .animate-on-scroll {
-          opacity: 0;
-          transform: translateY(30px);
-          transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        .loader-hidden {
+            opacity: 0;
+            visibility: hidden;
         }
 
-        .animate-on-scroll.visible {
-          opacity: 1;
-          transform: translateY(0);
+        .loader-content {
+            text-align: center;
         }
 
-        .floating {
-          animation: floating 3s ease-in-out infinite alternate;
+        .loader-spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(77, 238, 234, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s infinite ease;
         }
 
-        @keyframes floating {
-          0% { transform: translateY(0); }
-          100% { transform: translateY(-15px); }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
-        
-        /* Media queries mejorados */
-        /* Para tablets y dispositivos medianos */
+
+        /* Barra de navegación lateral para secciones */
+        .sidebar-navigation {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            z-index: 90;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .sidebar-nav-item {
+            width: 10px;
+            height: 10px;
+            background: rgba(77, 238, 234, 0.3);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-nav-item:hover, .sidebar-nav-item.active {
+            background: var(--primary);
+            box-shadow: var(--glow-primary);
+            transform: scale(1.5);
+        }
+
+        /* Media queries */
         @media (max-width: 992px) {
             .doc-section {
-                padding: 20px 15px;
+                padding: 20px;
             }
             
             .command-category {
-                padding: 12px;
+                padding: 15px;
             }
             
             .main-content {
@@ -477,12 +660,23 @@
             }
             
             .note-box {
-                padding: 12px;
+                padding: 15px;
+            }
+
+            .sidebar-navigation {
+                display: none;
             }
         }
         
-        /* Para dispositivos móviles */
         @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .navbar-title {
+                font-size: 20px;
+            }
+
             .footer-section {
                 flex: 1 1 100%;
                 text-align: center;
@@ -494,12 +688,12 @@
             }
             
             .doc-section {
-                padding: 15px 12px;
+                padding: 15px;
                 margin-bottom: 30px;
             }
             
             header {
-                padding: 15px 10px;
+                padding: 30px 15px;
             }
             
             .doc-section h2::after {
@@ -507,11 +701,11 @@
             }
             
             .command-category {
-                padding: 10px;
+                padding: 12px;
             }
             
             .note-box {
-                padding: 10px;
+                padding: 12px;
                 margin: 15px 0;
             }
             
@@ -520,7 +714,6 @@
             }
         }
         
-        /* Para dispositivos muy pequeños */
         @media (max-width: 480px) {
             .footer-content {
                 gap: 20px;
@@ -531,7 +724,7 @@
             }
             
             .doc-section {
-                padding: 12px 10px;
+                padding: 12px;
                 margin-bottom: 25px;
             }
             
@@ -545,6 +738,7 @@
             
             .command-category {
                 margin: 20px 0 10px;
+                padding: 10px;
             }
             
             .doc-section ul, .doc-section ol {
@@ -562,20 +756,61 @@
     </style>
 </head>
 <body>
-    <!-- Fondo cósmico -->
-    <div class="cosmic-background">
-        <div class="stars"></div>
-        <div class="nebula"></div>
-        <div class="aurora"></div>
+    <!-- Loader inicial -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <h2 style="margin-top: 20px; font-family: 'Orbitron', sans-serif; color: var(--primary);">Documentación Bots Discord</h2>
+        </div>
+    </div>
+
+    <!-- Notificación -->
+    <div class="notification" id="notification">
+        <div class="notification-content">
+            <i class="fas fa-info-circle notification-icon"></i>
+            <span id="notificationText">¡Bienvenido a la documentación!</span>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <a href="https://discord.gg/YJCTpncreg" target="_blank" class="discord-link">
+            <img src="discord.png" alt="Discord" class="discord-icon">
+        </a>
+
+        <span class="navbar-title">Documentación Bots</span>
+
+        <div class="menu-container">
+            <button class="menu-btn" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+            <div id="menu" class="menu-content">
+                <b>Secciones</b>
+                <a href="#post-pago"><i class="fas fa-credit-card"></i> Post-Pago</a>
+                <a href="#bots-completos"><i class="fas fa-robot"></i> Bots Completos</a>
+                <a href="#mini-bots"><i class="fas fa-microchip"></i> Mini-Bots</a>
+                <a href="#bot-premium"><i class="fas fa-crown"></i> Bot Premium</a>
+                <a href="#contacto"><i class="fas fa-envelope"></i> Contacto</a>
+                <b>Extras</b>
+                <a href="http://bot.apikarl.com"><i class="fas fa-home"></i> Inicio</a>
+                <a href="http://bot.apikarl.com/tienda"><i class="fas fa-shopping-cart"></i> Tienda</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Barra de navegación lateral -->
+    <div class="sidebar-navigation">
+        <div class="sidebar-nav-item active" data-section="post-pago"></div>
+        <div class="sidebar-nav-item" data-section="bots-completos"></div>
+        <div class="sidebar-nav-item" data-section="mini-bots"></div>
+        <div class="sidebar-nav-item" data-section="bot-premium"></div>
+        <div class="sidebar-nav-item" data-section="contacto"></div>
     </div>
     
     <header>
-        <h1 class="gradient-text">Documentación Bots Discord</h1>
+        <h1>Documentación Bots Discord</h1>
         <p>Guía completa para configurar y utilizar los bots de Kapirium</p>
     </header>
     
     <div class="main-content">
-        <div class="doc-section animate-on-scroll">
+        <div class="doc-section animate-on-scroll" id="post-pago">
             <h2 class="gradient-text">Instrucciones Post-Pago</h2>
             <p>Después de realizar tu pago, debes seguir estos pasos para recibir y configurar tu bot:</p>
             
@@ -593,7 +828,7 @@
             </div>
         </div>
         
-        <div class="doc-section animate-on-scroll">
+        <div class="doc-section animate-on-scroll" id="bots-completos">
             <h2 class="gradient-text">Bots Completos</h2>
             <p>Nuestros bots completos incluyen entre 30-60 comandos slash y 10-25 eventos personalizados, dependiendo del tipo de bot.</p>
             
@@ -742,7 +977,7 @@
             </div>
         </div>
         
-        <div class="doc-section animate-on-scroll">
+        <div class="doc-section animate-on-scroll" id="mini-bots">
             <h2 class="gradient-text">Mini-Bots</h2>
             <p>Nuestros mini-bots incluyen entre 10-30 comandos y 5-10 eventos, dependiendo del tipo de bot.</p>
             
@@ -861,7 +1096,7 @@
             </div>
         </div>
         
-        <div class="doc-section animate-on-scroll">
+        <div class="doc-section animate-on-scroll" id="bot-premium">
             <h2 class="gradient-text">Bot Premium Personalizado</h2>
             <p>Nuestro bot premium personalizado incluye hasta 100 comandos y eventos ilimitados, todos configurables según tus necesidades específicas.</p>
             
@@ -882,40 +1117,44 @@
             </div>
         </div>
         
-        <div class="doc-section animate-on-scroll">
+        <div class="doc-section animate-on-scroll" id="contacto">
             <h2 class="gradient-text">Cómo Contactarnos</h2>
             <p>Si tienes preguntas adicionales o necesitas ayuda con tu bot, puedes contactarnos a través de:</p>
             
             <ul>
-                <li><strong>Discord:</strong> <a href="https://discord.gg/YJCTpncreg" target="_blank">https://discord.gg/YJCTpncreg</a></li>
-                <li><strong>TikTok:</strong> <a href="https://www.tiktok.com/@sentinelalphax" target="_blank">@sentinelalphax</a></li>
-                <li><strong>WhatsApp:</strong> <a href="https://wa.me/523326811294" target="_blank">+52 332 681 1294</a></li>
+                <li><strong>Discord:</strong> <a href="https://discord.gg/YJCTpncreg" target="_blank" style="color: var(--primary); text-decoration: none;">https://discord.gg/YJCTpncreg</a></li>
+                <li><strong>TikTok:</strong> <a href="https://www.tiktok.com/@sentinelalphax" target="_blank" style="color: var(--primary); text-decoration: none;">@sentinelalphax</a></li>
+                <li><strong>WhatsApp:</strong> <a href="https://wa.me/523326811294" target="_blank" style="color: var(--primary); text-decoration: none;">+52 332 681 1294</a></li>
             </ul>
             
             <p>Nuestro horario de atención es de 10am a 8pm (GMT-6).</p>
+            
+            <div class="note-box">
+                <strong>Información importante:</strong> Para obtener una respuesta más rápida, te recomendamos incluir detalles específicos sobre tu consulta, como el tipo de bot, el servidor donde lo usarás y cualquier requisito especial.
+            </div>
         </div>
     </div>
     
-    <footer>
+    <footer class="footer">
         <div class="footer-content">
             <div class="footer-section">
                 <h3>Enlaces rápidos</h3>
                 <ul>
-                    <li><a href="#">Inicio</a></li>
-                    <li><a href="#">Catálogo</a></li>
-                    <li><a href="#">Ofertas</a></li>
-                    <li><a href="#">Soporte</a></li>
-                    <li><a href="#">Blog</a></li>
+                    <li><a href="http://bot.apikarl.com">Inicio</a></li>
+                    <li><a href="http://bot.apikarl.com/tienda">Catálogo</a></li>
+                    <li><a href="http://bot.apikarl.com/ofertas">Ofertas</a></li>
+                    <li><a href="http://bot.apikarl.com/soporte">Soporte</a></li>
+                    <li><a href="http://bot.apikarl.com/blog">Blog</a></li>
                 </ul>
             </div>
             
             <div class="footer-section">
                 <h3>Soporte</h3>
                 <ul>
-                    <li><a href="#">FAQ</a></li>
-                    <li><a href="#">Documentación</a></li>
-                    <li><a href="#">Tutoriales</a></li>
-                    <li><a href="#">Contacto</a></li>
+                    <li><a href="http://bot.apikarl.com/faq">FAQ</a></li>
+                    <li><a href="http://bot.apikarl.com/docs">Documentación</a></li>
+                    <li><a href="http://bot.apikarl.com/tutoriales">Tutoriales</a></li>
+                    <li><a href="http://bot.apikarl.com/contacto">Contacto</a></li>
                 </ul>
             </div>
             
@@ -924,31 +1163,144 @@
                 <p>support@tiendabots.com</p>
                 <p>+34 612 345 678</p>
                 <div class="social-icons">
-                    <a href="https://discord.gg/YJCTpncreg"><img src="discord.png" alt="Discord" class="floating"></a>
-                    <a href="https://www.tiktok.com/@sentinelalphax?_t=ZM-8uJBHlQ8Sgf&_r=1"><img src="tiktok.png" alt="tiktok" class="floating-slow"></a>
-                    <a href="https://wa.me/523326811294?text=%F0%9F%8C%90-¡Hola!,%20me%20interesa%20tu%20bot%20o%20alguna%20información%20extra"><img src="wsp.png" alt="WhatsApp" class="floating"></a>
+                    <a href="https://discord.gg/YJCTpncreg" class="social-icon"><i class="fab fa-discord"></i></a>
+                    <a href="https://www.tiktok.com/@sentinelalphax?_t=ZM-8uJBHlQ8Sgf&_r=1" class="social-icon"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://wa.me/523326811294?text=%F0%9F%8C%90-¡Hola!,%20me%20interesa%20tu%20bot%20o%20alguna%20información%20extra" class="social-icon"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
         </div>
         
         <div class="copyright">
-            <p>© 2025 Venta de Bots Premium | Creado con profesionalismo en JS y JSON.</p>
+            <p>© 2025 Venta de Bots Premium | Desarrollado con <i class="fas fa-heart" style="color: var(--primary);"></i> para desarrolladores</p>
             <p>Todos los derechos reservados. Términos y Condiciones | Política de Privacidad</p>
         </div>
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, {threshold: 0.1});
+        // Mostrar loader inicial
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('pageLoader').classList.add('loader-hidden');
+                showNotification("¡Bienvenido a la documentación de bots!");
+            }, 1500);
+        });
 
-            document.querySelectorAll('.animate-on-scroll').forEach(el => {
-                observer.observe(el);
+        // Función para mostrar notificaciones
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            document.getElementById('notificationText').textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Función para el menú
+        function toggleMenu() {
+            let menu = document.getElementById("menu");
+            menu.classList.toggle("menu-visible");
+        }
+
+        // Cerrar el menú al hacer clic fuera de él
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('menu');
+            const menuBtn = document.querySelector('.menu-btn');
+            
+            if (!menu.contains(event.target) && !menuBtn.contains(event.target) && menu.classList.contains('menu-visible')) {
+                menu.classList.remove('menu-visible');
+            }
+        });
+
+        // Detectar elementos cuando son visibles en la pantalla
+        function checkVisibility() {
+            const elements = document.querySelectorAll('.animate-on-scroll');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementBottom = element.getBoundingClientRect().bottom;
+                
+                // Verificar si el elemento está visible en la ventana
+                if (elementTop < window.innerHeight - 50 && elementBottom > 0) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+        
+        // Comprobar visibilidad al cargar y al hacer scroll
+        window.addEventListener('load', checkVisibility);
+        window.addEventListener('scroll', checkVisibility);
+
+        // Navegación lateral con indicador de sección activa
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('.doc-section');
+            const navItems = document.querySelectorAll('.sidebar-nav-item');
+            
+            let currentSectionId = '';
+            
+            // Encontrar la sección actualmente visible
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (window.pageYOffset >= sectionTop - 200 && 
+                    window.pageYOffset < sectionTop + sectionHeight - 200) {
+                    currentSectionId = section.id;
+                }
+            });
+            
+            // Actualizar el indicador de navegación lateral
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.dataset.section === currentSectionId) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // Navegación suave al hacer clic en los puntos laterales
+        document.querySelectorAll('.sidebar-nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const sectionId = this.dataset.section;
+                const section = document.getElementById(sectionId);
+                
+                if (section) {
+                    window.scrollTo({
+                        top: section.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Navegación suave para enlaces de menú
+        document.querySelectorAll('.menu-content a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Cerrar el menú después de hacer clic
+                    document.getElementById('menu').classList.remove('menu-visible');
+                }
+            });
+        });
+
+        // Efecto de resaltado para comandos al hacer hover
+        document.querySelectorAll('.command-table tr').forEach(row => {
+            row.addEventListener('mouseenter', function() {
+                this.style.backgroundColor = 'rgba(77, 238, 234, 0.1)';
+                this.style.transition = 'background-color 0.3s ease';
+            });
+            
+            row.addEventListener('mouseleave', function() {
+                this.style.backgroundColor = '';
             });
         });
     </script>
