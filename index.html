@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tienda de Bots Premium</title>
+    <title>Estado de Servicio - API Karl</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Fuentes de Google -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,30 +13,28 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="favicon.png">
+    <!-- Chart.js para gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <!-- Metadatos Open Graph -->
-    <meta property="og:title" content="Bots Discord Kapirium">
-    <meta property="og:description" content="Guía completa para compras y precios">
-    <meta property="og:image" content="favicon.png">
-    <meta property="og:url" content="http://bot.apikarl.com/">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Documentación - Bots Discord Kapirium">
-    <meta name="twitter:description" content="Guía completa para configurar y utilizar los bots de Kapirium en Discord. Comandos, eventos y características.">
-    <meta name="twitter:image" content="favicon.png">
+    <!-- Favicon - Corregido para apuntar a la raíz -->
+    <link rel="icon" type="image/png" href="/favicon.png">
     
     <style>
         :root {
             --primary: #4deeea;
             --secondary: #74ee15;
             --accent: #ffe700;
+            --warning: #ffa500;
+            --danger: #ff4646;
+            --success: #00ff9d;
             --dark-bg: #0a0f1a;
             --card-bg: rgba(20, 25, 40, 0.9);
             --glow-primary: 0 0 10px rgba(77, 238, 234, 0.7);
             --glow-secondary: 0 0 10px rgba(116, 238, 21, 0.7);
             --glow-accent: 0 0 10px rgba(255, 231, 0, 0.7);
+            --glow-success: 0 0 10px rgba(0, 255, 157, 0.7);
+            --glow-warning: 0 0 10px rgba(255, 165, 0, 0.7);
+            --glow-danger: 0 0 10px rgba(255, 70, 70, 0.7);
             --card-shadow: 0 4px 20px rgba(77, 238, 234, 0.2);
             --text-shadow: 0 0 5px rgba(77, 238, 234, 0.7);
         }
@@ -212,47 +210,40 @@
 
         /* Header */
         header {
-            padding: 20px;
-            font-size: 2.5rem;
-            text-shadow: 3px 3px 7px black;
-            animation: fadeIn 2s ease-in-out;
+            padding: 40px 20px;
             position: relative;
             z-index: 10;
             text-align: center;
             margin-bottom: 40px;
         }
         
-        header img {
-            width: 80%;
-            max-width: 800px;
-            border-radius: 15px;
-            box-shadow: 0px 4px 20px rgba(77, 238, 234, 0.7);
-            animation: floatAnimation 5s infinite ease-in-out;
-            margin: 0 auto;
-            display: block;
-        }
-        
         header h1 {
-            margin-top: 15px;
-            color: var(--primary);
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: bold;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
             text-transform: uppercase;
             letter-spacing: 3px;
-            font-family: 'Orbitron', sans-serif;
+            text-shadow: var(--text-shadow);
+            margin-bottom: 15px;
+            animation: fadeIn 2s ease-in-out;
         }
         
         header p {
-            margin-top: 10px;
-            font-size: 1.2rem;
+            font-size: clamp(0.9rem, 2vw, 1.2rem);
             max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
+            margin: 0 auto;
             color: #d0d0d0;
+            animation: fadeIn 2s ease-in-out;
         }
 
         /* Animaciones */
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         @keyframes floatAnimation {
@@ -261,97 +252,26 @@
             100% { transform: translateY(0px); }
         }
 
-        /* Banner promocional */
-        .promo-banner {
-            background: var(--card-bg);
-            padding: 25px;
-            margin: 40px auto;
-            width: 90%;
-            max-width: 1000px;
-            border-radius: 15px;
-            box-shadow: var(--card-shadow);
-            position: relative;
-            overflow: hidden;
-            z-index: 10;
-            text-align: center;
-            border: 1px solid rgba(77, 238, 234, 0.2);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-        }
-        
-        .promo-banner h2 {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-            font-family: 'Orbitron', sans-serif;
-            color: var(--accent);
-            text-shadow: var(--glow-accent);
-        }
-        
-        .promo-banner p {
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-        }
-
-        .promo-banner .neon-text {
-            color: var(--secondary);
-            text-shadow: var(--glow-secondary);
-            font-weight: bold;
-        }
-
-        /* Títulos de categoría */
-        .categoria-titulo {
-            width: 100%;
-            font-size: 2rem;
-            margin: 30px 0 20px;
-            text-shadow: var(--text-shadow);
-            position: relative;
-            text-align: center;
-            font-family: 'Orbitron', sans-serif;
-            color: var(--primary);
-        }
-        
-        .categoria-titulo::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 3px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            border-radius: 3px;
-        }
-
-        /* Contenedor de productos/botcards */
-        .productos {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 30px;
-            padding: 20px;
-            position: relative;
-            z-index: 10;
+        /* Estado General - Caja grande de estado */
+        .general-status {
             max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* Tarjetas de bots */
-        .bot-card {
+            margin: 0 auto 40px;
             background: var(--card-bg);
-            padding: 25px;
             border-radius: 15px;
-            width: 280px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            box-shadow: var(--card-shadow);
-            transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(77, 238, 234, 0.1);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(77, 238, 234, 0.2);
+            box-shadow: var(--card-shadow);
+            animation: fadeIn 1s ease-out;
         }
 
-        .bot-card::before {
+        .general-status::before {
             content: '';
             position: absolute;
             top: -50%;
@@ -363,7 +283,7 @@
                 rgba(77, 238, 234, 0.1), 
                 transparent 30%
             );
-            animation: rotate 10s linear infinite;
+            animation: rotate 20s linear infinite;
             z-index: -1;
         }
 
@@ -373,300 +293,497 @@
             }
         }
 
-        .bot-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(77, 238, 234, 0.3);
-        }
-
-        .bot-card h2 {
-            color: var(--primary);
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.3rem;
-            margin-bottom: 10px;
+        .status-indicator {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 40px;
+            color: var(--dark-bg);
             position: relative;
-            display: inline-block;
+            animation: pulse 2s infinite alternate;
         }
 
-        .bot-card h2::after {
+        .status-indicator-online {
+            background: linear-gradient(135deg, var(--success), var(--secondary));
+            box-shadow: var(--glow-success);
+        }
+
+        .status-indicator-partial {
+            background: linear-gradient(135deg, var(--warning), var(--accent));
+            box-shadow: var(--glow-warning);
+        }
+
+        .status-indicator-offline {
+            background: linear-gradient(135deg, var(--danger), #ff7070);
+            box-shadow: var(--glow-danger);
+        }
+
+        .status-indicator::after {
             content: '';
             position: absolute;
-            left: 0;
-            bottom: -5px;
-            width: 0;
-            height: 2px;
-            background: var(--secondary);
-            transition: width 0.4s ease;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.2);
         }
 
-        .bot-card:hover h2::after {
-            width: 100%;
+        .status-title {
+            font-size: 2rem;
+            font-family: 'Orbitron', sans-serif;
+            margin: 10px 0;
+            color: white;
         }
 
-        .bot-card p {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 0.9rem;
-            line-height: 1.5;
-            margin-bottom: 15px;
+        .status-message {
+            font-size: 1.2rem;
+            margin: 10px 0 30px;
+            color: #d0d0d0;
         }
 
-        .bot-card .data-icon {
-            font-size: 40px;
+        .uptime-badge {
+            background: rgba(77, 238, 234, 0.1);
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
             color: var(--primary);
-            margin-bottom: 15px;
-            filter: drop-shadow(0 0 5px var(--primary));
-            transition: all 0.3s ease;
-        }
-
-        .bot-card:hover .data-icon {
-            transform: scale(1.1) rotate(10deg);
-            color: var(--secondary);
-        }
-
-        /* Precio */
-        .precio {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: var(--accent);
-            margin: 10px 0;
-            text-shadow: var(--glow-accent);
-        }
-
-        /* Rating */
-        .rating {
-            color: var(--accent);
-            font-size: 1.2rem;
-            margin: 10px 0;
-        }
-
-        /* Features */
-        .features {
-            margin: 15px 0;
-            font-size: 0.8rem;
-            text-align: left;
-            padding-left: 20px;
-        }
-        
-        .features li {
-            margin-bottom: 5px;
-            list-style-type: none;
-            position: relative;
-        }
-        
-        .features li::before {
-            content: '✓';
-            color: var(--secondary);
-            position: absolute;
-            left: -15px;
-            text-shadow: var(--glow-secondary);
-        }
-
-        /* Etiquetas */
-        .tag {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(77, 238, 234, 0.2);
-            padding: 3px 8px;
-            border-radius: 10px;
-            font-size: 0.7rem;
-            font-weight: bold;
+            border: 1px solid rgba(77, 238, 234, 0.3);
             box-shadow: var(--glow-primary);
-            animation: pulse 2s infinite;
-        }
-        
-        .tag.nuevo {
-            background: rgba(116, 238, 21, 0.2);
-            box-shadow: var(--glow-secondary);
-        }
-        
-        .tag.oferta {
-            background: rgba(255, 231, 0, 0.2);
-            box-shadow: var(--glow-accent);
         }
 
-        /* Botones */
-        .button-container {
+        /* Grid de servicios */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+            padding: 0 20px;
+        }
+
+        .service-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(77, 238, 234, 0.2);
+            box-shadow: var(--card-shadow);
+            transition: all 0.4s ease;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(77, 238, 234, 0.3);
+        }
+
+        .service-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .service-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .service-status {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .status-online {
+            background: rgba(0, 255, 157, 0.2);
+            color: var(--success);
+            border: 1px solid rgba(0, 255, 157, 0.3);
+        }
+
+        .status-degraded {
+            background: rgba(255, 165, 0, 0.2);
+            color: var(--warning);
+            border: 1px solid rgba(255, 165, 0, 0.3);
+        }
+
+        .status-offline {
+            background: rgba(255, 70, 70, 0.2);
+            color: var(--danger);
+            border: 1px solid rgba(255, 70, 70, 0.3);
+        }
+
+        .service-details {
+            margin-top: 10px;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(77, 238, 234, 0.1);
+        }
+
+        .detail-label {
+            color: #a0a0a0;
+        }
+
+        .detail-value {
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Gráficos */
+        .metrics-section {
+            max-width: 1200px;
+            margin: 0 auto 40px;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+            text-shadow: var(--text-shadow);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 3px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .metric-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(77, 238, 234, 0.2);
+            box-shadow: var(--card-shadow);
+        }
+
+        .metric-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin-top: 20px;
+        }
+
+        /* Controles de tiempo */
+        .timeframe-controls {
             display: flex;
             justify-content: center;
             gap: 10px;
-            margin-top: 15px;
+            margin: 30px 0;
         }
-        
-        .btn-style {
+
+        .timeframe-btn {
+            padding: 8px 15px;
             background: rgba(77, 238, 234, 0.1);
-            color: white;
             border: 1px solid rgba(77, 238, 234, 0.3);
-            padding: 8px 12px;
-            border-radius: 5px;
+            border-radius: 8px;
+            color: white;
             cursor: pointer;
             transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-            font-size: 0.8rem;
-            text-decoration: none;
-            box-shadow: var(--glow-primary);
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: bold;
         }
-        
-        .btn-style:hover {
+
+        .timeframe-btn:hover {
             background: rgba(77, 238, 234, 0.2);
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(77, 238, 234, 0.4);
         }
 
-        /* Testimonios */
-        .testimonios {
-            margin: 50px auto;
+        .timeframe-btn.active {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: var(--dark-bg);
+            box-shadow: var(--glow-primary);
+        }
+
+        /* Sección de incidencias recientes */
+        .incidents-section {
             max-width: 1200px;
+            margin: 0 auto 60px;
             padding: 0 20px;
         }
-        
-        .testimonio {
+
+        .incidents-list {
+            margin-top: 30px;
+        }
+
+        .incident-card {
             background: var(--card-bg);
+            border-radius: 15px;
             padding: 20px;
-            border-radius: 10px;
-            margin: 20px auto;
-            max-width: 800px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(77, 238, 234, 0.2);
             box-shadow: var(--card-shadow);
-            text-align: left;
-            border: 1px solid rgba(77, 238, 234, 0.1);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
             transition: all 0.3s ease;
         }
 
-        .testimonio:hover {
+        .incident-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(77, 238, 234, 0.3);
-        }
-        
-        .testimonio-autor {
-            font-weight: bold;
-            font-style: italic;
-            text-align: right;
-            margin-top: 10px;
-            color: var(--primary);
+            box-shadow: 0 10px 25px rgba(77, 238, 234, 0.3);
         }
 
-        /* Formulario de contacto */
-        .contacto {
-            margin: 50px auto;
-            max-width: 600px;
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: var(--card-shadow);
-            border: 1px solid rgba(77, 238, 234, 0.1);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-        }
-        
-        .form-group {
+        .incident-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 15px;
-            text-align: left;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(77, 238, 234, 0.2);
         }
-        
-        label {
-            display: block;
-            margin-bottom: 5px;
+
+        .incident-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .incident-timestamp {
+            font-size: 0.9rem;
+            color: #a0a0a0;
+        }
+
+        .incident-services {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0;
+            flex-wrap: wrap;
+        }
+
+        .incident-service-tag {
+            background: rgba(77, 238, 234, 0.1);
+            padding: 5px 10px;
+            border-radius: 5px;
             font-size: 0.9rem;
             color: var(--primary);
-        }
-        
-        input, textarea {
-            width: 100%;
-            padding: 8px;
-            border-radius: 5px;
-            border: 1px solid rgba(77, 238, 234, 0.3);
-            background: rgba(10, 15, 30, 0.8);
-            color: white;
-            transition: all 0.3s ease;
+            border: 1px solid rgba(77, 238, 234, 0.2);
         }
 
-        input:focus, textarea:focus {
+        .incident-description {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+
+        .incident-status {
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .incident-resolved {
+            background: rgba(0, 255, 157, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(0, 255, 157, 0.3);
+        }
+
+        .incident-investigating {
+            background: rgba(255, 165, 0, 0.1);
+            color: var(--warning);
+            border: 1px solid rgba(255, 165, 0, 0.3);
+        }
+
+        /* Suscripción a notificaciones */
+        .notification-box {
+            max-width: 1200px;
+            margin: 0 auto 60px;
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(77, 238, 234, 0.2);
+            box-shadow: var(--card-shadow);
+        }
+
+        .notification-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            text-shadow: var(--text-shadow);
+        }
+
+        .notification-form {
+            display: flex;
+            max-width: 500px;
+            margin: 20px auto;
+            gap: 10px;
+        }
+
+        .notification-input {
+            flex: 1;
+            padding: 12px 15px;
+            background: rgba(10, 15, 30, 0.8);
+            border: 1px solid rgba(77, 238, 234, 0.3);
+            border-radius: 8px;
+            color: white;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .notification-input:focus {
+            outline: none;
             border-color: var(--primary);
             box-shadow: var(--glow-primary);
-            outline: none;
         }
-        
-        textarea {
-            min-height: 100px;
-        }
-        
-        .submit-btn {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+
+        .notification-btn {
+            padding: 0 20px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
             color: var(--dark-bg);
-            padding: 10px 20px;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 1rem;
+            font-family: 'Rajdhani', sans-serif;
             font-weight: bold;
-            margin-top: 10px;
             transition: all 0.3s ease;
-        }
-        
-        .submit-btn:hover {
-            transform: scale(1.05);
             box-shadow: var(--glow-primary);
+        }
+
+        .notification-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(77, 238, 234, 0.4);
+        }
+
+        /* Toast de notificación */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(20, 25, 40, 0.9);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(77, 238, 234, 0.3);
+            transform: translateX(200%);
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 1000;
+            border-left: 4px solid var(--primary);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toast.show {
+            transform: translateX(0);
         }
 
         /* Footer */
         .footer {
-            margin-top: 60px;
-            padding: 30px;
             background: rgba(10, 15, 30, 0.8);
+            padding: 30px 20px;
             position: relative;
             border-top: 1px solid rgba(77, 238, 234, 0.2);
             z-index: 10;
         }
-        
+
         .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
             flex-wrap: wrap;
             justify-content: space-around;
             gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
         }
-        
+
         .footer-section {
             flex: 1;
             min-width: 200px;
             text-align: left;
         }
-        
+
         .footer-section h3 {
             margin-bottom: 15px;
             color: var(--primary);
             font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            text-shadow: var(--text-shadow);
         }
-        
+
         .footer-section ul {
             list-style: none;
+            padding: 0;
+            margin: 0;
         }
-        
+
         .footer-section ul li {
             margin-bottom: 8px;
         }
-        
+
         .footer-section a {
             color: #d0d0d0;
             text-decoration: none;
-            transition: color 0.3s;
+            transition: all 0.3s ease;
         }
-        
+
         .footer-section a:hover {
             color: var(--primary);
+            text-shadow: var(--glow-primary);
+            transform: translateX(5px);
+            display: inline-block;
         }
-        
+
+        .footer-section p {
+            color: #d0d0d0;
+            margin: 5px 0;
+        }
+
         .social-icons {
             display: flex;
             gap: 15px;
             margin-top: 15px;
         }
-        
+
         .social-icon {
             display: flex;
             align-items: center;
@@ -686,58 +803,52 @@
             color: var(--dark-bg);
             box-shadow: var(--glow-primary);
         }
-        
+
         .copyright {
             margin-top: 30px;
             padding-top: 15px;
             border-top: 1px solid rgba(255, 255, 255, 0.2);
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             color: #a0a0a0;
             text-align: center;
         }
 
-        /* Efectos */
-        .pulse-value {
-            animation: pulse 2s infinite;
-        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
+            .navbar-title {
+                font-size: 20px;
+            }
 
-        /* Notificación */
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(20, 25, 40, 0.9);
-            color: white;
-            padding: 15px 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(77, 238, 234, 0.3);
-            transform: translateX(200%);
-            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-            z-index: 1000;
-            border-left: 4px solid var(--primary);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-        }
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
 
-        .notification.show {
-            transform: translateX(0);
-        }
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
 
-        .notification-content {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+            .notification-form {
+                flex-direction: column;
+            }
 
-        .notification-icon {
-            color: var(--primary);
-            font-size: 20px;
+            .timeframe-controls {
+                flex-wrap: wrap;
+            }
+            
+            .footer-section {
+                flex: 1 1 100%;
+                text-align: center;
+                min-width: 100%;
+                margin-bottom: 20px;
+            }
+            
+            .social-icons {
+                justify-content: center;
+            }
         }
 
         /* Animación de carga inicial */
@@ -778,404 +889,322 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Media queries */
-        @media (max-width: 768px) {
-            .navbar {
-                padding: 15px 20px;
-            }
-
-            .navbar-title {
-                font-size: 20px;
-            }
-
-            .productos {
-                gap: 20px;
-                padding: 15px;
-            }
-
-            .bot-card {
-                width: 100%;
-                max-width: 320px;
-            }
-
-            .footer-section {
-                flex: 1 1 100%;
-                text-align: center;
-            }
-
-            .social-icons {
-                justify-content: center;
-            }
-        }
-
-        /* Animación de elementos */
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-
-        .animate-on-scroll.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .animate-in-left {
-            opacity: 0;
-            transform: translateX(-50px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-
-        .animate-in-left.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .animate-in-right {
-            opacity: 0;
-            transform: translateX(50px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-
-        .animate-in-right.visible {
-            opacity: 1;
-            transform: translateX(0);
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
     </style>
 </head>
+
 <body>
     <!-- Loader inicial -->
     <div class="page-loader" id="pageLoader">
         <div class="loader-content">
             <div class="loader-spinner"></div>
-            <h2 style="margin-top: 20px; font-family: 'Orbitron', sans-serif; color: var(--primary);">Tienda de Bots Premium</h2>
+            <h2 style="margin-top: 20px; font-family: 'Orbitron', sans-serif; color: var(--primary);">Estado de Servicio</h2>
         </div>
+    </div>
+
+    <!-- Toast de notificación -->
+    <div class="toast" id="toast">
+        <i class="fas fa-bell" style="color: var(--primary);"></i>
+        <span id="toastMessage">Mensaje de notificación</span>
     </div>
 
     <nav class="navbar">
         <a href="https://discord.gg/PvQvJ7JvEx" target="_blank" class="discord-link">
-            <img src="discord.png" alt="Discord" class="discord-icon">
+            <!-- Corregido para usar icono de FontAwesome en lugar de imagen -->
+            <i class="fab fa-discord discord-icon"></i>
         </a>
 
-        <span class="navbar-title">Tienda de Bots</span>
+        <span class="navbar-title">Estado de Servicio</span>
 
         <div class="menu-container">
             <button class="menu-btn" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
             <div id="menu" class="menu-content">
-                <b>Categorías</b>
-                <a href="#featured"><i class="fas fa-star"></i> Destacados</a>
-                <a href="#economicos"><i class="fas fa-tags"></i> Económicos</a>
-                <a href="#especiales"><i class="fas fa-gem"></i> Especiales</a>
-                <b>Info</b>
-                <a href="http://bot.apikarl.com"><i class="fas fa-home"></i> Inicio</a>
-                <a href="/docs"><i class="fas fa-book"></i> Documentación</a>
+                <b>Navegación</b>
+                <a href="#general"><i class="fas fa-chart-line"></i> Estado General</a>
+                <a href="#services"><i class="fas fa-server"></i> Servicios</a>
+                <a href="#metrics"><i class="fas fa-chart-bar"></i> Métricas</a>
+                <a href="#incidents"><i class="fas fa-exclamation-triangle"></i> Incidentes</a>
+                <b>Enlaces</b>
+                <a href="http://apikarl.com"><i class="fas fa-home"></i> Inicio</a>
+                <a href="http://apikarl.com/docs"><i class="fas fa-book"></i> Documentación</a>
             </div>
         </div>
     </nav>
-
-    <!-- Notificación -->
-    <div class="notification" id="notification">
-        <div class="notification-content">
-            <i class="fas fa-info-circle notification-icon"></i>
-            <span id="notificationText">¡Bienvenido a la tienda de bots!</span>
-        </div>
-    </div>
-
+    
     <header>
-        <img src="banner.png" alt="Banner de la Tienda de Bots" class="floating">
-        <h1>Tienda de Bots Premium</h1>
-        <p class="fade-in animate-on-scroll visible">Explora nuestra selección exclusiva de bots diseñados profesionalmente para optimizar y mejorar tu experiencia digital. Somos especialistas en soluciones automatizadas para Discord y más plataformas.</p>
+        <h1>Estado de Servicio</h1>
+        <p>Monitoreo en tiempo real de todos nuestros servicios y APIs</p>
     </header>
     
-    <div class="promo-banner">
-        <h2>¡OFERTA ESPECIAL DE LANZAMIENTO!</h2>
-        <p>Obtén un 25% de descuento en todos nuestros bots premium usando el código: <strong class="neon-text">PREMIUM25</strong></p>
-        <a href="#" onclick="alert('Próximamente: Catálogo de ofertas especiales con código PREMIUM25.'); return false;" class="btn-style">
-            <i class="fas fa-shopping-cart"></i> Ver ofertas
-        </a>
+    <!-- Estado General -->
+    <section id="general" class="general-status">
+        <div class="status-indicator status-indicator-online">
+            <i class="fas fa-check"></i>
+        </div>
+        <h2 class="status-title">Todos los sistemas operativos</h2>
+        <p class="status-message">Todos nuestros servicios están funcionando correctamente.</p>
+        <div class="uptime-badge">
+            <i class="fas fa-clock"></i>
+            <span>Tiempo de actividad: 99.97%</span>
+        </div>
+    </section>
+    
+    <!-- Controles de tiempo -->
+    <div class="timeframe-controls">
+        <button class="timeframe-btn" onclick="updateTimeframe('24h')">24 horas</button>
+        <button class="timeframe-btn active" onclick="updateTimeframe('7d')">7 días</button>
+        <button class="timeframe-btn" onclick="updateTimeframe('30d')">30 días</button>
+        <button class="timeframe-btn" onclick="updateTimeframe('90d')">90 días</button>
     </div>
     
-    <h2 class="categoria-titulo" id="featured">Bots Destacados</h2>
-    
-    <section class="productos">
-        <div class="bot-card animate-in-left visible">
-            <span class="tag oferta">-15%</span>
-            <h2>Bot de Moderación</h2>
-            <i class="fas fa-shield-alt data-icon"></i>
-            <p>Sistema avanzado de moderación con verificación de DNIs, integración con Roblox y más funciones.</p>
-            <div class="rating">★★★★★</div>
-            <div class="precio">24.99€</div>
-            <ul class="features">
-                <li>Verificación automática</li>
-                <li>Sistema anti-spam</li>
-                <li>Logs detallados</li>
-                <li>Panel de control web</li>
-            </ul>
-            <div class="button-container">
-                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&amp;business=bacialvarez.5678@gmail.com&amp;item_name=Bot%20de%20Moderaci%C3%B3n&amp;amount=24.99&amp;currency_code=EUR" class="btn-style">
-                    <i class="fas fa-shopping-cart"></i> Comprar
-                </a>
-                <a href="#" onclick="alert('Información sobre este bot: Próximamente más detalles.'); return false;" class="btn-style">
-                    <i class="fas fa-info-circle"></i> Info
-                </a>
+    <!-- Servicios -->
+    <section id="services" class="services-grid">
+        <div class="service-card">
+            <div class="service-header">
+                <div class="service-name">
+                    <i class="fas fa-cloud"></i>
+                    API Principal
+                </div>
+                <div class="service-status status-online">Operativo</div>
+            </div>
+            <div class="service-details">
+                <div class="detail-item">
+                    <div class="detail-label">Tiempo de actividad</div>
+                    <div class="detail-value">99.99%</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Tiempo de respuesta</div>
+                    <div class="detail-value">124ms</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Última actualización</div>
+                    <div class="detail-value">Hace 2 minutos</div>
+                </div>
             </div>
         </div>
         
-        <div class="bot-card animate-on-scroll visible">
-            <span class="tag nuevo">NUEVO</span>
-            <h2>Bot de Música</h2>
-            <i class="fas fa-music data-icon"></i>
-            <p>Reproduce música de alta calidad en tu servidor de Discord con amplio soporte para plataformas streaming.</p>
-            <div class="rating">★★★★☆</div>
-            <div class="precio">19.99€</div>
-            <ul class="features">
-                <li>Sin anuncios</li>
-                <li>Audio 320kbps</li>
-                <li>Múltiples plataformas</li>
-                <li>Efectos de sonido</li>
-            </ul>
-            <div class="button-container">
-                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&amp;business=bacialvarez.5678@gmail.com&amp;item_name=Bot%20de%20Musica&amp;amount=19.99&amp;currency_code=EUR" class="btn-style">
-                    <i class="fas fa-shopping-cart"></i> Comprar
-                </a>
-                <a href="#" onclick="alert('Información sobre este bot: Próximamente más detalles.'); return false;" class="btn-style">
-                    <i class="fas fa-info-circle"></i> Info
-                </a>
+        <div class="service-card">
+            <div class="service-header">
+                <div class="service-name">
+                    <i class="fas fa-database"></i>
+                    Base de Datos
+                </div>
+                <div class="service-status status-online">Operativo</div>
+            </div>
+            <div class="service-details">
+                <div class="detail-item">
+                    <div class="detail-label">Tiempo de actividad</div>
+                    <div class="detail-value">99.95%</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Tiempo de respuesta</div>
+                    <div class="detail-value">37ms</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Última actualización</div>
+                    <div class="detail-value">Hace 2 minutos</div>
+                </div>
             </div>
         </div>
         
-        <div class="bot-card animate-in-right visible">
-            <h2>Bot Personalizado</h2>
-            <i class="fas fa-cogs data-icon"></i>
-            <p>Crea un bot a medida según las necesidades específicas de tu comunidad o negocio.</p>
-            <div class="rating">★★★★★</div>
-            <div class="precio">Desde 49.99€</div>
-            <ul class="features">
-                <li>Desarrollo a medida</li>
-                <li>Soporte premium</li>
-                <li>Actualizaciones incluidas</li>
-                <li>Diseño personalizado</li>
-            </ul>
-            <div class="button-container">
-                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&amp;business=bacialvarez.5678@gmail.com&amp;item_name=Bot%20customizado&amp;amount=49.99&amp;currency_code=EUR" class="btn-style">
-                    <i class="fas fa-shopping-cart"></i> Comprar
-                </a>
-                <a href="#" onclick="alert('Información sobre este bot: Próximamente más detalles.'); return false;" class="btn-style">
-                    <i class="fas fa-info-circle"></i> Info
-                </a>
+        <div class="service-card">
+            <div class="service-header">
+                <div class="service-name">
+                    <i class="fas fa-shield-alt"></i>
+                    Autenticación
+                </div>
+                <div class="service-status status-degraded">Degradado</div>
+            </div>
+            <div class="service-details">
+                <div class="detail-item">
+                    <div class="detail-label">Tiempo de actividad</div>
+                    <div class="detail-value">98.73%</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Tiempo de respuesta</div>
+                    <div class="detail-value">356ms</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Última actualización</div>
+                    <div class="detail-value">Hace 2 minutos</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="service-card">
+            <div class="service-header">
+                <div class="service-name">
+                    <i class="fas fa-file-alt"></i>
+                    Almacenamiento
+                </div>
+                <div class="service-status status-online">Operativo</div>
+            </div>
+            <div class="service-details">
+                <div class="detail-item">
+                    <div class="detail-label">Tiempo de actividad</div>
+                    <div class="detail-value">99.98%</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Tiempo de respuesta</div>
+                    <div class="detail-value">87ms</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Última actualización</div>
+                    <div class="detail-value">Hace 2 minutos</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="service-card">
+            <div class="service-header">
+                <div class="service-name">
+                    <i class="fas fa-bell"></i>
+                    Notificaciones
+                </div>
+                <div class="service-status status-online">Operativo</div>
+            </div>
+            <div class="service-details">
+                <div class="detail-item">
+                    <div class="detail-label">Tiempo de actividad</div>
+                    <div class="detail-value">99.92%</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Tiempo de respuesta</div>
+                    <div class="detail-value">102ms</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Última actualización</div>
+                    <div class="detail-value">Hace 2 minutos</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="service-card">
+            <div class="service-header">
+                <div class="service-name">
+                    <i class="fas fa-server"></i>
+                    CDN
+                </div>
+                <div class="service-status status-online">Operativo</div>
+            </div>
+            <div class="service-details">
+                <div class="detail-item">
+                    <div class="detail-label">Tiempo de actividad</div>
+                    <div class="detail-value">99.97%</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Tiempo de respuesta</div>
+                    <div class="detail-value">45ms</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Última actualización</div>
+                    <div class="detail-value">Hace 2 minutos</div>
+                </div>
             </div>
         </div>
     </section>
     
-    <h2 class="categoria-titulo" id="economicos">Bots Económicos</h2>
-    
-    <section class="productos">
-        <div class="bot-card animate-in-left visible">
-            <h2>Bot Mini-Moderación</h2>
-            <i class="fas fa-user-shield data-icon"></i>
-            <p>Versión simplificada de nuestro bot de moderación con funciones esenciales.</p>
-            <div class="rating">★★★☆☆</div>
-            <div class="precio">9.99€</div>
-            <ul class="features">
-                <li>Comandos básicos</li>
-                <li>Alertas automáticas</li>
-                <li>Soporte incluido</li>
-                <li>Fácil configuración</li>
-            </ul>
-            <div class="button-container">
-                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&amp;business=bacialvarez.5678@gmail.com&amp;item_name=Bot%20mini&amp;amount=9.99&amp;currency_code=EUR" class="btn-style">
-                    <i class="fas fa-shopping-cart"></i> Comprar
-                </a>
-                <a href="#" onclick="alert('Información sobre este bot: Próximamente más detalles.'); return false;" class="btn-style">
-                    <i class="fas fa-info-circle"></i> Info
-                </a>
-            </div>
-        </div>
+    <!-- Métricas -->
+    <section id="metrics" class="metrics-section">
+        <h2 class="section-title">Métricas de Rendimiento</h2>
         
-        <div class="bot-card animate-on-scroll visible">
-            <h2>Bot de Eventos</h2>
-            <i class="fas fa-calendar-alt data-icon"></i>
-            <p>Organiza y gestiona eventos en tu servidor con RSVP, recordatorios y más.</p>
-            <div class="rating">★★★★☆</div>
-            <div class="precio">14.99€</div>
-            <ul class="features">
-                <li>Calendario integrado</li>
-                <li>Notificaciones</li>
-                <li>Roles automáticos</li>
-                <li>Encuestas para eventos</li>
-            </ul>
-            <div class="button-container">
-                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&amp;business=bacialvarez.5678@gmail.com&amp;item_name=Bot%20eventos&amp;amount=14.99&amp;currency_code=EUR" class="btn-style">
-                    <i class="fas fa-shopping-cart"></i> Comprar
-                </a>
-                <a href="#" onclick="alert('Información sobre este bot: Próximamente más detalles.'); return false;" class="btn-style">
-                    <i class="fas fa-info-circle"></i> Info
-                </a>
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <h3 class="metric-title">Tiempo de Respuesta</h3>
+                <div class="chart-container">
+                    <canvas id="responseTimeChart"></canvas>
+                </div>
             </div>
-        </div>
-        
-        <div class="bot-card animate-in-right visible">
-            <span class="tag oferta">HOT</span>
-            <h2>Bot de Niveles</h2>
-            <i class="fas fa-chart-line data-icon"></i>
-            <p>Sistema de niveles y experiencia para usuarios con recompensas automáticas.</p>
-            <div class="rating">★★★★☆</div>
-            <div class="precio">12.99€</div>
-            <ul class="features">
-                <li>Tarjetas personalizables</li>
-                <li>Roles automáticos</li>
-                <li>Rankings semanales</li>
-                <li>Estadísticas avanzadas</li>
-            </ul>
-            <div class="button-container">
-                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&amp;business=bacialvarez.5678@gmail.com&amp;item_name=Bot%20niveles&amp;amount=12.99&amp;currency_code=EUR" class="btn-style">
-                    <i class="fas fa-shopping-cart"></i> Comprar
-                </a>
-                <a href="#" onclick="alert('Información sobre este bot: Próximamente más detalles.'); return false;" class="btn-style">
-                    <i class="fas fa-info-circle"></i> Info
-                </a>
+            
+            <div class="metric-card">
+                <h3 class="metric-title">Solicitudes por Minuto</h3>
+                <div class="chart-container">
+                    <canvas id="requestsChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="metric-card">
+                <h3 class="metric-title">Uso de CPU</h3>
+                <div class="chart-container">
+                    <canvas id="cpuUsageChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="metric-card">
+                <h3 class="metric-title">Uso de Memoria</h3>
+                <div class="chart-container">
+                    <canvas id="memoryUsageChart"></canvas>
+                </div>
             </div>
         </div>
     </section>
     
-    <h2 class="categoria-titulo" id="especiales">Bots Especiales</h2>
-    
-    <section class="productos">
-        <div class="bot-card animate-in-left visible">
-            <span class="tag nuevo">EXCLUSIVO</span>
-            <h2>Bot de Roleplay</h2>
-            <i class="fas fa-theater-masks data-icon"></i>
-            <p>Sistema completo para servidores RP con DNIs, profesiones, economía y más funciones.</p>
-            <div class="rating">★★★★★</div>
-            <div class="precio">29.99€</div>
-            <ul class="features">
-                <li>DNIs personalizados</li>
-                <li>Sistema de economía</li>
-                <li>Profesiones y trabajos</li>
-                <li>Inventario de ítems</li>
-            </ul>
-            <div class="button-container">
-                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&amp;business=bacialvarez.5678@gmail.com&amp;item_name=Bot%20Roleplay&amp;amount=29.99&amp;currency_code=EUR" class="btn-style">
-                    <i class="fas fa-shopping-cart"></i> Comprar
-                </a>
-                <a href="#" onclick="alert('Información sobre este bot: Próximamente más detalles.'); return false;" class="btn-style">
-                    <i class="fas fa-info-circle"></i> Info
-                </a>
-            </div>
-        </div>
+    <!-- Incidentes Recientes -->
+    <section id="incidents" class="incidents-section">
+        <h2 class="section-title">Incidentes Recientes</h2>
         
-        <div class="bot-card animate-on-scroll visible">
-            <h2>Bot de Sorteos</h2>
-            <i class="fas fa-gift data-icon"></i>
-            <p>Organiza sorteos y regalos en tu servidor con múltiples opciones de personalización.</p>
-            <div class="rating">★★★★☆</div>
-            <div class="precio">11.99€</div>
-            <ul class="features">
-                <li>Múltiples ganadores</li>
-                <li>Requisitos configurables</li>
-                <li>Temporizador automático</li>
-                <li>Anuncios personalizados</li>
-            </ul>
-            <div class="button-container">
-                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&amp;business=bacialvarez.5678@gmail.com&amp;item_name=Bot%20Sorteos&amp;amount=11.99&amp;currency_code=EUR" class="btn-style">
-                    <i class="fas fa-shopping-cart"></i> Comprar
-                </a>
-                <a href="#" onclick="alert('Información sobre este bot: Próximamente más detalles.'); return false;" class="btn-style">
-                    <i class="fas fa-info-circle"></i> Info
-                </a>
+        <div class="incidents-list">
+            <div class="incident-card">
+                <div class="incident-header">
+                    <div class="incident-title">Degradación del servicio de autenticación</div>
+                    <div class="incident-timestamp">01 de marzo de 2025, 10:42 AM UTC</div>
+                </div>
+                <div class="incident-services">
+                    <div class="incident-service-tag">Autenticación</div>
+                </div>
+                <div class="incident-description">
+                    Estamos experimentando una degradación en el servicio de autenticación, lo que está causando tiempos de respuesta más lentos de lo normal. Nuestro equipo está investigando el problema y trabajando para resolverlo lo antes posible.
+                </div>
+                <div class="incident-status incident-investigating">Investigando</div>
             </div>
-        </div>
-        
-        <div class="bot-card animate-in-right visible">
-            <span class="tag oferta">-20%</span>
-            <h2>Bot de Tickets</h2>
-            <i class="fas fa-ticket-alt data-icon"></i>
-            <p>Sistema completo de tickets para soporte, ventas o atención al cliente en tu servidor.</p>
-            <div class="rating">★★★★★</div>
-            <div class="precio">15.99€</div>
-            <ul class="features">
-                <li>Categorías personalizables</li>
-                <li>Transcripciones automáticas</li>
-                <li>Panel de administración</li>
-                <li>Estadísticas de tickets</li>
-            </ul>
-            <div class="button-container">
-                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&amp;business=bacialvarez.5678@gmail.com&amp;item_name=Bot%20Tickets&amp;amount=15.99&amp;currency_code=EUR" class="btn-style">
-                    <i class="fas fa-shopping-cart"></i> Comprar
-                </a>
-                <a href="#" onclick="alert('Información sobre este bot: Próximamente más detalles.'); return false;" class="btn-style">
-                    <i class="fas fa-info-circle"></i> Info
-                </a>
+            
+            <div class="incident-card">
+                <div class="incident-header">
+                    <div class="incident-title">Interrupción temporal en la API Principal</div>
+                    <div class="incident-timestamp">28 de febrero de 2025, 15:23 PM UTC</div>
+                </div>
+                <div class="incident-services">
+                    <div class="incident-service-tag">API Principal</div>
+                    <div class="incident-service-tag">Base de Datos</div>
+                </div>
+                <div class="incident-description">
+                    Se produjo una interrupción de 5 minutos en la API Principal debido a un pico inesperado de tráfico. Implementamos medidas para aumentar la capacidad y supervisamos la situación.
+                </div>
+                <div class="incident-status incident-resolved">Resuelto</div>
+            </div>
+            
+            <div class="incident-card">
+                <div class="incident-header">
+                    <div class="incident-title">Latencia elevada en la CDN</div>
+                    <div class="incident-timestamp">25 de febrero de 2025, 08:15 AM UTC</div>
+                </div>
+                <div class="incident-services">
+                    <div class="incident-service-tag">CDN</div>
+                </div>
+                <div class="incident-description">
+                    Detectamos latencia más alta de lo normal en nuestra CDN, afectando a usuarios en la región de Europa. El problema fue causado por tareas de mantenimiento no programadas por parte de nuestro proveedor. La situación se ha normalizado completamente.
+                </div>
+                <div class="incident-status incident-resolved">Resuelto</div>
             </div>
         </div>
     </section>
     
-    <div class="promo-banner">
-        <h2>¿NECESITAS VARIOS BOTS?</h2>
-        <p>Consulta nuestros paquetes con descuentos de hasta el 35% al combinar múltiples bots</p>
-        <a href="#" onclick="alert('Próximamente: Paquetes con descuentos especiales. Combina varios bots y ahorra hasta un 35%.'); return false;" class="btn-style">
-            <i class="fas fa-percentage"></i> Ver paquetes
-        </a>
-    </div>
-    
-    <section class="testimonios">
-        <h2 class="categoria-titulo">Lo que dicen nuestros clientes</h2>
+    <!-- Suscripción a notificaciones -->
+    <section class="notification-box">
+        <h3 class="notification-title">Recibe alertas sobre el estado del servicio</h3>
+        <p>Suscríbete para recibir notificaciones en tiempo real sobre incidentes y mantenimientos programados.</p>
         
-        <div class="testimonio animate-in-left visible">
-            <p>"El bot personalizado fue increíble, música de alta calidad, minijuegos, economía veloz y bien estructurada, simplemente wow... No puedo creer la calidad y el soporte que recibí."</p>
-            <div class="testimonio-autor">- Enriix, servidor de 10,000+ miembros</div>
-        </div>
-        
-        <div class="testimonio animate-on-scroll visible">
-            <p>"El bot de moderación fue hermoso, me permitió cambiar algunos comandos definidos por los que quería, y venía con una AI de minecraft como bienvenida 🙏 Definitivamente valdría la pena para cualquier servidor."</p>
-            <div class="testimonio-autor">- Sneiq, comunidad de Minecraft +2,800 miembros</div>
-        </div>
-        
-        <div class="testimonio animate-in-right visible">
-            <p>"Un bot de RP... hermano, DNI, borrar DNI, ver DNI y todo se guarda en una base de datos, es hermoso 🙏🙏 No hay nada mejor para servidores de roleplay, lo recomiendo totalmente."</p>
-            <div class="testimonio-autor">- Dibu, comunidad ER:LC +170 miembros</div>
-        </div>
-        
-        <div class="testimonio animate-on-scroll visible">
-            <p>"El sistema de tickets revolucionó la forma en que manejamos el soporte en nuestro servidor. Ahora todo está organizado y podemos responder a nuestros usuarios mucho más rápido. ¡Vale cada centavo!"</p>
-            <div class="testimonio-autor">- Luna, servidor Gaming de +5,000 miembros</div>
+        <div class="notification-form">
+            <input type="email" class="notification-input" placeholder="Introduce tu correo electrónico" id="notificationEmail">
+            <button class="notification-btn" onclick="subscribeToNotifications()">Suscribirse</button>
         </div>
     </section>
-
-    <section class="contacto animate-on-scroll visible">
-        <h2 class="categoria-titulo">¿Tienes preguntas?</h2>
-        <p>Nuestro equipo está listo para ayudarte con cualquier duda o solicitud personalizada.</p>
-        
-        <form id="contactForm" action="https://formsubmit.co/yolorivera.5678@gmail.com" method="POST">
-            <input type="hidden" name="_subject" value="Nueva consulta desde Tienda de Bots">
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_template" value="table">
-            <input type="hidden" name="_next" value="https://tu-sitio.com/gracias.html">
-
-            <div class="form-group">
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" required>
-            </div>
-
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-
-            <div class="form-group">
-                <label for="asunto">Asunto:</label>
-                <input type="text" id="asunto" name="asunto" required>
-            </div>
-
-            <div class="form-group">
-                <label for="mensaje">Mensaje:</label>
-                <textarea id="mensaje" name="mensaje" required></textarea>
-            </div>
-
-            <button type="submit" class="submit-btn">Enviar mensaje</button>
-        </form>
-    </section>
     
+    <!-- Footer corregido con tres secciones completas -->
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-section">
@@ -1203,7 +1232,7 @@
             <div class="footer-section">
                 <h3>Contáctanos</h3>
                 <p>support@tiendabots.com</p>
-                <p>+33 2681 1294</p>
+                <p>+34 612 345 678</p>
                 <div class="social-icons">
                     <a href="https://discord.gg/YJCTpncreg" class="social-icon"><i class="fab fa-discord"></i></a>
                     <a href="https://www.tiktok.com/@sentinelalphax?_t=ZM-8uJBHlQ8Sgf&_r=1" class="social-icon"><i class="fab fa-tiktok"></i></a>
@@ -1213,7 +1242,7 @@
         </div>
         
         <div class="copyright">
-            <p>© 2025 Venta de Bots Premium | Desarrollado con <i class="fas fa-heart" style="color: var(--primary);"></i> para desarrolladores</p>
+            <p>© 2025 API Karl | Desarrollado con <i class="fas fa-heart" style="color: var(--primary);"></i> para desarrolladores</p>
             <p>Todos los derechos reservados. Términos y Condiciones | Política de Privacidad</p>
         </div>
     </footer>
@@ -1223,19 +1252,19 @@
         window.addEventListener('load', function() {
             setTimeout(function() {
                 document.getElementById('pageLoader').classList.add('loader-hidden');
-                showNotification("¡Bienvenido a la tienda de bots!");
+                showToast("Última actualización: Hace 2 minutos");
             }, 1500);
         });
 
-        // Función para mostrar notificaciones
-        function showNotification(message) {
-            const notification = document.getElementById('notification');
-            document.getElementById('notificationText').textContent = message;
-            notification.classList.add('show');
+        // Función para mostrar toast
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').textContent = message;
+            toast.classList.add('show');
             
             setTimeout(() => {
-                notification.classList.remove('show');
-            }, 3000);
+                toast.classList.remove('show');
+            }, 5000);
         }
 
         // Función para el menú
@@ -1254,24 +1283,435 @@
             }
         });
 
-        // Detectar elementos cuando son visibles en la pantalla
-        function checkVisibility() {
-            const elements = document.querySelectorAll('.animate-on-scroll, .animate-in-left, .animate-in-right');
+        // Cambiar el rango de tiempo para las gráficas
+        function updateTimeframe(timeframe) {
+            const buttons = document.querySelectorAll('.timeframe-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
             
-            elements.forEach(element => {
-                const elementTop = element.getBoundingClientRect().top;
-                const elementBottom = element.getBoundingClientRect().bottom;
-                
-                // Verificar si el elemento está visible en la ventana
-                if (elementTop < window.innerHeight - 50 && elementBottom > 0) {
-                    element.classList.add('visible');
+            event.currentTarget.classList.add('active');
+            
+            // Actualizar gráficas según el periodo seleccionado
+            updateCharts(timeframe);
+            
+            showToast(`Mostrando datos de los últimos ${timeframe === '24h' ? '24 horas' : 
+                                                      timeframe === '7d' ? '7 días' : 
+                                                      timeframe === '30d' ? '30 días' : '90 días'}`);
+        }
+
+        // Suscripción a notificaciones
+        function subscribeToNotifications() {
+            const email = document.getElementById('notificationEmail').value;
+            
+            if (!email || !email.includes('@') || !email.includes('.')) {
+                showToast("Por favor, introduce un correo electrónico válido");
+                return;
+            }
+            
+            // Simular envío de solicitud
+            showToast("¡Te has suscrito correctamente a las notificaciones!");
+            document.getElementById('notificationEmail').value = '';
+        }
+
+        // Funciones para inicializar y actualizar gráficas
+        function initCharts() {
+            // Gráfica de tiempo de respuesta
+            const responseTimeCtx = document.getElementById('responseTimeChart').getContext('2d');
+            window.responseTimeChart = new Chart(responseTimeCtx, {
+                type: 'line',
+                data: {
+                    labels: generateTimeLabels(24),
+                    datasets: [{
+                        label: 'API Principal',
+                        data: generateRandomData(24, 100, 150),
+                        borderColor: '#4deeea',
+                        backgroundColor: 'rgba(77, 238, 234, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        pointBackgroundColor: '#4deeea',
+                        pointBorderColor: '#0a0f1a',
+                        pointRadius: 4
+                    },
+                    {
+                        label: 'Autenticación',
+                        data: generateRandomData(24, 300, 400),
+                        borderColor: '#ffe700',
+                        backgroundColor: 'rgba(255, 231, 0, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        pointBackgroundColor: '#ffe700',
+                        pointBorderColor: '#0a0f1a',
+                        pointRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'white'
+                            }
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            backgroundColor: 'rgba(20, 25, 40, 0.9)',
+                            titleColor: '#4deeea',
+                            bodyColor: 'white',
+                            borderColor: 'rgba(77, 238, 234, 0.3)',
+                            borderWidth: 1
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                color: 'rgba(77, 238, 234, 0.1)'
+                            },
+                            ticks: {
+                                color: 'white'
+                            }
+                        },
+                        y: {
+                            grid: {
+                                color: 'rgba(77, 238, 234, 0.1)'
+                            },
+                            ticks: {
+                                color: 'white'
+                            },
+                            title: {
+                                display: true,
+                                text: 'Tiempo (ms)',
+                                color: 'white'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Gráfica de solicitudes por minuto
+            const requestsCtx = document.getElementById('requestsChart').getContext('2d');
+            window.requestsChart = new Chart(requestsCtx, {
+                type: 'bar',
+                data: {
+                    labels: generateTimeLabels(24),
+                    datasets: [{
+                        label: 'Solicitudes por minuto',
+                        data: generateRandomData(24, 800, 1200),
+                        backgroundColor: 'rgba(116, 238, 21, 0.6)',
+                        borderColor: '#74ee15',
+                        borderWidth: 1,
+                        borderRadius: 5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'white'
+                            }
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            backgroundColor: 'rgba(20, 25, 40, 0.9)',
+                            titleColor: '#74ee15',
+                            bodyColor: 'white',
+                            borderColor: 'rgba(116, 238, 21, 0.3)',
+                            borderWidth: 1
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                color: 'rgba(77, 238, 234, 0.1)'
+                            },
+                            ticks: {
+                                color: 'white'
+                            }
+                        },
+                        y: {
+                            grid: {
+                                color: 'rgba(77, 238, 234, 0.1)'
+                            },
+                            ticks: {
+                                color: 'white'
+                            },
+                            title: {
+                                display: true,
+                                text: 'Solicitudes',
+                                color: 'white'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Gráfica de uso de CPU
+            const cpuUsageCtx = document.getElementById('cpuUsageChart').getContext('2d');
+            window.cpuUsageChart = new Chart(cpuUsageCtx, {
+                type: 'line',
+                data: {
+                    labels: generateTimeLabels(24),
+                    datasets: [{
+                        label: 'Uso de CPU',
+                        data: generateRandomData(24, 30, 70),
+                        borderColor: '#ffe700',
+                        backgroundColor: 'rgba(255, 231, 0, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        pointBackgroundColor: '#ffe700',
+                        pointBorderColor: '#0a0f1a',
+                        pointRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'white'
+                            }
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            backgroundColor: 'rgba(20, 25, 40, 0.9)',
+                            titleColor: '#ffe700',
+                            bodyColor: 'white',
+                            borderColor: 'rgba(255, 231, 0, 0.3)',
+                            borderWidth: 1
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                color: 'rgba(77, 238, 234, 0.1)'
+                            },
+                            ticks: {
+                                color: 'white'
+                            }
+                        },
+                        y: {
+                            grid: {
+                                color: 'rgba(77, 238, 234, 0.1)'
+                            },
+                            ticks: {
+                                color: 'white'
+                            },
+                            title: {
+                                display: true,
+                                text: 'Uso (%)',
+                                color: 'white'
+                            },
+                            min: 0,
+                            max: 100
+                        }
+                    }
+                }
+            });
+            
+            // Gráfica de uso de memoria
+            const memoryUsageCtx = document.getElementById('memoryUsageChart').getContext('2d');
+            window.memoryUsageChart = new Chart(memoryUsageCtx, {
+                type: 'line',
+                data: {
+                    labels: generateTimeLabels(24),
+                    datasets: [{
+                        label: 'Uso de Memoria',
+                        data: generateRandomData(24, 40, 75),
+                        borderColor: '#4deeea',
+                        backgroundColor: 'rgba(77, 238, 234, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        pointBackgroundColor: '#4deeea',
+                        pointBorderColor: '#0a0f1a',
+                        pointRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'white'
+                            }
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            backgroundColor: 'rgba(20, 25, 40, 0.9)',
+                            titleColor: '#4deeea',
+                            bodyColor: 'white',
+                            borderColor: 'rgba(77, 238, 234, 0.3)',
+                            borderWidth: 1
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                color: 'rgba(77, 238, 234, 0.1)'
+                            },
+                            ticks: {
+                                color: 'white'
+                            }
+                        },
+                        y: {
+                            grid: {
+                                color: 'rgba(77, 238, 234, 0.1)'
+                            },
+                            ticks: {
+                                color: 'white'
+                            },
+                            title: {
+                                display: true,
+                                text: 'Uso (%)',
+                                color: 'white'
+                            },
+                            min: 0,
+                            max: 100
+                        }
+                    }
                 }
             });
         }
-        
-        // Comprobar visibilidad al cargar y al hacer scroll
-        window.addEventListener('load', checkVisibility);
-        window.addEventListener('scroll', checkVisibility);
+
+        // Actualizar las gráficas con nuevos datos dependiendo del periodo seleccionado
+        function updateCharts(timeframe) {
+            let points = 24;
+            
+            switch(timeframe) {
+                case '24h':
+                    points = 24;
+                    break;
+                case '7d':
+                    points = 7;
+                    break;
+                case '30d':
+                    points = 30;
+                    break;
+                case '90d':
+                    points = 90;
+                    break;
+            }
+            
+            const labels = timeframe === '24h' ? generateTimeLabels(points) : generateDateLabels(points);
+            
+            // Actualizar gráfica de tiempo de respuesta
+            window.responseTimeChart.data.labels = labels;
+            window.responseTimeChart.data.datasets[0].data = generateRandomData(points, 100, 150);
+            window.responseTimeChart.data.datasets[1].data = generateRandomData(points, 300, 400);
+            window.responseTimeChart.update();
+            
+            // Actualizar gráfica de solicitudes
+            window.requestsChart.data.labels = labels;
+            window.requestsChart.data.datasets[0].data = generateRandomData(points, 800, 1200);
+            window.requestsChart.update();
+            
+            // Actualizar gráfica de uso de CPU
+            window.cpuUsageChart.data.labels = labels;
+            window.cpuUsageChart.data.datasets[0].data = generateRandomData(points, 30, 70);
+            window.cpuUsageChart.update();
+            
+            // Actualizar gráfica de uso de memoria
+            window.memoryUsageChart.data.labels = labels;
+            window.memoryUsageChart.data.datasets[0].data = generateRandomData(points, 40, 75);
+            window.memoryUsageChart.update();
+        }
+
+        // Generar etiquetas de tiempo para las gráficas (formato de hora)
+        function generateTimeLabels(count) {
+            const labels = [];
+            const now = new Date();
+            
+            for (let i = count - 1; i >= 0; i--) {
+                const time = new Date(now);
+                time.setHours(now.getHours() - i);
+                labels.push(time.getHours() + ':00');
+            }
+            
+            return labels;
+        }
+
+        // Generar etiquetas de fecha para las gráficas (formato de día)
+        function generateDateLabels(count) {
+            const labels = [];
+            const now = new Date();
+            
+            for (let i = count - 1; i >= 0; i--) {
+                const date = new Date(now);
+                date.setDate(now.getDate() - i);
+                labels.push(`${date.getDate()}/${date.getMonth() + 1}`);
+            }
+            
+            return labels;
+        }
+
+        // Generar datos aleatorios para las gráficas
+        function generateRandomData(count, min, max) {
+            return Array.from({ length: count }, () => Math.floor(Math.random() * (max - min + 1)) + min);
+        }
+
+        // Inicializar las gráficas cuando la página cargue
+        document.addEventListener('DOMContentLoaded', function() {
+            initCharts();
+            
+            // Simular actualizaciones periódicas
+            setInterval(() => {
+                const timeframe = document.querySelector('.timeframe-btn.active').innerText;
+                let period = '7d';
+                
+                if (timeframe === '24 horas') period = '24h';
+                else if (timeframe === '30 días') period = '30d';
+                else if (timeframe === '90 días') period = '90d';
+                
+                updateCharts(period);
+                
+                // Actualizar tiempos de "última actualización"
+                document.querySelectorAll('.detail-value').forEach(el => {
+                    if (el.textContent.includes('Hace')) {
+                        el.textContent = 'Hace 2 minutos';
+                    }
+                });
+                
+            }, 60000); // Actualizar cada minuto
+        });
+
+        // Animación para cards al hacer scroll
+        const animateOnScroll = () => {
+            const cards = document.querySelectorAll('.service-card, .metric-card, .incident-card');
+            
+            cards.forEach(card => {
+                const cardTop = card.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (cardTop < windowHeight - 100) {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                } else {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(30px)';
+                }
+            });
+        };
+
+        // Inicializar animación al cargar
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.service-card, .metric-card, .incident-card');
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'all 0.5s ease';
+            });
+            
+            animateOnScroll();
+        });
+
+        // Animar al hacer scroll
+        window.addEventListener('scroll', animateOnScroll);
     </script>
 </body>
 </html>
