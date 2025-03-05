@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soporte Técnico - API Karl</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fuentes de Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+    <style>
+        :root {
+            --primary: #4deeea;
+            --secondary: #74ee15;
+            --accent: #ffe700;
+            --dark-bg: #0a0f1a;
+            --card-bg: rgba(20, 25, 40, 0.9);
+            --glow-primary: 0 0 10px rgba(77, 238, 234, 0.7);
+            --glow-secondary: 0 0 10px rgba(116, 238, 21, 0.7);
+            --glow-accent: 0 0 10px rgba(255, 231, 0, 0.7);
+            --card-shadow: 0 4px 20px rgba(77, 238, 234, 0.2);
+            --text-shadow: 0 0 5px rgba(77, 238, 234, 0.7);
+        }
+
+        body {
+            background: var(--dark-bg);
+            color: white;
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* Fondo animado con partículas */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle, rgba(20, 25, 40, 0.3) 10%, transparent 10%);
+            background-size: 30px 30px;
+            animation: backgroundAnimation 100s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes backgroundAnimation {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 1000px 1000px;
+            }
+        }
+
+        /* Líneas de malla futurista */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(rgba(77, 238, 234, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(77, 238, 234, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+        }
+
+        /* Navbar mejorado */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background: rgba(10, 15, 30, 0.95);
+            box-shadow: 0 0 20px rgba(77, 238, 234, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(77, 238, 234, 0.2);
+        }
+
+        .navbar-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            letter-spacing: 2px;
+            text-shadow: var(--text-shadow);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-title:hover {
+            transform: translateX(-50%) scale(1.05);
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        .discord-icon {
+            font-size: 30px;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 0 2px var(--primary));
+        }
+
+        .discord-icon:hover {
+            transform: rotate(5deg) scale(1.1);
+            filter: drop-shadow(0 0 5px var(--primary));
+        }
+
+        .menu-btn {
+            font-size: 24px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .menu-btn:hover {
+            transform: rotate(90deg);
+            color: var(--secondary);
+        }
+
+        .menu-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .menu-content {
+            display: none;
+            position: absolute;
+            top: 40px;
+            right: 0;
+            background: rgba(20, 25, 40, 0.95);
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 0 20px rgba(77, 238, 234, 0.3);
+            min-width: 180px;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 20;
+            border: 1px solid rgba(77, 238, 234, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .menu-visible {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .menu-content b {
+            display: block;
+            color: var(--primary);
+            margin: 10px 0 5px;
+            font-size: 14px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(77, 238, 234, 0.2);
+            padding-bottom: 3px;
+        }
+
+        .menu-content a {
+            display: block;
+            padding: 8px 10px;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            margin: 2px 0;
+        }
+
+        .menu-content a:hover {
+            background: rgba(77, 238, 234, 0.1);
+            transform: translateX(5px);
+            color: var(--primary);
+        }
+
+        /* Header */
+        header {
+            padding: 20px;
+            font-size: 2.5rem;
+            text-shadow: 3px 3px 7px black;
+            animation: fadeIn 2s ease-in-out;
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        header h1 {
+            margin-top: 15px;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        header p {
+            margin-top: 10px;
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            color: #d0d0d0;
+        }
+
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes floatAnimation {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes rotate {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Banner informativo */
+        .info-banner {
+            background: var(--card-bg);
+            padding: 25px;
+            margin: 40px auto;
+            width: 90%;
+            max-width: 1000px;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+            z-index: 10;
+            text-align: center;
+            border: 1px solid rgba(77, 238, 234, 0.2);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+        
+        .info-banner h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent);
+            text-shadow: var(--glow-accent);
+        }
+        
+        .info-banner p {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        .info-banner .neon-text {
+            color: var(--secondary);
+            text-shadow: var(--glow-secondary);
+            font-weight: bold;
+        }
+
+        /* Títulos de categoría */
+        .categoria-titulo {
+            width: 100%;
+            font-size: 2rem;
+            margin: 30px 0 20px;
+            text-shadow: var(--text-shadow);
+            position: relative;
+            text-align: center;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary);
+        }
+        
+        .categoria-titulo::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 3px;
+        }
+
+        /* Tarjetas de soporte */
+        .soporte-cards {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .soporte-card {
+            background: var(--card-bg);
+            padding: 35px;
+            border-radius: 15px;
+            width: 320px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(77, 238, 234, 0.1);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        .soporte-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                transparent, 
+                rgba(77, 238, 234, 0.1), 
+                transparent 30%
+            );
+            animation: rotate 10s linear infinite;
+            z-index: -1;
+        }
+
+        .soporte-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(77, 238, 234, 0.3);
+        }
+
+        .soporte-card h2 {
+            color: var(--primary);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            margin: 15px 0;
+            position: relative;
+            display: inline-block;
+        }
+
+        .soporte-card h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            transition: width 0.4s ease;
+        }
+
+        .soporte-card:hover h2::after {
+            width: 100%;
+        }
+
+        .soporte-card p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .soporte-card .platform-icon {
+            font-size: 70px;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 10px currentColor);
+            transition: all 0.3s ease;
+            animation: floatAnimation 3s infinite ease-in-out;
+        }
+
+        .discord-color {
+            color: #5865F2;
+        }
+
+        .whatsapp-color {
+            color: #25D366;
+        }
+
+        .tiktok-color {
+            color: #69C9D0;
+        }
+
+        .soporte-card:hover .platform-icon {
+            transform: scale(1.1);
+        }
+
+        /* Botones */
+        .btn-style {
+            background: rgba(77, 238, 234, 0.1);
+            color: white;
+            border: 1px solid rgba(77, 238, 234, 0.3);
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 1rem;
+            text-decoration: none;
+            box-shadow: var(--glow-primary);
+            margin-top: 10px;
+        }
+        
+        .btn-style:hover {
+            background: rgba(77, 238, 234, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(77, 238, 234, 0.4);
+        }
+        
+        .btn-discord {
+            background: rgba(88, 101, 242, 0.2);
+            border-color: #5865F2;
+            box-shadow: 0 0 10px rgba(88, 101, 242, 0.7);
+        }
+        
+        .btn-discord:hover {
+            background: rgba(88, 101, 242, 0.3);
+            box-shadow: 0 5px 15px rgba(88, 101, 242, 0.6);
+        }
+        
+        .btn-whatsapp {
+            background: rgba(37, 211, 102, 0.2);
+            border-color: #25D366;
+            box-shadow: 0 0 10px rgba(37, 211, 102, 0.7);
+        }
+        
+        .btn-whatsapp:hover {
+            background: rgba(37, 211, 102, 0.3);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.6);
+        }
+        
+        .btn-tiktok {
+            background: rgba(105, 201, 208, 0.2);
+            border-color: #69C9D0;
+            box-shadow: 0 0 10px rgba(105, 201, 208, 0.7);
+        }
+        
+        .btn-tiktok:hover {
+            background: rgba(105, 201, 208, 0.3);
+            box-shadow: 0 5px 15px rgba(105, 201, 208, 0.6);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            margin-bottom: 15px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(77, 238, 234, 0.1);
+        }
+
+        .faq-question {
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 15, 30, 0.8);
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: rgba(77, 238, 234, 0.1);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 20px;
+        }
+
+        .faq-answer.active {
+            max-height: 200px;
+            padding: 15px 20px;
+        }
+
+        .faq-toggle {
+            color: var(--primary);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-question.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        /* Notificación */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(20, 25, 40, 0.9);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(77, 238, 234, 0.3);
+            transform: translateX(200%);
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 1000;
+            border-left: 4px solid var(--primary);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .notification-icon {
+            color: var(--primary);
+            font-size: 20px;
+        }
+
+        /* Animación de carga inicial */
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        .loader-hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-content {
+            text-align: center;
+        }
+
+        .loader-spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(77, 238, 234, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s infinite ease;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 60px;
+            padding: 30px;
+            background: rgba(10, 15, 30, 0.8);
+            position: relative;
+            border-top: 1px solid rgba(77, 238, 234, 0.2);
+            z-index: 10;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+            text-align: left;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 15px;
+            color: var(--primary);
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-section a {
+            color: #d0d0d0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: var(--primary);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(77, 238, 234, 0.1);
+            color: var(--primary);
+            transition: all 0.3s ease;
+            font-size: 18px;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px);
+            background: var(--primary);
+            color: var(--dark-bg);
+            box-shadow: var(--glow-primary);
+        }
+        
+        .copyright {
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.8rem;
+            color: #a0a0a0;
+            text-align: center;
+        }
+
+        /* Animación de elementos */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .animate-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .animate-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .animate-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .animate-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Media queries */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .navbar-title {
+                font-size: 20px;
+            }
+
+            .soporte-cards {
+                gap: 20px;
+                padding: 15px;
+            }
+
+            .soporte-card {
+                width: 100%;
+                max-width: 320px;
+            }
+
+            .footer-section {
+                flex: 1 1 100%;
+                text-align: center;
+            }
+
+            .social-icons {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loader inicial -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <h2 style="margin-top: 20px; font-family: 'Orbitron', sans-serif; color: var(--primary);">Soporte Técnico</h2>
+        </div>
+    </div>
+
+    <!-- Notificación -->
+    <div class="notification" id="notification">
+        <div class="notification-content">
+            <i class="fas fa-info-circle notification-icon"></i>
+            <span id="notificationText">¡Bienvenido al soporte técnico!</span>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <a href="https://discord.gg/PvQvJ7JvEx" target="_blank" class="discord-link">
+            <!-- Corregido para usar icono de FontAwesome en lugar de imagen -->
+            <i class="fab fa-discord discord-icon"></i>
+        </a>
+        <span class="navbar-title">Soporte Técnico</span>
+        <div class="menu-container">
+            <button class="menu-btn" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+            <div id="menu" class="menu-content">
+                <b>Navegación</b>
+                <a href="#canales-soporte"><i class="fas fa-headset"></i> Canales de Soporte</a>
+                <a href="#faq"><i class="fas fa-question-circle"></i> Preguntas Frecuentes</a>
+                <a href="#contacto-directo"><i class="fas fa-comment-dots"></i> Contacto Directo</a>
+                <b>Enlaces</b>
+                <a href="http://bot.apikarl.com"><i class="fas fa-home"></i> Inicio</a>
+                <a href="http://bot.apikarl.com/docs"><i class="fas fa-book"></i> Documentación</a>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        <div style="font-size: 120px; color: var(--primary); margin: 30px 0; text-shadow: var(--glow-primary); animation: floatAnimation 5s infinite ease-in-out;">
+            <i class="fas fa-headset"></i>
+        </div>
+        <h1>Soporte Técnico</h1>
+        <p class="fade-in animate-on-scroll visible">Estamos aquí para ayudarte con cualquier duda o problema técnico. Nuestro equipo de expertos está disponible a través de nuestros canales oficiales para brindarte la mejor asistencia.</p>
+    </header>
+    
+    <div class="info-banner">
+        <h2>SOPORTE TÉCNICO EXCLUSIVO</h2>
+        <p>Por favor, ten en cuenta que nuestro soporte técnico está disponible <strong class="neon-text">ÚNICAMENTE</strong> a través de Discord, WhatsApp y TikTok</p>
+        <p>No ofrecemos soporte por email, teléfono o chat en vivo en nuestro sitio web</p>
+    </div>
+    
+    <h2 class="categoria-titulo" id="canales-soporte">Canales Oficiales de Soporte</h2>
+    
+    <section class="soporte-cards">
+        <div class="soporte-card animate-in-left visible">
+            <i class="fab fa-discord platform-icon discord-color"></i>
+            <h2>Discord</h2>
+            <p>Únete a nuestro servidor oficial donde podrás abrir tickets de soporte y recibir ayuda personalizada de nuestro equipo técnico. Tiempo de respuesta aproximado: 2-4 horas.</p>
+            <a href="https://discord.gg/PvQvJ7JvEx" target="_blank" class="btn-style btn-discord">
+                <i class="fab fa-discord"></i> Unirse al Servidor
+            </a>
+        </div>
+        
+        <div class="soporte-card animate-on-scroll visible">
+            <i class="fab fa-whatsapp platform-icon whatsapp-color"></i>
+            <h2>WhatsApp</h2>
+            <p>Contacta directamente con nuestro equipo de soporte a través de WhatsApp para una atención personalizada y rápida. Tiempo de respuesta aproximado: 1-3 horas.</p>
+            <a href="https://wa.me/523326811294?text=%F0%9F%8C%90-¡Hola!,%20necesito%20ayuda%20técnica%20con%20mi%20bot" target="_blank" class="btn-style btn-whatsapp">
+                <i class="fab fa-whatsapp"></i> Contactar por WhatsApp
+            </a>
+        </div>
+        
+        <div class="soporte-card animate-in-right visible">
+            <i class="fab fa-tiktok platform-icon tiktok-color"></i>
+            <h2>TikTok</h2>
+            <p>Síguenos en TikTok y envíanos un mensaje directo para obtener soporte. También publicamos tutoriales y consejos regularmente. Tiempo de respuesta aproximado: 4-6 horas.</p>
+            <a href="https://www.tiktok.com/@sentinelalphax?_t=ZM-8uJBHlQ8Sgf&_r=1" target="_blank" class="btn-style btn-tiktok">
+                <i class="fab fa-tiktok"></i> Seguir en TikTok
+            </a>
+        </div>
+    </section>
+    
+    <h2 class="categoria-titulo" id="faq">Preguntas Frecuentes</h2>
+    
+    <section class="faq-section">
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+                ¿Cómo puedo obtener soporte técnico para mi bot?
+                <i class="fas fa-chevron-down faq-toggle"></i>
+            </div>
+            <div class="faq-answer">
+                Nuestro soporte técnico está disponible exclusivamente a través de Discord, WhatsApp y TikTok. Por favor, utiliza uno de estos canales para contactarnos y nuestro equipo te ayudará lo antes posible.
+            </div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+                ¿Cuál es el tiempo promedio de respuesta?
+                <i class="fas fa-chevron-down faq-toggle"></i>
+            </div>
+            <div class="faq-answer">
+                Los tiempos de respuesta varían según el canal: Discord (2-4 horas), WhatsApp (1-3 horas) y TikTok (4-6 horas). Estos tiempos pueden variar dependiendo del volumen de solicitudes.
+            </div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+                ¿Ofrecen soporte técnico 24/7?
+                <i class="fas fa-chevron-down faq-toggle"></i>
+            </div>
+            <div class="faq-answer">
+                Nuestro equipo trabaja principalmente de 9:00 AM a 11:00 PM (UTC-6), pero monitoreamos mensajes urgentes fuera de este horario. Para emergencias, recomendamos usar WhatsApp para una respuesta más rápida.
+            </div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+                ¿El soporte técnico está incluido con la compra de un bot?
+                <i class="fas fa-chevron-down faq-toggle"></i>
+            </div>
+            <div class="faq-answer">
+                Sí, todos nuestros bots incluyen soporte técnico básico. Los bots premium incluyen soporte prioritario con tiempos de respuesta más rápidos y asistencia personalizada extendida.
+            </div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+                ¿Puedo solicitar funciones personalizadas para mi bot?
+                <i class="fas fa-chevron-down faq-toggle"></i>
+            </div>
+            <div class="faq-answer">
+                Sí, ofrecemos servicios de personalización para todos nuestros bots. Por favor, contáctanos a través de Discord, WhatsApp o TikTok para discutir tus necesidades específicas y obtener un presupuesto.
+            </div>
+        </div>
+    </section>
+    
+    <div class="info-banner animate-on-scroll visible" id="contacto-directo">
+        <h2>CONTACTO RÁPIDO</h2>
+        <div style="display: flex; justify-content: center; gap: 30px; margin: 30px 0; flex-wrap: wrap;">
+            <a href="https://discord.gg/PvQvJ7JvEx" target="_blank" class="btn-style btn-discord" style="min-width: 180px;">
+                <i class="fab fa-discord"></i> Discord
+            </a>
+            <a href="https://wa.me/523326811294?text=%F0%9F%8C%90-¡Hola!,%20necesito%20ayuda%20técnica%20con%20mi%20bot" target="_blank" class="btn-style btn-whatsapp" style="min-width: 180px;">
+                <i class="fab fa-whatsapp"></i> WhatsApp
+            </a>
+            <a href="https://www.tiktok.com/@sentinelalphax?_t=ZM-8uJBHlQ8Sgf&_r=1" target="_blank" class="btn-style btn-tiktok" style="min-width: 180px;">
+                <i class="fab fa-tiktok"></i> TikTok
+            </a>
+        </div>
+        <p>Recuerda incluir detalles específicos sobre tu problema para que podamos ayudarte más rápido</p>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Enlaces rápidos</h3>
+                <ul>
+                    <li><a href="http://bot.apikarl.com">Inicio</a></li>
+                    <li><a href="/firma/acepta">Términos y condiciones</a></li>
+                    <li><a href="#">Ofertas especiales</a></li>
+                    <li><a href="#">Soporte técnico</a></li>
+                    <li><a href="#">Blog de novedades</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Soporte</h3>
+                <ul>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="/docs">Documentación</a></li>
+                    <li><a href="#">Tutoriales</a></li>
+                    <li><a href="#">Centro de ayuda</a></li>
+                    <li><a href="https://bot.apikarl.com/servicio/estado">Estado del servicio</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contáctanos</h3>
+                <p>support@tiendabots.com</p>
+                <p>+34 612 345 678</p>
+                <div class="social-icons">
+                    <a href="https://discord.gg/YJCTpncreg" class="social-icon"><i class="fab fa-discord"></i></a>
+                    <a href="https://www.tiktok.com/@sentinelalphax?_t=ZM-8uJBHlQ8Sgf&_r=1" class="social-icon"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://wa.me/523326811294?text=%F0%9F%8C%90-¡Hola!,%20me%20interesa%20tu%20bot%20o%20alguna%20información%20extra" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>© 2025 Venta de Bots Premium | Desarrollado con <i class="fas fa-heart" style="color: var(--primary);"></i> para desarrolladores</p>
+            <p>Todos los derechos reservados. Términos y Condiciones | Política de Privacidad</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mostrar loader inicial
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('pageLoader').classList.add('loader-hidden');
+                showNotification("¡Bienvenido al soporte técnico!");
+            }, 1500);
+        });
+
+        // Función para mostrar notificaciones
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            document.getElementById('notificationText').textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Función para el menú
+        function toggleMenu() {
+            let menu = document.getElementById("menu");
+            menu.classList.toggle("menu-visible");
+        }
+
+        // Función para toggle de FAQ
+        function toggleFAQ(element) {
+            element.classList.toggle('active');
+            const answer = element.nextElementSibling;
+            answer.classList.toggle('active');
+        }
+
+        // Cerrar el menú al hacer clic fuera de él
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('menu');
+            const menuBtn = document.querySelector('.menu-btn');
+            
+            if (!menu.contains(event.target) && !menuBtn.contains(event.target) && menu.classList.contains('menu-visible')) {
+                menu.classList.remove('menu-visible');
+            }
+        });
+        
+        // Detectar elementos cuando son visibles en la pantalla
+        function checkVisibility() {
+            const elements = document.querySelectorAll('.animate-on-scroll, .animate-in-left, .animate-in-right');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementBottom = element.getBoundingClientRect().bottom;
+                
+                // Verificar si el elemento está visible en la ventana
+                if (elementTop < window.innerHeight - 50 && elementBottom > 0) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+        
+        // Comprobar visibilidad al cargar y al hacer scroll
+        window.addEventListener('load', checkVisibility);
+        window.addEventListener('scroll', checkVisibility);
+    </script>
+</body>
+</html>
